@@ -11,7 +11,8 @@
                     "id": "0d940057-ae7a-49a0-a668-45a5ce0d6461",
                     "expectedControlType": "Vector2",
                     "processors": "NormalizeVector2",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Attack",
@@ -19,7 +20,17 @@
                     "id": "2e9f8b9a-8013-4584-b232-055c8e013283",
                     "expectedControlType": "Button",
                     "processors": "NormalizeVector2",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "c3a12e22-b147-43b0-a6c2-bb85d1683720",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -86,6 +97,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74e82dcc-7be9-49e0-a3d4-872c1169165d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
