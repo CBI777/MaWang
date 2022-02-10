@@ -5,16 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    /*22-1-22 변동사항
-    isTileEmpty와 isTileMovable을 isTileSafe로 합침
-    이제 두 함수의 일을 모두 isTileSafe가 처리하게 되었음.
-    또한, isTileSafe에서 정말 그 타일이 존재하는지도 확인을 하도록 되어있음.
-
-    placeObject는 이제 object를 그 자리에 해당하는 tileLocations에 저장하는
-    일만 하도록 되어있음. (오류처리 X)
-    이는 spawnManager에서 보다 쉽게 오류처리를 하기 위해서임.
-    */
-
     private Tilemap map;
 
     [SerializeField]
@@ -26,6 +16,14 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private List<TileData> tileDatas;
 
+    //현재 tilemap의 상황을 알려주기 위한 변수
+    private int tilemapVar;
+
+    public int getTilemapVar()
+    {
+        return tilemapVar;
+    }
+
     //디버그용
     private string tilemapName;
 
@@ -35,8 +33,6 @@ public class TileManager : MonoBehaviour
     //타일의 (x, y)에 무엇이 있는지를 저장하는 곳
     public Dictionary<Vector3Int, GameObject> tileLocations
         = new Dictionary<Vector3Int, GameObject>();
-
-
 
 
     private void Awake()
@@ -51,25 +47,35 @@ public class TileManager : MonoBehaviour
             }
         }
 
+        if (GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().getSameCheck())
+        {
+            tilemapVar = GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saving.stageVar1;
+        }
+        else
+        {
+            tilemapVar = Random.Range(0, (stageVar));
+        }
+            
+
         //모든 map의 이름은 Map?  이며, /Tilemap/ 폴더 내부에 존재한다. 이걸 instantiate한 다음,
         map = Tilemap.Instantiate(
-                Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + ((Random.Range(0, (stageVar))).ToString())));
+                Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString()));
         //grid를 가지고 있는 Tilemanager, 즉 이 gameObject(TileManager script)의 transform을 부모로 지정해줘야지
         //제대로 출력이 된다.
         map.transform.parent = gameObject.transform;
     }
 
-    /*
+    
         private void Update()
         {
             //디버깅용 - 필요한 정보를 보여주기 위한 부분
-
+            /*
             if(Input.GetMouseButton(0))
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector3Int gridPosition = map.WorldToCell(mousePosition);
 
-                print("IsEmpty : " + isTileEmpty(gridPosition) + ", there is " + getTileObjectName(gridPosition));
+                print("there is " + getTileObjectName(gridPosition));
 
 
                 TileBase clickedTile = map.GetTile(gridPosition);
@@ -77,9 +83,9 @@ public class TileManager : MonoBehaviour
                 tileType istype = dataFromTiles[clickedTile].type;
                 print("Tile " + clickedTile + "'s type is " + istype.ToString());
             }
-
+            */
         }
-    */
+    
 
 
 

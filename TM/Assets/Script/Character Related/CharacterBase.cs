@@ -14,6 +14,7 @@ public class CharacterBase : MonoBehaviour
     maxHp 변수의 생성
     hpDamage와 hpHeal함수의 생성
     */
+<<<<<<< Updated upstream
 
     //22_02_08_ 각종 스탯 float 에서 int로 변경
     [SerializeField] private string characterName;
@@ -21,14 +22,21 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] private int moveSpeed;
     [SerializeField] private int strength;
     [SerializeField] private int attackSpeed;
+=======
+    [SerializeField] protected string characterName;
+    [SerializeField] protected int moveDistance;
+    [SerializeField] protected int moveSpeed;
+    [SerializeField] protected int strength;
+    [SerializeField] protected int attackSpeed;
+>>>>>>> Stashed changes
 
     [SerializeField]
     private List<Vector3Int> attackRange;
 
-    [SerializeField] private int maxHp;
-    [SerializeField] private int hp;
-    [SerializeField] private bool isDestroyable;
-    [SerializeField] private Directions direction;
+    [SerializeField] protected int maxHp;
+    [SerializeField] protected int hp;
+    [SerializeField] protected bool isDestroyable;
+    [SerializeField] protected Directions direction;
 
     public string getName() { return this.name; }
     public int getMoveDist() { return this.moveDistance; }
@@ -42,6 +50,11 @@ public class CharacterBase : MonoBehaviour
     public List<Vector3Int> getAttackRange()
     {
         return this.attackRange;
+    }
+
+    public void setDirection(Directions dir)
+    {
+        this.direction = dir;
     }
 
     public bool hpDamage(int damage)

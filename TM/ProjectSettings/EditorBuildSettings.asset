@@ -6,13 +6,50 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: f7fe119148de11c40b5301ace681d0ac
+  - enabled: 1
     path: Assets/Scenes/Stage1_Normal.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Temporary.unity
+    path: Assets/Scenes/Shop.unity
     guid: 6bafda55b0f17cd4ba8dc35639470681
   - enabled: 1
     path: Assets/Scenes/Stage1_Elite.unity
     guid: 0e9134dac8e5a8a44a717a4ae67bf18d
+<<<<<<< Updated upstream
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: b94aab628219709499c79a15bcf91de6, type: 2}
+=======
+  - enabled: 1
+    path: Assets/Scenes/Stage1_Boss.unity
+    guid: b761b0ee97b0c5742a37b6d70bd58ea3
+  - enabled: 1
+    path: Assets/Scenes/Stage1_Event.unity
+    guid: 014f4436ad6fa094b850a5b9617afd63
+  - enabled: 1
+    path: Assets/Scenes/Stage2_Boss.unity
+    guid: e48b79fa4f33e8e40b20d8839ef19766
+  - enabled: 1
+    path: Assets/Scenes/Stage2_Elite.unity
+    guid: 18d7921d644a2144594b3529ab06603b
+  - enabled: 1
+    path: Assets/Scenes/Stage2_Event.unity
+    guid: 8ed34c4a79f2a1a4889edb7493d311b6
+  - enabled: 1
+    path: Assets/Scenes/Stage2_Normal.unity
+    guid: 18a25c2df111f274d8b506e530cdec59
+  - enabled: 1
+    path: Assets/Scenes/Stage3_Boss.unity
+    guid: f7a275aaa9edaeb43ad2445a7709caf6
+  - enabled: 1
+    path: Assets/Scenes/Stage3_Elite.unity
+    guid: 33024fad9386d604d99c6e7d3f876cd3
+  - enabled: 1
+    path: Assets/Scenes/Stage3_Event.unity
+    guid: c1783389e3a5a7c4fa06eed08ea96606
+  - enabled: 1
+    path: Assets/Scenes/Stage3_Normal.unity
+    guid: 610abcf5ae2490c448a294258d23bfc4
+  m_configObjects: {}
+>>>>>>> Stashed changes

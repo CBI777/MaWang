@@ -1,10 +1,18 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: a8a9ea5b50eeac94ca3f106c4fdf39ee
+=======
+guid: 4ed558da8055b0b40a2b6145ebba8eb4
+>>>>>>> Stashed changes
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
+<<<<<<< Updated upstream
   executionOrder: 100
+=======
+  executionOrder: 50
+>>>>>>> Stashed changes
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

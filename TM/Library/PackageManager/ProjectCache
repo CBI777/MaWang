@@ -5,16 +5,26 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< Updated upstream
       ticks: 637800929451244646
     m_Hash: 2172202300
+=======
+      ticks: 637783255094229038
+    m_Hash: 359259889
+>>>>>>> Stashed changes
   m_LockFileStatus:
     m_FilePath: C:/Users/USER/Documents/GitHub/MaWang/TM/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< Updated upstream
       ticks: 637800929451249647
     m_Hash: 2289640153
+=======
+      ticks: 637783255094309015
+    m_Hash: 2370467314
+>>>>>>> Stashed changes
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:

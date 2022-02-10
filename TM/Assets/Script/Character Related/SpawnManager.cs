@@ -6,11 +6,14 @@ using System.IO;
 [System.Serializable]
 public class InstructionData
 {
+<<<<<<< Updated upstream
     /*22-1-22 변동사항
     Start내부의 초기화 함수의 구조를 변경
     */
 
 
+=======
+>>>>>>> Stashed changes
     public InstructionData(float x, float y, string wanted)
     {
         this.x = x;
@@ -55,7 +58,15 @@ public class SpawnManager : MonoBehaviour
     //0, 1, 2, 3이 있다면 4개.
     [SerializeField]
     private int stageVar;
-    
+    //현재 적의 상황을 알려주기 위한 변수
+    private int enemyVar;
+
+    private PlayerBase player;
+
+    public int getEnemyVar()
+    {
+        return this.enemyVar;
+    }
     private string fileName;
 
     [SerializeField]
@@ -70,22 +81,22 @@ public class SpawnManager : MonoBehaviour
         //모든 variation들은 Assets/Resources/Stage?_(형식)/EnemyVariation 내에 저장되어있으며,
         //Assets/까지는 JsonFileHandler에서 처리해주니까, 그 뒤를 넣으면 된다.
         //이름은 Enemy?.json이다.
-        fileName = "Resources/" + curStage + "/EnemyVariation/Enemy" + ((Random.Range(0, (stageVar))).ToString() + ".json");
-
+        if (GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().getSameCheck())
+        {
+            enemyVar = GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saving.stageVar2;
+        }
+        else
+        {
+            enemyVar = Random.Range(0, (stageVar));
+        }
+        fileName = "Resources/" + curStage + "/EnemyVariation/Enemy" + enemyVar.ToString() + ".json";
     }
 
     private void Start()
     {
-        /*
-        instructions.Add(new InstructionData(1.5f, 1.5f, "Enemy_Slime"));
-        instructions.Add(new InstructionData(3f, 2f, "Obstacle1"));
-        instructions.Add(new InstructionData(4f, 5f, "Obstacle1"));
-        instructions.Add(new InstructionData(-6f, -8f, "Enemy_Slime"));
-
-        JsonFileHandler.SaveToJson<InstructionData>(instructions, fileName);
-        */
         instructions = JsonFileHandler.ReadFromJson<InstructionData>(fileName);
         Vector2 loc;
+        Vector2 loc2;
 
 
         loc = new Vector2(instructions[0].x, instructions[0].y);
@@ -115,6 +126,7 @@ public class SpawnManager : MonoBehaviour
             
 
             loc = new Vector2(InstructionData.x, InstructionData.y);
+            loc2 = new Vector2(InstructionData.x + 0.5f, InstructionData.y + 0.5f);
 
             if(!(tileManager.isTileSafe(loc)))
             {
@@ -124,10 +136,13 @@ public class SpawnManager : MonoBehaviour
             {
                 tileManager.placeObject(GameObject.Instantiate(
                 Resources.Load(curStage + "/Characters/" + InstructionData.wantedObject, typeof(GameObject)) as GameObject,
-                loc, Quaternion.identity, transform), loc);
+                loc2, Quaternion.identity, transform), loc);
             }
         }
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerBase>();
+        player.updatePlayer(GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saving);
     }
+
 
     public bool MoveCharacter(Vector3 originalGridPosition, Vector2 amount)
     {

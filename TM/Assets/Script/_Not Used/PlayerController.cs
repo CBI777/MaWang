@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour
     {
         controls.Main.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.Main.Attack.performed += ctx => Attack();
-       
     }
 
     
@@ -105,6 +104,7 @@ public class PlayerController : MonoBehaviour
             transform.GetComponent<CharacterBase>().getAttackRange(),
             (int)transform.GetComponent<CharacterBase>().getStr()
             );
+
     }
 
     private void Move(Vector2 direction)
