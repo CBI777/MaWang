@@ -1,0 +1,20 @@
+{
+    "characterName": "마왕의 아들",
+    "moveDistance": 1,
+    "moveSpeed": 20,
+    "strength": 4,
+    "attackSpeed": 10,
+    "maxHp": 20,
+    "hp": 20,
+    "gold": 100,
+    "artifact1": "맨손",
+    "artifact2": "맨손",
+    "artifact3": "맨손",
+    "stageNumber": 1,
+    "prevRoomNumber": 0,
+    "curRoomNumber": 0,
+    "roomType": "Title",
+    "stageVar1": -1,
+    "stageVar2": -1,
+    "stageVar3": -1
+}

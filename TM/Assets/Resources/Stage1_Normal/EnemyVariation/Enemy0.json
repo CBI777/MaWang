@@ -1,23 +1,23 @@
 {
   "Items": [
     {
-      "x": 0.5,
-      "y": 0.5,
+      "x": 0,
+      "y": 0,
       "wantedObject": "Player"
     },
     {
-      "x": 6.5,
-      "y": 3.5,
+      "x": 6,
+      "y": 3,
       "wantedObject": "Obstacle1"
     },
     {
-      "x": 1.5,
-      "y": 1.5,
+      "x": 1,
+      "y": 1,
       "wantedObject": "Enemy_Slime2"
     },
     {
-      "x": 3.5,
-      "y": 2.5,
+      "x": 3,
+      "y": 2,
       "wantedObject": "Obstacle1"
     }
   ]

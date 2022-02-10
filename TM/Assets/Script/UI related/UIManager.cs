@@ -14,6 +14,11 @@ public class UIManager : MonoBehaviour
     //전부 구현하고, NULL체크만 하여 오류를 막자
     //어짜피 잘못 사용한 일이 아니라면 NULL인 Panel을 접근하는 메소드를 호출할 일이 없다. _02_07_08:16
 
+    //2022_02_09 - 테스트를 위해서 LevelManager를 받아오는 부분을 생성
+    //2022_02_09 - 테스트를 위해서 현재 위치를 알려주는 string인 whereAmI를 생성
+    [SerializeField] private LevelManager levelManager;
+    private string whereAmI;
+
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Player player;
@@ -33,6 +38,13 @@ public class UIManager : MonoBehaviour
     public void Start()
     {
         panelStack = new Stack<RectTransform>(8);
+        
+        //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
+        whereAmI = "Room" + levelManager.GetComponent<PlayerSaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
+        GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
+        //2022_02_10 - hp바를 맞춰봤습니다.
+        mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
+        mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -100,17 +112,14 @@ public class UIManager : MonoBehaviour
             RectTransform img_item_sel = mainPanel.Find("panel_main").Find("Img_item_sel").GetComponent<RectTransform>();
             if (inputManager.isItemSelect('1'))
             {
-                //대충 플레이어 1번 아이템 집는 코드
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item1").GetComponent<RectTransform>().anchoredPosition;
             }
             else if (inputManager.isItemSelect('2'))
             {
-                //대충 플레이어 2번 아이템 집는 코드
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item2").GetComponent<RectTransform>().anchoredPosition;
             }
             else if (inputManager.isItemSelect('3'))
             {
-                //대충 플레이어 3번 아이템 집는 코드
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item3").GetComponent<RectTransform>().anchoredPosition;
             }
         }
@@ -120,12 +129,12 @@ public class UIManager : MonoBehaviour
     {
         if (inputManager.isAttack() && !pauseFlag)
         {
-                if (getAttackFlag())
-                {
-                    player.attack();
-                    StartCoroutine(AttackCooltime());
-                }
-                else { Debug.Log("공격쿨"); }
+            if (getAttackFlag())
+            {
+                player.attack();
+                StartCoroutine(AttackCooltime());
+            }
+            else { Debug.Log("공격쿨"); }
         }
     }
     public void Move(InputAction.CallbackContext context)

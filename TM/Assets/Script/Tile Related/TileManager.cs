@@ -5,29 +5,28 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    /*22-1-22 변동사항
-    isTileEmpty와 isTileMovable을 isTileSafe로 합침
-    이제 두 함수의 일을 모두 isTileSafe가 처리하게 되었음.
-    또한, isTileSafe에서 정말 그 타일이 존재하는지도 확인을 하도록 되어있음.
-
-    placeObject는 이제 object를 그 자리에 해당하는 tileLocations에 저장하는
-    일만 하도록 되어있음. (오류처리 X)
-    이는 spawnManager에서 보다 쉽게 오류처리를 하기 위해서임.
-    */
-
     private Tilemap map;
 
     [SerializeField]
     private string curStage;
 
+    //2022_02_09 - inspector가 좋다고 하셔서 levelManager도 inspector로 넣도록 했습니다.
     [SerializeField]
-    private int stageVar;
+    private LevelManager levelManager;
+    //2022_02_09 이름 때문에 혼동을 주지 않기 위해서 StageVar -> RoomVar로 이름을 변경
+    //참고로, 이건 mapVariation의 갯수가 얼마나되는지를 알려주는 변수다.
+    [SerializeField]
+    private int roomVar;
 
     [SerializeField]
     private List<TileData> tileDatas;
 
-    //디버그용
-    private string tilemapName;
+    //2022_02_09 - getTilemapVar 추가
+    private int tilemapVar;
+    public int getTilemapVar()
+    {
+        return tilemapVar;
+    }
 
     //tile 그 자체의 data를 저장하는 곳
     private Dictionary<TileBase, TileData> dataFromTiles;
@@ -51,36 +50,26 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        //모든 map의 이름은 Map?  이며, /Tilemap/ 폴더 내부에 존재한다. 이걸 instantiate한 다음,
+        //2022_02_09 - 이 부분을 통해서 load된 것을 읽어야할지, 아니면 새롭게 random을 돌려야 할지를 확인한다.
+        if (levelManager.GetComponent<PlayerSaveManager>().getSameCheck())
+        {
+            tilemapVar = levelManager.GetComponent<PlayerSaveManager>().saving.stageVar1;
+        }
+        else
+        {
+            tilemapVar = Random.Range(0, (roomVar));
+        }
+
+        //2022_02_09 - load때문에 Instantiate하는 함수 내부를 변경.
         map = Tilemap.Instantiate(
-                Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + ((Random.Range(0, (stageVar))).ToString())));
+                Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString()));
+        //모든 map의 이름은 Map?  이며, /Tilemap/ 폴더 내부에 존재한다. 이걸 instantiate한 다음,
         //grid를 가지고 있는 Tilemanager, 즉 이 gameObject(TileManager script)의 transform을 부모로 지정해줘야지
         //제대로 출력이 된다.
         map.transform.parent = gameObject.transform;
     }
 
-    /*
-        private void Update()
-        {
-            //디버깅용 - 필요한 정보를 보여주기 위한 부분
-
-            if(Input.GetMouseButton(0))
-            {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int gridPosition = map.WorldToCell(mousePosition);
-
-                print("IsEmpty : " + isTileEmpty(gridPosition) + ", there is " + getTileObjectName(gridPosition));
-
-
-                TileBase clickedTile = map.GetTile(gridPosition);
-
-                tileType istype = dataFromTiles[clickedTile].type;
-                print("Tile " + clickedTile + "'s type is " + istype.ToString());
-            }
-
-        }
-    */
-
+    //2022_02_09 - 안쓰는 update지움
 
 
     //타일의 type을 확인(벽? 데미지타일? 일반 길?...)
@@ -90,6 +79,27 @@ public class TileManager : MonoBehaviour
 
         return dataFromTiles[wantedTile].type;
     }
+
+    /*
+    private void Update()
+    {
+        //디버깅용 - 필요한 정보를 보여주기 위한 부분
+        
+        if(Input.GetMouseButton(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int gridPosition = map.WorldToCell(mousePosition);
+
+            print("there is " + getTileObjectName(gridPosition));
+
+
+            TileBase clickedTile = map.GetTile(gridPosition);
+
+            tileType istype = dataFromTiles[clickedTile].type;
+            print("Tile " + clickedTile + "'s type is " + istype.ToString());
+        }
+       
+    }*/
 
 
     //타일의 (x, y)로 캐릭터의 위치를 변경할 수 있는지 확인할 때 사용
@@ -171,7 +181,7 @@ public class TileManager : MonoBehaviour
     //디버깅용 - 해당 tile위에 있는 무언가의 characterName을 반환
     public string getTileObjectName(Vector3Int gridPosition)
     {
-        if(!(tileLocations.ContainsKey(gridPosition)))
+        if (!(tileLocations.ContainsKey(gridPosition)))
         {
             return "Nothing";
         }

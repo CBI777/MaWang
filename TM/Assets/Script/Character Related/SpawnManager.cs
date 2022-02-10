@@ -6,11 +6,6 @@ using System.IO;
 [System.Serializable]
 public class InstructionData
 {
-    /*22-1-22 변동사항
-    Start내부의 초기화 함수의 구조를 변경
-    */
-
-
     public InstructionData(float x, float y, string wanted)
     {
         this.x = x;
@@ -22,40 +17,32 @@ public class InstructionData
     [SerializeField] public string wantedObject;
 }
 
-
-/*
-             * 2022_02_07_18:30 박경수
-             * SpawnManager에서 Player는 Instantiate의 예외로 해서 초기 좌표만 갖다주는 것에 대해
-[오후 6:21] 박경수: 예 이점이 많아보여서 그냥 그렇게 하기로 하겠습니다
-[오후 6:21] 박경수: Player는 이제 Resources에서 빠질 예정입니다
-[오후 6:22] 박경수: SpawnManager의 자식으로 Hierarchy에 미리 넣어 놓겠습니다
-[오후 6:23] 박경수: : 1 InputManager/LevelManager등의 (인스펙터)접근 용이
-[오후 6:25] 박경수: ; 플레이어의 스탯은 접근할 곳이 많음 -> 근데 오타라던가 Awake 순서라던가 에서 NullException자꾸뜨길래
-[오후 6:25] 박경수: 심지어 이름도 Player가 아니고 Player(Clone)으로 나와서 한참 분투한결과
-[오후 6:27] 박경수: Player는 좀 차별화할 필요가 있다고 강력히 주장하는 바이고 이미 실행해버렸습니다 XDDD
-[오후 6:28] 박경수: 그러니 JSON만들때 웬만하면 PLayer는 최대한 맨 위에 놔주시면 감사 : 첫번째 건 for 밖에서 해버렸거든요
-
-요약: 변동사항! Player는 Instantiate안하고 SpawnManager의 자식이니 JSON최상단에 Player의 정보를 기입할것.
-    이유는 접근이 자주 되는 Player 전용 필드&메소드 접근의 용이성을 높이기 위해
-             */
-
 public class SpawnManager : MonoBehaviour
 {
     List<InstructionData> instructions = new List<InstructionData>();
 
     [SerializeField]
     private TileManager tileManager;
+    //2022_02_09 - inspector가 좋다고 하셔서 levelManager도 inspector로 넣도록 했습니다.
+    [SerializeField]
+    private LevelManager levelManager;
 
-    //이 SpawnManager는 어디에 있는 아이인지를 inspector로 넣어줌
+    //이 SpawnManager는 어느 scene에 있는 아이인지를 inspector로 넣어줌
     [SerializeField]
     private string curStage;
 
-    //이 SpawnManager의 구역에는 얼마나 많은 variation이 존재하는지를 알려줌
-    //inspector로 넣어준다.
-    //0, 1, 2, 3이 있다면 4개.
+    //2022_02_09 이름 때문에 혼동을 주지 않기 위해서 StageVar -> RoomVar로 이름을 변경
+    //참고로, 이건 enemyVaration의 갯수가 얼마나되는지를 알려주는 변수다.
     [SerializeField]
-    private int stageVar;
-    
+    private int roomVar;
+
+    //2022_02_09 - getEnemyVar 추가
+    private int enemyVar;
+    public int getEnemyVar()
+    {
+        return this.enemyVar;
+    }
+
     private string fileName;
 
     [SerializeField]
@@ -70,7 +57,15 @@ public class SpawnManager : MonoBehaviour
         //모든 variation들은 Assets/Resources/Stage?_(형식)/EnemyVariation 내에 저장되어있으며,
         //Assets/까지는 JsonFileHandler에서 처리해주니까, 그 뒤를 넣으면 된다.
         //이름은 Enemy?.json이다.
-        fileName = "Resources/" + curStage + "/EnemyVariation/Enemy" + ((Random.Range(0, (stageVar))).ToString() + ".json");
+        if (levelManager.GetComponent<PlayerSaveManager>().getSameCheck())
+        {
+            enemyVar = levelManager.GetComponent<PlayerSaveManager>().saving.stageVar2;
+        }
+        else
+        {
+            enemyVar = Random.Range(0, (roomVar));
+        }
+        fileName = "Resources/" + curStage + "/EnemyVariation/Enemy" + enemyVar.ToString() + ".json";
 
     }
 
@@ -85,15 +80,21 @@ public class SpawnManager : MonoBehaviour
         JsonFileHandler.SaveToJson<InstructionData>(instructions, fileName);
         */
         instructions = JsonFileHandler.ReadFromJson<InstructionData>(fileName);
-        Vector2 loc;
 
+        //2022_02_09 - 실제로 보여지는 것과 좌표계는 다르기 때문에...
+        //loc은 실제 좌표계를 담당, loc2는 우리가 보기에 좋게 하기 위한 좌표임.
+        //즉, tileManager에게 들어가는건 loc, instantiate나 position은 loc2
+        //이게 들어가야했는데 실수입니다. 죄송합니다
+        Vector2 loc;
+        Vector2 loc2;
 
         loc = new Vector2(instructions[0].x, instructions[0].y);
+        loc2 = new Vector2(instructions[0].x + 0.5f, instructions[0].y + 0.5f);
         if (tileManager.isTileSafe(loc))
         {
-            player.transform.position = loc;
-            // 어이쿠 player의 좌표를 spawnmanager에서 직접 바꿔버렸네요 ㅎㅎ Start니까 괜찮지 않을까?
             tileManager.placeObject(player.gameObject, loc);
+            player.transform.position = loc2;
+            // 2022_02_09 player좌표 여기서 바꿔도 상관 없습니다
         }
         else
         {
@@ -103,18 +104,8 @@ public class SpawnManager : MonoBehaviour
 
         foreach (var InstructionData in instructions)
         {
-            //모든 character prefab들은 Resources 폴더 내의 Stage?/Characters/에 존재한다.
-
-            /*기존 방식의 가장 큰 문제점은 Instantiate한 값을 pass해주기 때문에 해당 위치가 올바른 위치가 아니라도
-             * 적절한 조치를 취할 수 없다는 것이었다.
-             * 즉, valid한 좌표가 아니면 애초에 생성도 하지 못하게 하기 위해서는 SpawnManager가 애초부터 확인을 하고,
-             * 그 다음에 Instantiate한 값을 pass해주는 식으로 바꾸었다.
-             * 이러면 한 번 체크를 하는 step을 밟아야하긴 하지만, 생성하고 없애는 것보다는 덜 복잡하다.
-             */
-
-            
-
             loc = new Vector2(InstructionData.x, InstructionData.y);
+            loc2 = new Vector2(InstructionData.x + 0.5f, InstructionData.y + 0.5f);
 
             if(!(tileManager.isTileSafe(loc)))
             {
@@ -124,9 +115,10 @@ public class SpawnManager : MonoBehaviour
             {
                 tileManager.placeObject(GameObject.Instantiate(
                 Resources.Load(curStage + "/Characters/" + InstructionData.wantedObject, typeof(GameObject)) as GameObject,
-                loc, Quaternion.identity, transform), loc);
+                loc2, Quaternion.identity, transform), loc);
             }
         }
+        player.updatePlayer(levelManager.GetComponent<PlayerSaveManager>().saving);
     }
 
     public bool MoveCharacter(Vector3 originalGridPosition, Vector2 amount)
