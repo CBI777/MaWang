@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-<<<<<<< Updated upstream
 using UnityEngine.InputSystem;
 
 
@@ -198,37 +197,4 @@ public class UIManager : MonoBehaviour
             Move(new InputAction.CallbackContext());
         }
     }
-=======
-
-public class UIManager : MonoBehaviour
-{
-    public Text gold;
-    public Text LevelNumber;
-    //public Text HP;
-    //public Image HPBar;
-
-    private void Start()
-    {
-        //gold = GameObject.FindWithTag("Gold").GetComponent<Text>();
-        //LevelNumber = GameObject.FindWithTag("LevelNumber").GetComponent<Text>();
-        ChangeGold(GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saving.gold);
-        ChangeLevelNumber(GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saving.curRoomNumber);
-    }
-
-    public void ChangeGold(int num)
-    {
-        gold.text = num.ToString() + "G";
-    }
-
-    public void ChangeLevelNumber(int num)
-    {
-        LevelNumber.text = "Level" + num.ToString();
-    }
-
-    /*public void ChangeHP(int num)
-    {
-        //hp의 text를 바꾸고 bar를 바꾸고.
-    }
-    */ 
->>>>>>> Stashed changes
 }
