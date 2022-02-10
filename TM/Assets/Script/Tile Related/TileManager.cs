@@ -33,7 +33,7 @@ public class TileManager : MonoBehaviour
     private Dictionary<TileBase, TileData> dataFromTiles;
 
     //타일의 (x, y)에 무엇이 있는지를 저장하는 곳
-    public Dictionary<Vector3Int, GameObject> tileLocations
+    private Dictionary<Vector3Int, GameObject> tileLocations
         = new Dictionary<Vector3Int, GameObject>();
 
 
@@ -139,13 +139,6 @@ public class TileManager : MonoBehaviour
     //(x, y)에 있었던 정보를 (z, w)로 옮기는 함수
     public bool moveObject(Vector3 originalGridPosition, Vector3 gridPosition)
     {
-        foreach (Vector3Int v in tileLocations.Keys) {
-            if (tileLocations[v].CompareTag("Player"))
-            Debug.Log(v);
-        }
-
-
-
         Vector3Int originalPos = map.WorldToCell(originalGridPosition);
         Vector3Int newPos = map.WorldToCell(gridPosition);
         /*if(!tileLocations.ContainsKey(originalPos))
@@ -158,11 +151,6 @@ public class TileManager : MonoBehaviour
         {
             tileLocations.Add(newPos, target);
             tileLocations.Remove(originalPos);
-            foreach (Vector3Int v in tileLocations.Keys)
-            {
-                if (tileLocations[v].CompareTag("Player"))
-                    Debug.Log(v);
-            }
             return true;
         }
         return false;
