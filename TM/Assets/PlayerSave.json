@@ -11,10 +11,10 @@
     "artifact2": "맨손",
     "artifact3": "맨손",
     "stageNumber": 1,
-    "prevRoomNumber": 0,
-    "curRoomNumber": 0,
-    "roomType": "Title",
-    "stageVar1": -1,
-    "stageVar2": -1,
+    "prevRoomNumber": 4,
+    "curRoomNumber": 4,
+    "roomType": "Stage1_Normal",
+    "stageVar1": 0,
+    "stageVar2": 1,
     "stageVar3": -1
 }
