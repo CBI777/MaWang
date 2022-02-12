@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 41558922}
   - component: {fileID: 41558921}
   - component: {fileID: 41558920}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Btn_Cancel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 68013816}
   - component: {fileID: 68013815}
   - component: {fileID: 68013814}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Btn_Accept
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1874,7 +1874,7 @@ GameObject:
   - component: {fileID: 585279202}
   - component: {fileID: 585279204}
   - component: {fileID: 585279203}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel_AccessCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3710,7 +3710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1384453498
@@ -4519,7 +4519,7 @@ GameObject:
   - component: {fileID: 1649016552}
   - component: {fileID: 1649016554}
   - component: {fileID: 1649016553}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

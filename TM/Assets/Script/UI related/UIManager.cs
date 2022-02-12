@@ -115,13 +115,15 @@ public class UIManager : MonoBehaviour
         //매개변수 rectTransform은 MapUIBtn(임시) 스크립트에서 이벤트 실행 주체(맵 버튼)를 보내면 그 좌표 옆에 panel_AccessCheck(확인/취소)를 띄운다
         if (rectTransform != null)
         {
-            RectTransform panel_AccessCheck = rectTransform.transform.parent.GetChild(1).GetComponent<RectTransform>();
+            RectTransform panel_AccessCheck = rectTransform.transform.parent.Find("Panel_AccessCheck").GetComponent<RectTransform>();
             if (panelStack.Peek().Equals(panel_AccessCheck)) //이미 열려있는 상태에서 다른 레벨을 골랐을 때 panelStack에 같은 오브젝트가 두번 쌓이는 걸 방지
             {
+                panel_AccessCheck.SetAsLastSibling();
                 panel_AccessCheck.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
             }
             else
             {
+                panel_AccessCheck.SetAsLastSibling();
                 panel_AccessCheck.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
                 panel_AccessCheck.gameObject.SetActive(true);
                 panelStack.Push(panel_AccessCheck);
