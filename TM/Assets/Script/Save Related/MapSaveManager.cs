@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class MapSaveManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string filePath;
+    public PlayerSaveBase saving;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

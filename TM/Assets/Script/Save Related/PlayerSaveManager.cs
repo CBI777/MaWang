@@ -6,8 +6,13 @@ using UnityEngine;
 public class PlayerSaveManager : MonoBehaviour
 {
     private string filePath;
+    //2022_02_11 map 저장용 파일명
+    //private string mapFilePath;
 
     private Player player;
+    //2022_02_11 map 저장용
+    ////어짜피 고정크기고, 이러면 list를 쓰는게 편하다.
+    public List<park.cell> mapInfo;
     public PlayerSaveBase saving;
 
     //2022_02_09
@@ -26,7 +31,10 @@ public class PlayerSaveManager : MonoBehaviour
     //Player의 data는 매 스테이지 진입시에 load된다.
     public void Awake()
     {
+        //2022_02_11 awake수정
         filePath = Application.dataPath + "/PlayerSave.json";
+        //mapFilePath = "/MapSave.json";
+        //mapInfo = new List<park.cell>(52);
         saving = new PlayerSaveBase();
         loadPlayer();
         if (saving.prevRoomNumber != saving.curRoomNumber) { sameCheck = false; }
@@ -51,6 +59,7 @@ public class PlayerSaveManager : MonoBehaviour
                 case "Stage1_Start":
                 case "Stage2_Start":
                 case "Stage3_Start":
+                    //여기서 맵 초기화 해주시면 됩니다
                     break;
                 case "Shop":
                     //상점
@@ -92,6 +101,11 @@ public class PlayerSaveManager : MonoBehaviour
             saving.artifact1 = player.getArtifact(0);
             saving.artifact2 = player.getArtifact(1);
             saving.artifact3 = player.getArtifact(2);
+
+            //2022_02_11 지금으로써는 player info를 저장하지 않는 곳이 title밖에 없기 때문에
+            // = title은 유일하게 esc가 안먹히기 때문에 여기다가 넣음.
+            //saveMap();
+            //JsonFileHandler.SaveToJson<park.cell>(mapInfo, mapFilePath);
         }
 
         string content = JsonUtility.ToJson(this.saving, true);
@@ -100,6 +114,7 @@ public class PlayerSaveManager : MonoBehaviour
         {
             writer.Write(content);
         }
+        
     }
 
     //2022_02_09 - 이러한 save function들은 모두 SwitchScene, 즉 다음으로 넘어가는 버튼들에서 적용이 된다.
@@ -109,7 +124,11 @@ public class PlayerSaveManager : MonoBehaviour
         //stage 클리어시. Beta임.
         saving.stageNumber++;
         saving.prevRoomNumber = 0;
-        saving.curRoomNumber = 0;
+        //2022_02_11 만약 saveStageClear가 stage 클리어시에 불리는 거라면
+        //다음 스테이지로 넘어가는 갈 때 cur++가 안되니까 curRoomNumber를 1로 맞춤
+        saving.curRoomNumber = 1;
+        //2022_02_11 stage를 start로. stageNumber가 4면 clear를 해야겠지?
+        saving.roomType = "Stage" + saving.stageNumber + "_Start";
         savePlayer(true);
     }
 
@@ -119,6 +138,8 @@ public class PlayerSaveManager : MonoBehaviour
         //모종의 방법으로 클리어했음을 확인할 방법이 있어야함.
         //즉, 전투를 클리어하고 보상창이 뜨는 상황을 의미한다.
         //모종의 방법으로 tile과 spawn에게 이를 알려줘야함 <- 아직 구현 안함
+        //2022_02_11 임시적으로 curRoomNumber++임.
+        saving.curRoomNumber++;
         savePlayer(true);
     }
 
@@ -145,7 +166,28 @@ public class PlayerSaveManager : MonoBehaviour
         }
 
         this.saving = JsonUtility.FromJson<PlayerSaveBase>(content);
+        //this.mapInfo = JsonFileHandler.ReadFromJson<park.cell>(mapFilePath);
     }
+
+    //2022_02_11
+    /*
+    public void saveMap(List<List<park.cell>> map)
+    {
+        int p = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                park.cell c;
+                c = map[i][j];
+
+                this.mapInfo[p] = c;
+                p++;
+            }
+        }
+    }*/
+
+
     //2022_02_09
     //죽었을 때, 완전 초기로 playerSave를 돌려버린다.
     public void killPlayer()
@@ -170,11 +212,23 @@ public class PlayerSaveManager : MonoBehaviour
         saving.stageVar2 = -1;
         saving.stageVar3 = -1;
 
+        /*
+        //2022_02_11 초기화작업
+        for (int i = 0; i < 52; i++)
+        {
+            park.cell c;
+            c = park.cell.Null;
+            mapInfo.Add(c);
+        }
+        */
+
         string content = JsonUtility.ToJson(this.saving);
         FileStream fileStream = new FileStream(this.filePath, FileMode.Create);
         using (StreamWriter writer = new StreamWriter(fileStream))
         {
             writer.Write(content);
         }
+        //2022_02_11
+        //JsonFileHandler.SaveToJson<park.cell>(mapInfo, mapFilePath);
     }
 }

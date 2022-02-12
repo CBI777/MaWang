@@ -97,7 +97,9 @@ public class CharacterBase : MonoBehaviour
     }
     //2022_02_10 - 코드로 넣어주면 새로운 적이나 장애물 생성시에 아주 편함. 다만 그러면 코드가 꽤 많아짐.
 
-    public bool hpDamage(int damage)
+
+    //2022_02_11 - player에서 override를 위해서 virtual로 변경
+    public virtual bool hpDamage(int damage)
     {
         if (this.hp <= damage)
         {
@@ -109,7 +111,7 @@ public class CharacterBase : MonoBehaviour
         if (hpHud) { hpForeground.fillAmount = (float)hp / (float)maxHp; }
         return false;
     }
-    public void hpHeal(int heal)
+    public virtual void hpHeal(int heal)
     {
         if (this.maxHp >= (this.hp + heal))
         {

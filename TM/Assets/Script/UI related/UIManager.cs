@@ -42,9 +42,8 @@ public class UIManager : MonoBehaviour
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
         whereAmI = "Room" + levelManager.GetComponent<PlayerSaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
-        //2022_02_10 - hp바를 맞춰봤습니다.
-        mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
-        mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
+        //2022_02_11 - hp바 부분을 함수로 변경
+        changeHpBar();
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -205,5 +204,11 @@ public class UIManager : MonoBehaviour
             moveFlag = true;
             Move(new InputAction.CallbackContext());
         }
+    }
+    //2022_02_11 - hp바를 변경하는 함수의 추가
+    public void changeHpBar()
+    {
+        mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
+        mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
     }
 }

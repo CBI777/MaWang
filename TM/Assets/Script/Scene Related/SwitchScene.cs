@@ -22,6 +22,12 @@ public class SwitchScene : MonoBehaviour
         GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saveRoomEnd();
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
     }
+    //2022_02_11 테스트를 위한 임시적인 함수
+    public void testchangeScene(string sceneName)
+    {
+        GameObject.FindWithTag("LevelManager").GetComponent<PlayerSaveManager>().saveRoomClear();
+        GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
+    }
 
     //load를 하는 경우 사용한다.
     //원래 있었던 방이 어디었는지를 확인하기 위해서 saving내의 roomType을 확인한다.
