@@ -1,7 +1,7 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
 
-2022_02_11 변경점
+2022_02_12_AM 변경점
 
 ---변경---
 1. Title Scene의 Canvas가 scale with screen size가 아니어서 transition image가 제대로 안나왔던 점 수정
@@ -35,3 +35,4 @@
 
 >>>>>>>>>>>>>
 MapUI가 시작때에 disable된 상태에서 시작되면 바깥에서 map을 access할 때 어떻게 할지를 생각해야할 것 같습니다.
+ └ MapUI 스크립트 자체는 UIManager가 가지고 있기 때문에 크게 상관 없을 것 같습니다.

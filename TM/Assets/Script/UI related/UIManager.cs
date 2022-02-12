@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     //모든 씬에서 있을 것으로 예상
     //이 외의 대화 진행이나 이벤트, 상점만의 UI 등은 이 클래스를 상속받아서 활용하는걸로? _02_07_06:42
     //아니면 얘네는 기본UI로 냅두고 새로운 UI에 대한 건 따로 스크립트를 만들어서 그것들로 조립하는 식으로? _02_07_06:48
-    //전부 구현하고, NULL체크만 하여 오류를 막자
+    //결론 : 전부 구현하고, NULL체크만 하여 오류를 막자
     //어짜피 잘못 사용한 일이 아니라면 NULL인 Panel을 접근하는 메소드를 호출할 일이 없다. _02_07_08:16
 
     //2022_02_09 - 테스트를 위해서 LevelManager를 받아오는 부분을 생성
@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     public void Start()
     {
         panelStack = new Stack<RectTransform>(8);
-        
+
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
         whereAmI = "Room" + levelManager.GetComponent<PlayerSaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
@@ -52,17 +52,17 @@ public class UIManager : MonoBehaviour
 
     public void Escape(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed) // 이 조건 없으면 세번 호출됨 (started/performed/canceled)
         {
-            if (panelStack.Count == 0)
+            if (panelStack.Count == 0) //esc 첨 누르세요? 그럼 pause
             {
                 Pause();
             }
-            else if (panelStack.Count == 1)
+            else if (panelStack.Count == 1) //이미 pause가 떠잇어요? 그럼 resume
             {
                 Resume();
             }
-            else
+            else //Pause 말고도 뭔가 많이 떠있네요? : 하나씩 닫기
             {
                 BackUI();
             }
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
         panelStack.Pop().gameObject.SetActive(false);
         panelStack.Peek().gameObject.SetActive(true);
     }
-    public void Pause()
+    public void Pause() //시간을 멈추고! pauseUI를 띄움
     {
         if (pausePanel != null)
         {
@@ -81,13 +81,14 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0f;
             // Update는 못막음. Couroutine의 yield return waitforseconds는 막음. FixedUpdate 막음.
             // : player를 직접 조작하는 (InputManager <-> Player) 이벤트를 막을 수 없음.
-            // 따라서 pauseFlag를 통해 InputManager의 전투관련 입력을 막을 생각임.
+            // 따라서 pauseFlag를 통해 공격&이동처리를 못하게 함.
             AudioListener.pause = true;
             pausePanel.gameObject.SetActive(true);
             panelStack.Push(pausePanel);
         }
+        else { Debug.Log("PauseUI Null"); }
     }
-    public void Resume()
+    public void Resume() //시간을 재개하고! PauseUI를 Disable
     {
         if (pausePanel != null)
         {
@@ -97,12 +98,36 @@ public class UIManager : MonoBehaviour
             pausePanel.gameObject.SetActive(false);
             panelStack.Pop();
         }
+        else { Debug.Log("PauseUI Null"); }
     }
-    public void MapActive()
+    public void MapActive() //맵 UI 전체를 띄움
     {
-        mapPanel.gameObject.SetActive(true);
-        panelStack.Peek().gameObject.SetActive(false);
-        panelStack.Push(mapPanel);
+        if (mapPanel != null)
+        {
+            mapPanel.gameObject.SetActive(true);
+            panelStack.Peek().gameObject.SetActive(false);
+            panelStack.Push(mapPanel);
+        }
+        else { Debug.Log("MapUI Null"); }
+    }
+    public void panel_AccessCheck_Active(RectTransform rectTransform)  //2022_02_12_08:37 추가 : 다음 맵 고를 때 확인해주는 UIPanel. 굳이 이걸 UIManager에 해야 됐나 싶지만 esc로 끌 수 있으면 편할 것 같아서 했다
+    {
+        //매개변수 rectTransform은 MapUIBtn(임시) 스크립트에서 이벤트 실행 주체(맵 버튼)를 보내면 그 좌표 옆에 panel_AccessCheck(확인/취소)를 띄운다
+        if (rectTransform != null)
+        {
+            RectTransform panel_AccessCheck = rectTransform.transform.parent.GetChild(1).GetComponent<RectTransform>();
+            if (panelStack.Peek().Equals(panel_AccessCheck)) //이미 열려있는 상태에서 다른 레벨을 골랐을 때 panelStack에 같은 오브젝트가 두번 쌓이는 걸 방지
+            {
+                panel_AccessCheck.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
+            }
+            else
+            {
+                panel_AccessCheck.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x + rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
+                panel_AccessCheck.gameObject.SetActive(true);
+                panelStack.Push(panel_AccessCheck);
+            }
+        }
+        else { Debug.Log("MapUIButton Null"); }
     }
 
     public void ItemSelect_key(InputAction.CallbackContext context)
