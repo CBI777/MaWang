@@ -132,11 +132,16 @@ public class SpawnManager : MonoBehaviour
         return false;
     }
 
-    public void AttackCharacter(Vector3 originalGridPosition, List<Vector3Int> attackRange, int damage)
+    //2022_02_13 effect를 character 내부에서 적용하기 위해서 bool로 변경
+    //한 번이라도 공격이 성공했다면 tileManager에서 true가 반환될거고, 그러면 true를 반환
+    public bool AttackCharacter(Vector3 originalGridPosition, List<Vector3Int> attackRange, int damage)
     {
+        bool temp = false;
         foreach (Vector3Int range in attackRange)
         {
-            tileManager.damageObject(damage, (originalGridPosition + range));
+            temp = temp|(tileManager.damageObject(damage, (originalGridPosition + range)));
         }
+
+        return temp;
     }
 }

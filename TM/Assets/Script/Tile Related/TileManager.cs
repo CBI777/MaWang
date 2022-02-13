@@ -126,17 +126,22 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
-    //타일의 (x, y)에 존재하는 무언가에게 데미지를 주는 함수
-    public void damageObject(int damage, Vector3 gridPosition)
+    //2022_02_13 effect를 character 내부에서 적용하기 위해서 bool로 변경
+    //한 번이라도 attack이 성공했다면 true를 반환
+    public bool damageObject(int damage, Vector3 gridPosition)
     {
+        bool temp = false;
         Vector3Int pos = map.WorldToCell(gridPosition);
         if (isTileDestroyable(pos))
         {
+            temp = true;
             if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
             {
                 tileLocations.Remove(pos);
             }
         }
+
+        return temp;
     }
 
     //타일의 (x, y) 위치에 캐릭터의 정보를 저장하는 함수

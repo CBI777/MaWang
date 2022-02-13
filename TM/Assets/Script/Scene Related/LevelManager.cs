@@ -7,27 +7,6 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    /*
-     * 2022_02_09 - static을 이용해보려던 잔해. 제거해도 무방
-    public static LevelManager levManager;
-    public string currentScene;
-
-    [SerializeField] private GameObject loadingCanvas;
-
-    private void Awake()
-    {
-        loadingCanvas.SetActive(false);
-        if (levManager == null)
-        {
-            levManager = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-*/
     //2022_02_09 - loadingCanvas는 로딩창을 의미하고, currentScene은 말 그대로 현재 scene을 의미합니다.
     //이것도 inspector가 편하다고 하셔서 그렇게 쓸 수 있게 했습니다.
     public GameObject loadingCanvas;

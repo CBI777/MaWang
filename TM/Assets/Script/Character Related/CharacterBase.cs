@@ -123,12 +123,15 @@ public class CharacterBase : MonoBehaviour
         if (hpHud) { hpForeground.fillAmount = (float)hp / (float)maxHp; }
     }
 
+    //static 함수를 이용하여 길이를 확 줄임.
     public void rotateArrow()
     {
-        switch(direction)
+        directionArrow.transform.rotation = 
+            Quaternion.Euler(DirectionChange.dirToRotation(direction));
+        /*switch (direction)
         {
             case Directions.E:
-                directionArrow.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                directionArrow.transform.rotation = Quaternion.Euler(DirectionChange.);
                 break;
             case Directions.N:
                 directionArrow.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
@@ -139,6 +142,6 @@ public class CharacterBase : MonoBehaviour
             case Directions.W:
                 directionArrow.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                 break;
-        }
+        }*/
     }
 }

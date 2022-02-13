@@ -111,14 +111,20 @@ public class UIManager : MonoBehaviour
             RectTransform img_item_sel = mainPanel.Find("panel_main").Find("Img_item_sel").GetComponent<RectTransform>();
             if (inputManager.isItemSelect('1'))
             {
+                //2022_02_13 player의 유물에 대응
+                player.setCurArtifact(0);
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item1").GetComponent<RectTransform>().anchoredPosition;
             }
             else if (inputManager.isItemSelect('2'))
             {
+                //2022_02_13 player의 유물에 대응
+                player.setCurArtifact(1);
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item2").GetComponent<RectTransform>().anchoredPosition;
             }
             else if (inputManager.isItemSelect('3'))
             {
+                //2022_02_13 player의 유물에 대응
+                player.setCurArtifact(2);
                 img_item_sel.anchoredPosition = mainPanel.Find("panel_main").Find("Img_item3").GetComponent<RectTransform>().anchoredPosition;
             }
         }
@@ -130,7 +136,8 @@ public class UIManager : MonoBehaviour
         {
             if (getAttackFlag())
             {
-                player.attack();
+                //2022_02_13 변경된 구조에 맞춰서 사용될 수 있도록 변경
+                player.useArtifact();
                 StartCoroutine(AttackCooltime());
             }
             else { Debug.Log("공격쿨"); }

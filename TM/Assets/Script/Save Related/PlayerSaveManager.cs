@@ -6,13 +6,8 @@ using UnityEngine;
 public class PlayerSaveManager : MonoBehaviour
 {
     private string filePath;
-    //2022_02_11 map 저장용 파일명
-    //private string mapFilePath;
 
     private Player player;
-    //2022_02_11 map 저장용
-    ////어짜피 고정크기고, 이러면 list를 쓰는게 편하다.
-    public List<park.cell> mapInfo;
     public PlayerSaveBase saving;
 
     //2022_02_09
@@ -33,8 +28,6 @@ public class PlayerSaveManager : MonoBehaviour
     {
         //2022_02_11 awake수정
         filePath = Application.dataPath + "/PlayerSave.json";
-        //mapFilePath = "/MapSave.json";
-        //mapInfo = new List<park.cell>(52);
         saving = new PlayerSaveBase();
         loadPlayer();
         if (saving.prevRoomNumber != saving.curRoomNumber) { sameCheck = false; }
@@ -59,7 +52,11 @@ public class PlayerSaveManager : MonoBehaviour
                 case "Stage1_Start":
                 case "Stage2_Start":
                 case "Stage3_Start":
-                    //여기서 맵 초기화 해주시면 됩니다
+                    //2022_02_13 여기 제대로 저장하는 부분이 없어서 start에서는 save가 안되었던 문제 수정
+                    //여기서 맵 초기화해주시면 됩니다.
+                    saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
+                    saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
+                    saving.stageVar3 = -1;
                     break;
                 case "Shop":
                     //상점
@@ -98,14 +95,10 @@ public class PlayerSaveManager : MonoBehaviour
             saving.maxHp = player.getMaxHp();
             saving.hp = player.getHp();
             saving.gold = player.getGold();
-            saving.artifact1 = player.getArtifact(0);
-            saving.artifact2 = player.getArtifact(1);
-            saving.artifact3 = player.getArtifact(2);
-
-            //2022_02_11 지금으로써는 player info를 저장하지 않는 곳이 title밖에 없기 때문에
-            // = title은 유일하게 esc가 안먹히기 때문에 여기다가 넣음.
-            //saveMap();
-            //JsonFileHandler.SaveToJson<park.cell>(mapInfo, mapFilePath);
+            //2022_02_13 - 변경된 player의 구조에 대응
+            saving.artifact1 = player.getArtifact(0).getRealArtifactName();
+            saving.artifact2 = player.getArtifact(1).getRealArtifactName();
+            saving.artifact3 = player.getArtifact(2).getRealArtifactName();
         }
 
         string content = JsonUtility.ToJson(this.saving, true);
@@ -169,25 +162,6 @@ public class PlayerSaveManager : MonoBehaviour
         //this.mapInfo = JsonFileHandler.ReadFromJson<park.cell>(mapFilePath);
     }
 
-    //2022_02_11
-    /*
-    public void saveMap(List<List<park.cell>> map)
-    {
-        int p = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                park.cell c;
-                c = map[i][j];
-
-                this.mapInfo[p] = c;
-                p++;
-            }
-        }
-    }*/
-
-
     //2022_02_09
     //죽었을 때, 완전 초기로 playerSave를 돌려버린다.
     public void killPlayer()
@@ -200,27 +174,19 @@ public class PlayerSaveManager : MonoBehaviour
         saving.maxHp = 20;
         saving.hp = 20;
         saving.gold = 100;
-        saving.artifact1 = "맨손";
-        saving.artifact2 = "맨손";
-        saving.artifact3 = "맨손";
+        //2022_02_13 - Artifact의 변경에 대응하여 변경
+        saving.artifact1 = "Artifact__Hand";
+        saving.artifact2 = "Artifact__Hand";
+        saving.artifact3 = "Artifact__Hand";
         ///////////////////////////////
         saving.stageNumber = 1;
         saving.prevRoomNumber = 0;
         saving.curRoomNumber = 0;
-        saving.roomType = "Stage1_Start";
+        saving.roomType = "Title";
         saving.stageVar1 = -1;
         saving.stageVar2 = -1;
         saving.stageVar3 = -1;
 
-        /*
-        //2022_02_11 초기화작업
-        for (int i = 0; i < 52; i++)
-        {
-            park.cell c;
-            c = park.cell.Null;
-            mapInfo.Add(c);
-        }
-        */
 
         string content = JsonUtility.ToJson(this.saving);
         FileStream fileStream = new FileStream(this.filePath, FileMode.Create);
@@ -228,7 +194,5 @@ public class PlayerSaveManager : MonoBehaviour
         {
             writer.Write(content);
         }
-        //2022_02_11
-        //JsonFileHandler.SaveToJson<park.cell>(mapInfo, mapFilePath);
     }
 }

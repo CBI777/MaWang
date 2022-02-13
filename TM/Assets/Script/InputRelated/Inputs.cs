@@ -141,17 +141,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""65b499e8-043d-4291-aca1-a6e1066b06b2"",
-                    ""path"": ""<Mouse>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Desktop"",
-                    ""action"": ""attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f8e050bb-64f9-4630-9c26-18e58095677a"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
