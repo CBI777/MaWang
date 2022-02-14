@@ -1,37 +1,36 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
 
-2022_02_11 변경점
-
----변경---
-1. Title Scene의 Canvas가 scale with screen size가 아니어서 transition image가 제대로 안나왔던 점 수정
-2. Stage1_Normal, Stage1_Elite, Stage1_Start에다가 player에게 damage를 주는 버튼을 추가. 이 버튼은 player의 hp가 0이 되어도 게임오버를 하진 않음. 순수 테스트용
-3. Player들에게 UIManager가 제대로 안 들어가있어서 inspector에서 넣어줌
-4. Stage1_Normal, Stage1_Elite, Stage1_Start에 있던 다음 씬으로 넘어가는 버튼들이 수행하던 함수를 잠시 변경. 플레이어의 hp가 바뀌는 것을 확인하기 위함.
+---20220213 변경점---
 
 
-
----제거---
-1. Samples 폴더의 제거
-2. MapSaveBase 제거 - 필요없다고 판단
+---주요사항---
+1. 공격시 effect 적용
+2. 4개의 유물을 추가 - 맨손, 그냥 포션, 사면검, 장창. === 맨손은 맨손, 포션은 체력회복, 사면검은 전범위 공격, 장창은 2칸앞까지 공격
+3. 유물을 띄우는 것은 추후 업데이트 할 예정
 
 
 
----코드변경---
-1. UIManager변경 - hp관련하여 함수를 하나 더 만듦
-2. Characterbase 변경 - Player에서 override를 위하여 hpDamage와 hpHeal을 virtual로 변경하였음.
-3. Player변경
-	- Player내부에서 UIManager를 참조할 때 쓰는 것도 UIManager라서 혼동이 올 수 있다고 판단하였고, 실제로 컴파일러도 헷갈려함.
-	  따라서, 소문자로 변경하였습니다.
-	- override를 통하여 hp에 변동이 있을 때 이를 hp바에 적용시키는 코드를 override하였습니다.
-	- test를 위한 testhpDamage를 넣었습니다. 이건 후에 지워야합니다.
-4. SwitchScene 변경
-	- 플레이어의 hp가 유지되는 것을 보기 위해서 임시적인 함수를 생성
-5. PlayerSaveManager 변경
-	- 변동사항은 2022_02_11로 찾아보시면 편합니다.
+---수정---
+1. Input Action에서 마우스 클릭을 제거했습니다... 테스트 할 때 좀 피곤해져서....
+(물약을 테스트할 때 클릭 잘못해서 사용되는 등의 문제)
+2. Sprite 내부에 남아있던 animation파일들 삭제하고 필요한 sprite 이동
+3. UI에다가 TransitionScreen를 prefab화. 이에 맞추어 현재까지 구현한 모든 Scene에서 transitionScreen을 수정
+>>>>>> 무슨 버그인지는 모르겠으나, prefab화 이후에 UI에서 animation 구동이 전혀 안되게 되었음....
+>>>>>> Prefab이 아니도록 해도, animation을 새로 만들어도 도저히 수정을 할 수가 없어서 일단은 정지해놓은 상황....
+4. Animation폴더에 이펙트 3개를 추가
+5. Resources폴더에 Effect폴더를 추가 - effect prefab 2개 추가
 
 
 
-
->>>>>>>>>>>>>
-MapUI가 시작때에 disable된 상태에서 시작되면 바깥에서 map을 access할 때 어떻게 할지를 생각해야할 것 같습니다.
+---코드 변경---
+>>> 변경사항은 2022_02_13으로 찾아보시면 빠르게 확인하실 수 있습니다.
+1. Player의 코드를 변경
+2. Artifact의 코드를 변경
+3. PlayerSaveManager의 코드를 변경
+4. UIManager의 코드를 변경
+5. SpawnManager의 코드를 변경
+6. TileManager의 코드를 변경
+7. CharacterBase의 코드를 변경
+8. PlayerSaveManager의 코드를 변경
+9. BlockButton을 더 직관적이게 변경
