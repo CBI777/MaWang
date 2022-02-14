@@ -149,7 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43f108832fb9d7c47a7518ab430a56d9, type: 3}
+  m_Sprite: {fileID: 1559429811144305195, guid: e71cef1e4abc1094f946bd014944aa3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e979ad9411064d99eb557227de774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Slime
+  characterName: Small Golem
   moveDistance: 1
   moveSpeed: 1
   strength: 2

@@ -111,7 +111,8 @@ public class Player : CharacterBase
     }
 
 
-    //2022_02_13 artifact제거용도 함수 3개
+    //2022_02_13 artifact제거용도 함수 4개
+    //2022_02_14 4개의 함수 수정
     /// <summary>
     /// 보통 유물들 내부에서 사용. 현재 선택된 칸의 유물을 제거하고 맨손으로 변경
     /// 이 함수는 atDestroy를 따로 불러주지 않는다.
@@ -122,6 +123,7 @@ public class Player : CharacterBase
         //Unity의 garbage collecting을 믿기로 했음. 자주 불리는 함수도 아니고.
         //Artifact temp = this.artifacts[curArtifact];
         this.artifacts[curArtifact] = Resources.Load<GameObject>("Artifacts/Artifact__Hand").GetComponent<Artifact>();
+        uiManager.changeArtifact((curArtifact+1), this.artifacts[curArtifact].getRealArtifactName());
         //Destroy(temp);
     }
 
@@ -137,6 +139,7 @@ public class Player : CharacterBase
         //Artifact temp = this.artifacts[slot - 1];
         this.artifacts[slot - 1].atDestroy(this);
         this.artifacts[slot - 1] = Resources.Load<GameObject>("Artifacts/Artifact__Hand").GetComponent<Artifact>();
+        uiManager.changeArtifact((slot), this.artifacts[slot - 1].getRealArtifactName());
         //Destroy(temp);
     }
 
@@ -151,6 +154,7 @@ public class Player : CharacterBase
         //Artifact temp = this.artifacts[slot - 1];
         //Artifact temp = this.artifacts[curArtifact];
         this.artifacts[curArtifact] = Resources.Load<GameObject>("Artifacts/" + artifactName).GetComponent<Artifact>();
+        uiManager.changeArtifact((curArtifact + 1), this.artifacts[curArtifact].getRealArtifactName());
         //Destroy(temp);
     }
 
@@ -167,7 +171,8 @@ public class Player : CharacterBase
         //Artifact temp = this.artifacts[slot - 1];
         //Artifact temp = this.artifacts[slot-1];
         this.artifacts[slot - 1].atDestroy(this);
-        this.artifacts[slot-1] = Resources.Load<GameObject>("Artifacts/" + artifactName).GetComponent<Artifact>();
+        this.artifacts[slot - 1] = Resources.Load<GameObject>("Artifacts/" + artifactName).GetComponent<Artifact>();
+        uiManager.changeArtifact((slot), this.artifacts[slot - 1].getRealArtifactName());
         //Destroy(temp);
     }
 

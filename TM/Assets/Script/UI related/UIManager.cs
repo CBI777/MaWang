@@ -44,6 +44,10 @@ public class UIManager : MonoBehaviour
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
+        //2022_02_14
+        changeArtifact(1, player.getArtifact(0).getRealArtifactName());
+        changeArtifact(2, player.getArtifact(1).getRealArtifactName());
+        changeArtifact(3, player.getArtifact(2).getRealArtifactName());
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -217,5 +221,17 @@ public class UIManager : MonoBehaviour
     {
         mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
         mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
+    }
+
+    //2022_02_14 
+    /// <summary>
+    /// Artifact에 해당하는 이미지를 나타내주는 함수
+    /// </summary>
+    /// <param name="num"> 교체를 원하는 아티팩트 번호, 1, 2, 3 순서로 센다 </param>
+    /// <param name="artifactName"> 교체를 원하는 아티팩트의 img 이름</param>
+    public void changeArtifact(int num, string artifactName)
+    {
+        mainPanel.Find("panel_main").Find("Img_Art" + num.ToString()).GetComponent<Image>().sprite =
+            Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactName);
     }
 }

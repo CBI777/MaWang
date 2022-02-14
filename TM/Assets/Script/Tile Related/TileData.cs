@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum tileType { Grass, Path, Wall }
+//2022_02_14 Grassº¯°æ
+public enum tileType { Path, Wall }
 
 [CreateAssetMenu]
 
