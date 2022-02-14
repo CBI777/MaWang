@@ -1,6 +1,42 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
 
+---20220214 변경점---
+
+---주요사항---
+1. 이제 유물이 보이게 되었습니다.
+2. 여태까지 만든 map들을 변경하였습니다.
+
+
+---수정---
+1. Tilemap의 팔레트, 현재까지 만든 map, 모든 sprite를 교체
+2. Slime을 Monster_Stone으로 변경
+3. 변경사항에 맞추어 Tile Data들을 모두 변경
+4. Canvas에서 Img_Art1, 2, 3를 추가 - 유물을 위한 image
+5. Canvas의 img_item_sel의 hierarchy를 변경
+6. 모든 scene에 유물을 test할 수 있는 버튼을 추가
+
+
+
+---코드 변경---
+1. TileData 코드를 변경
+2. UIManager 코드를 변경
+3. Player 코드를 변경
+
+
+
+---추가---
+1. Resources/Artifacts/ArtifactImage 폴더 추가
+- 임시 sprite를 추가해놓음.
+2. Script에 유물 테스트와 관련된 TestArtifact 코드를 추가
+
+
+
+
+
+
+
+
 ---20220213 변경점---
 
 
