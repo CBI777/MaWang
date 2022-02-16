@@ -34,7 +34,7 @@ public class Player : CharacterBase
         }
     }
 
-    public void updatePlayer(PlayerSaveBase player)
+    public void updatePlayer(SaveBase player)
     {
         //2022_02_13 CurArtifact관련 초기화 처리.
         this.curArtifact = 0;

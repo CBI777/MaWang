@@ -816,7 +816,7 @@ RectTransform:
   m_Children:
   - {fileID: 118706568}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 108872362}
-  cur: 0
   art: 0
+  cur: 0
   artName: []
 --- !u!114 &228707008
 MonoBehaviour:
@@ -1232,6 +1232,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 573745653221830131, guid: c60d6d9e4aeda304c83ee286eb5ea4b6, type: 3}
+      propertyPath: mapUI
+      value: 
+      objectReference: {fileID: 418282450}
     - target: {fileID: 573745653221830131, guid: c60d6d9e4aeda304c83ee286eb5ea4b6, type: 3}
       propertyPath: player
       value: 
@@ -3367,9 +3371,9 @@ RectTransform:
   m_Children:
   - {fileID: 304520127}
   - {fileID: 202675849}
+  - {fileID: 228707005}
   - {fileID: 1413034436}
   - {fileID: 2022421977}
-  - {fileID: 228707005}
   - {fileID: 810614618}
   - {fileID: 401798544}
   m_Father: {fileID: 0}
@@ -4085,7 +4089,7 @@ RectTransform:
   m_Children:
   - {fileID: 150374637}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5328,7 +5332,7 @@ RectTransform:
   m_Children:
   - {fileID: 840331289}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5379,16 +5383,40 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2022421979}
-        m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: testchangeScene
-        m_Mode: 5
+      - m_Target: {fileID: 418282450}
+        m_TargetAssemblyTypeName: park.MapUI, Assembly-CSharp
+        m_MethodName: debugMapInfos
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Stage1_Normal
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 418282450}
+        m_TargetAssemblyTypeName: park.MapUI, Assembly-CSharp
+        m_MethodName: MapDraw
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 418282449}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: MapActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2022421979

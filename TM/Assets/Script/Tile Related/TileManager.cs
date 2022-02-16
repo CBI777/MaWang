@@ -51,9 +51,9 @@ public class TileManager : MonoBehaviour
         }
 
         //2022_02_09 - 이 부분을 통해서 load된 것을 읽어야할지, 아니면 새롭게 random을 돌려야 할지를 확인한다.
-        if (levelManager.GetComponent<PlayerSaveManager>().getSameCheck())
+        if (levelManager.GetComponent<SaveManager>().getSameCheck())
         {
-            tilemapVar = levelManager.GetComponent<PlayerSaveManager>().saving.stageVar1;
+            tilemapVar = levelManager.GetComponent<SaveManager>().saving.stageVar1;
         }
         else
         {

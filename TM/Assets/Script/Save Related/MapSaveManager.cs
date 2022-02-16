@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapSaveManager : MonoBehaviour
 {
     private string filePath;
-    public PlayerSaveBase saving;
+    public SaveBase saving;
 
 
 }

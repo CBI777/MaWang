@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private park.MapUI mapUI;
     [SerializeField] private Player player;
 
     private Stack<RectTransform> panelStack;
@@ -40,7 +41,7 @@ public class UIManager : MonoBehaviour
         panelStack = new Stack<RectTransform>(8);
         
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
-        whereAmI = "Room" + levelManager.GetComponent<PlayerSaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
+        whereAmI = "Room" + levelManager.GetComponent<SaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
@@ -48,6 +49,8 @@ public class UIManager : MonoBehaviour
         changeArtifact(1, player.getArtifact(0).getRealArtifactName());
         changeArtifact(2, player.getArtifact(1).getRealArtifactName());
         changeArtifact(3, player.getArtifact(2).getRealArtifactName());
+
+        //2022_02_16
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -106,6 +109,25 @@ public class UIManager : MonoBehaviour
         mapPanel.gameObject.SetActive(true);
         panelStack.Peek().gameObject.SetActive(false);
         panelStack.Push(mapPanel);
+    }
+    public void MapPanelNextActive(RectTransform button, bool flag) //2022_02_16 
+    {
+        RectTransform mapPanelNext = button.parent.Find("MapPanel_Next").GetComponent<RectTransform>();
+        if (flag)
+        {
+            mapPanelNext.anchoredPosition = new Vector2(button.anchoredPosition.x + 160, button.anchoredPosition.y - 10);
+            mapPanelNext.SetAsLastSibling();
+            if (!panelStack.Peek().Equals(mapPanelNext))
+            {
+                mapPanelNext.gameObject.SetActive(true);
+                panelStack.Push(mapPanelNext);
+            }
+        }
+        else
+        {
+            if (!panelStack.Peek().Equals(mapPanelNext))
+                panelStack.Pop().gameObject.SetActive(false);
+        }
     }
 
     public void ItemSelect_key(InputAction.CallbackContext context)

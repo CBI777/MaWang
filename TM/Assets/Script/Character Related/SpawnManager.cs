@@ -57,9 +57,9 @@ public class SpawnManager : MonoBehaviour
         //모든 variation들은 Assets/Resources/Stage?_(형식)/EnemyVariation 내에 저장되어있으며,
         //Assets/까지는 JsonFileHandler에서 처리해주니까, 그 뒤를 넣으면 된다.
         //이름은 Enemy?.json이다.
-        if (levelManager.GetComponent<PlayerSaveManager>().getSameCheck())
+        if (levelManager.GetComponent<SaveManager>().getSameCheck())
         {
-            enemyVar = levelManager.GetComponent<PlayerSaveManager>().saving.stageVar2;
+            enemyVar = levelManager.GetComponent<SaveManager>().saving.stageVar2;
         }
         else
         {
@@ -118,7 +118,7 @@ public class SpawnManager : MonoBehaviour
                 loc2, Quaternion.identity, transform), loc);
             }
         }
-        player.updatePlayer(levelManager.GetComponent<PlayerSaveManager>().saving);
+        player.updatePlayer(levelManager.GetComponent<SaveManager>().saving);
     }
 
     public bool MoveCharacter(Vector3 originalGridPosition, Vector2 amount)

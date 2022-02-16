@@ -31,6 +31,27 @@
 2. Script에 유물 테스트와 관련된 TestArtifact 코드를 추가
 
 
+---20220216 변경점---
+
+---주요사항---
+1. 맵 관련 UI 손봤습니다.
+1. 맵 관련 하여 일부 static으로 변경했습니다.
+
+---수정---
+1. MapUI의 MapGeneration(), mapInfos, 등 초기 맵 설정 관련 필드, 메소드 static으로 바꿨습니다
+2. SwitchScene의 메소드 4개를 전부 static으로만 바꿨습니다.
+3. MapUIBtn 스크립트 파일이 추가되었습니다.
+4. playerSave 뭐시기를 그냥 Save뭐시기로 바꿨습니다.
+5. SaveBase에 curRoomRow 추가했습니다.
+6. SaveBase의 curRoomNumber, prevRoomNumber의 기본값을 -1로 설정했습니다. (killPlayer)
+
+---코드 변경---
+1. SaveBase
+2. SaveManager
+3. MapUI
+4. MapUIBtn (+)
+5. UIManager
+6. 
 
 
 

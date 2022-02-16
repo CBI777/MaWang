@@ -58,39 +58,34 @@ namespace park
 
     public class MapUI : MonoBehaviour
     {
+        [SerializeField] private SaveBase saving; //2022_02_16 추가
 
         [SerializeField] private ScrollRect scrollRect; // 맵UI 틀
 
-        [SerializeField] private float margin;  //각 셀/라인들의 여백
-        [SerializeField] private int row, col; //맵의 행, 열
+        [SerializeField] private static float margin=20;  //각 셀/라인들의 여백
+        [SerializeField] private static int row=4, col=13; //맵의 행, 열
         [SerializeField] private GameObject uiPrefab_box, uiPrefab_cell, uiPrefab_line; // UI에 직접 그려질 원본 프리팹.
+        [SerializeField] private static float wayChangeProbability, wayAddProbability, EliteProbability, ShopProbability, EventProbability; //여러 속성들의 부여될 확률
         [SerializeField] private List<RectTransform> uiObjects = new List<RectTransform>(); //프리팹들의 생성, 삭제를 보다 편리하게 해줄 게임오브젝트 리스트 : 테스트용으로 자주 썼고 실제 게임에선 별 필요 없을 수 있음
-        [SerializeField] private float wayChangeProbability, wayAddProbability, EliteProbability, ShopProbability, EventProbability; //여러 속성들의 부여될 확률
 
-        private List<List<cell>> mapInfos; // ** 맵 정보 저장.
+        private static List<RectTransform> selectables = new List<RectTransform>(3); //2022_02_16 추가 : 라디오버튼의 효과를 원한다!
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            initializing();
-            MapGeneration();
-            MapDraw();
-        }
+        public static List<List<cell>> mapInfos; // ** 맵 정보 저장.
+        
 
         public void ArgumentsRandomize() //테스트용 : 행,열 개수 바꾸고 여백 바꾸고 등등... 지금은 4*13으로 정해져서 필요없음
         {
-
-            this.row = (int)(Random.Range(3, 7));
-            this.col = (int)(Random.Range(10, 50));
-            this.margin = Random.Range(10,50);
+            row = (int)(Random.Range(3, 7));
+            col = (int)(Random.Range(10, 50));
+            margin = Random.Range(10,50);
         }
-        public void initializing() //mapInfos 초기화
+        public static void Initializing() //mapInfos 초기화
         {
             mapInfos = new List<List<cell>>(row);
-            for (int i = 0; i < this.row; i++)
+            for (int i = 0; i < row; i++)
             {
                 mapInfos.Add(new List<cell>(col));
-                for (int j =0; j < this.col; j++)
+                for (int j =0; j < col; j++)
                 {
                     cell c;
                     c = cell.Null;
@@ -98,19 +93,36 @@ namespace park
                     mapInfos[i].Add(c);
                 }
             }
-
         }
-        public void clearing() //mapInfos & uiObjects 내용 지우기
+
+        public static void debugMapInfos()
         {
-            mapInfos.Clear();
+            for (int j =0; j<row; j++)
+            {
+                for (int i = 0; i < col; i++)
+                {
+                    Debug.Log(j.ToString() + i.ToString() + mapInfos[j][i]);
+                }
+            }
+        }
+        public void Clearing() //mapInfos & uiObjects & selectables 내용 지우기
+        {
             foreach(var obj in uiObjects)
             {
                 Destroy(obj.gameObject);
             }
             uiObjects.Clear();
         }
+        public void SelectDraw(Transform button, bool flag)
+        {
+            foreach (RectTransform rect in selectables)
+            {
+                rect.Find("Highlight_Selected").gameObject.SetActive(false);
+            }
+            button.Find("Highlight_Selected").gameObject.SetActive(flag);
+        }
 
-        public void MapGeneration()
+        public static void MapGeneration() //2022_02_16 static으로 바꿨습니다. 물론 여기에 관여되는 변수들도 전부 static입니다.
         {
             /*
              * MapInfos의 정보만 수정하는 곳
@@ -128,9 +140,9 @@ namespace park
              * 길이 X자로 크로스 되는건 방지하기 조금 귀찮아보임 ㅎㅎㅎㅎㅎㅎ 그런거 바라지 마세요 XD
              */
 
-            for (int i= 0; i < this.col; i++)
+            for (int i= 0; i < col; i++)
             {
-                for (int j= 0; j < this.row; j++)
+                for (int j= 0; j < row; j++)
                 {
                     cell c;
                     c = cell.Null;
@@ -188,11 +200,11 @@ namespace park
 
 
 
-                        if (i == this.col - 1)  // 마지막 열이면(==보스) Boss 설정
+                        if (i == col - 1)  // 마지막 열이면(==보스) Boss 설정
                         {
                             c = cell.Boss;
                         }
-                        else if (i == this.col - 2) // 마지막 전 열이면(==보스 직전 단계면) PreBoss 설정
+                        else if (i == col - 2) // 마지막 전 열이면(==보스 직전 단계면) PreBoss 설정
                         {
                             c = cell.PreBoss;
                         }
@@ -275,9 +287,9 @@ namespace park
             //맵UI의 틀의 크기를 설정! (행, 열이 자유롭게 바뀔 때 필요했음)
             //가끔 위치가 지멋대로 엇나가서 위치 고정하는 코드도 넣었음
             
-            for (int i=0;i<this.col;i++)
+            for (int i=0;i<col;i++)
             {
-                for (int j = 0; j < this.row; j++)
+                for (int j = 0; j < row; j++)
                 {
                     
                     if ((mapInfos[j][i] & cell.Straight) == cell.Straight)
@@ -337,16 +349,34 @@ namespace park
                         newBoxUI.anchoredPosition = new Vector2(i * grid, -j * grid);
                         var newCellUI = Instantiate(uiPrefab_cell, newBoxUI).GetComponent<RectTransform>();
                         newCellUI.sizeDelta = new Vector2(grid - margin, grid - margin);
-                        /* //아직 스프라이트가 제대로 마련되지 않았음 구현해야될 부분 _02_07_06:13
-                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
+                        newCellUI.gameObject.GetComponent<MapUIBtn>().xIndex = i;
+                        newCellUI.gameObject.GetComponent<MapUIBtn>().yIndex = j;
+
+                        selectables.Clear();
+                        if (saving.curRoomNumber + 1 == i && saving.curRoomRow + 1 == j && (mapInfos[j - 1][i - 1] & cell.Upper) == cell.Upper)
                         {
-                            newCellUI.Find("").gameObject.SetActive(true);
+                            selectables.Add(newCellUI);
                         }
-                        else
+                        else if (saving.curRoomNumber + 1 == i && saving.curRoomRow - 1 == j && (mapInfos[j + 1][i - 1] & cell.Lower) == cell.Lower)
                         {
-                            newCellUI.Find("Black").gameObject.SetActive(true);
+                            selectables.Add(newCellUI);
                         }
-                        */
+                        else if (saving.curRoomNumber + 1 == i && saving.curRoomRow == j && (mapInfos[j][i - 1] & cell.Straight) == cell.Straight)
+                        {
+                            selectables.Add(newCellUI);
+                        }
+
+
+                        if (saving.curRoomNumber == i && saving.curRoomRow == j)
+                        {
+                            newCellUI.Find("Highlight_Current").gameObject.SetActive(true);
+                        }
+                        else if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
+                        {
+                            newCellUI.Find("Highlight_Passed").gameObject.SetActive(true);
+                        }
+
+
                         if ((mapInfos[j][i] & ~cell.ClrType) == cell.Normal)
                         {
                             newCellUI.Find("Normal").gameObject.SetActive(true);
@@ -378,8 +408,8 @@ namespace park
         
         public void Buttonclick()
         {
-            clearing();
-            initializing();
+            Clearing();
+            Initializing();
             MapGeneration();
             MapDraw();
         }
