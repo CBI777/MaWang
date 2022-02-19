@@ -18,6 +18,9 @@ namespace park
     // 왜 mapInformation(구조체) 이랑 cell(enum)을 굳이 따로 놓는 거야?
     // 합쳐도 되지 않나? _02_07_03:26 -> 합쳐버렸습니다 ^ㅁ^ _02_07_03:35
 
+    // 2022_02_19
+    // 뭔가 추후의 오류가 생긴다면 그것은 높은 확률로 MapDraw와 관련한 문제일 것. 참고
+
     public enum cell
     {
         /*
@@ -58,28 +61,36 @@ namespace park
 
     public class MapUI : MonoBehaviour
     {
-        [SerializeField] private SaveBase saving; //2022_02_16 추가
+        private SaveBase saving; //2022_02_16 추가
 
         [SerializeField] private ScrollRect scrollRect; // 맵UI 틀
 
-        [SerializeField] private static float margin=20;  //각 셀/라인들의 여백
-        [SerializeField] private static int row=4, col=13; //맵의 행, 열
+        [SerializeField] private float margin=20;  //각 셀/라인들의 여백
+        [SerializeField] private int row=4, col=13; //맵의 행, 열
         [SerializeField] private GameObject uiPrefab_box, uiPrefab_cell, uiPrefab_line; // UI에 직접 그려질 원본 프리팹.
-        [SerializeField] private static float wayChangeProbability, wayAddProbability, EliteProbability, ShopProbability, EventProbability; //여러 속성들의 부여될 확률
+        [SerializeField] private float wayChangeProbability, wayAddProbability, EliteProbability, ShopProbability, EventProbability; //여러 속성들의 부여될 확률
         [SerializeField] private List<RectTransform> uiObjects = new List<RectTransform>(); //프리팹들의 생성, 삭제를 보다 편리하게 해줄 게임오브젝트 리스트 : 테스트용으로 자주 썼고 실제 게임에선 별 필요 없을 수 있음
 
-        private static List<RectTransform> selectables = new List<RectTransform>(3); //2022_02_16 추가 : 라디오버튼의 효과를 원한다!
+        private List<RectTransform> selectables = new List<RectTransform>(3); //2022_02_16 추가 : 라디오버튼의 효과를 원한다!
 
-        public static List<List<cell>> mapInfos; // ** 맵 정보 저장.
-        
+        public List<List<cell>> mapInfos; // ** 맵 정보 저장.
+        /// <summary>
+        /// mapinfos는 대체로 UIManager/ MapUIBtn/ SaveManager가 접근&참조합니다.
+        /// 이들은 모두 mapInfos를 직접 수정하지 않습니다.
+        /// 값을 수정할 때에는 아래의 SetMapData/UpdateMapData 메소드를 호출합니다.
+        /// get/set은 saveManager가 호출하며, 이는 2차원 리스트를 1차원 리스트로 변환해야하기 때문
+        /// 그 외의 읽기 용도의 접근은 대체로 Public이기에 직접 접근합니다. Get은 거의 쓰지 않습니다.
+        /// 
+        /// </summary>
 
-        public void ArgumentsRandomize() //테스트용 : 행,열 개수 바꾸고 여백 바꾸고 등등... 지금은 4*13으로 정해져서 필요없음
+        public void Start() //2022_02_18 saving의 인스펙터 참조를 지향했지만 굴복하고 Start에서 참조
+        // 죄송합니다 이거 어떻게 할 수 있지 않을까 하고 scriptableobject니 뭐니 찾아보다가 늦었습니다
         {
-            row = (int)(Random.Range(3, 7));
-            col = (int)(Random.Range(10, 50));
-            margin = Random.Range(10,50);
+            saving = GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().saving;
         }
-        public static void Initializing() //mapInfos 초기화
+
+        
+        public void Initializing() //mapInfos 초기화
         {
             mapInfos = new List<List<cell>>(row);
             for (int i = 0; i < row; i++)
@@ -94,35 +105,34 @@ namespace park
                 }
             }
         }
-
-        public static void debugMapInfos()
-        {
-            for (int j =0; j<row; j++)
-            {
-                for (int i = 0; i < col; i++)
-                {
-                    Debug.Log(j.ToString() + i.ToString() + mapInfos[j][i]);
-                }
-            }
-        }
         public void Clearing() //mapInfos & uiObjects & selectables 내용 지우기
         {
+            if (mapInfos.Count > 0)
+            {
+                mapInfos.Clear();
+            }
+            if (selectables.Count > 0)
+            {
+                selectables.Clear();
+            }
             foreach(var obj in uiObjects)
             {
                 Destroy(obj.gameObject);
             }
             uiObjects.Clear();
         }
-        public void SelectDraw(Transform button, bool flag)
+
+        public void SelectDraw(Transform button, bool flag)//이제 어딜 갈지 선택하는 걸 표시
         {
+            Debug.Log(selectables.Count);
             foreach (RectTransform rect in selectables)
             {
                 rect.Find("Highlight_Selected").gameObject.SetActive(false);
+                Debug.Log(rect);
             }
             button.Find("Highlight_Selected").gameObject.SetActive(flag);
-        }
-
-        public static void MapGeneration() //2022_02_16 static으로 바꿨습니다. 물론 여기에 관여되는 변수들도 전부 static입니다.
+        } 
+        public void MapGeneration() //mapInfos의 데이터 생성 
         {
             /*
              * MapInfos의 정보만 수정하는 곳
@@ -277,8 +287,10 @@ namespace park
                 }
             }
         }
-        public void MapDraw() //UI에 직접 그리기 (Instantiate)
+        public void MapDraw() //** UI에 직접 그리기 (Instantiate) 및 속성 변경
         {
+            selectables.Clear();
+
             float grid; // 행, 열의 개수에 따른 한 칸의 크기를 유동적으로 사용. 
 
             scrollRect.content.sizeDelta = new Vector2(scrollRect.content.rect.height / row * col, scrollRect.GetComponent<RectTransform>().sizeDelta.y-margin);
@@ -291,7 +303,6 @@ namespace park
             {
                 for (int j = 0; j < row; j++)
                 {
-                    
                     if ((mapInfos[j][i] & cell.Straight) == cell.Straight)
                     {
                         var newLineUI = Instantiate(uiPrefab_line, scrollRect.content).GetComponent<RectTransform>();
@@ -352,31 +363,37 @@ namespace park
                         newCellUI.gameObject.GetComponent<MapUIBtn>().xIndex = i;
                         newCellUI.gameObject.GetComponent<MapUIBtn>().yIndex = j;
 
-                        selectables.Clear();
-                        if (saving.curRoomNumber + 1 == i && saving.curRoomRow + 1 == j && (mapInfos[j - 1][i - 1] & cell.Upper) == cell.Upper)
+                        //▼ 현재 방과 연결된 다음 방들의 구별. -> 현재 방이 끝난 후 버튼이 활성화될 방들.
+                        if (saving.curRoomNumber == -1 && i==0)
                         {
                             selectables.Add(newCellUI);
                         }
-                        else if (saving.curRoomNumber + 1 == i && saving.curRoomRow - 1 == j && (mapInfos[j + 1][i - 1] & cell.Lower) == cell.Lower)
+                        else if (j > 0 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow + 1 == j && (mapInfos[j - 1][i - 1] & cell.Upper) == cell.Upper)
                         {
                             selectables.Add(newCellUI);
                         }
-                        else if (saving.curRoomNumber + 1 == i && saving.curRoomRow == j && (mapInfos[j][i - 1] & cell.Straight) == cell.Straight)
+                        else if (j < row - 1 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow - 1 == j && (mapInfos[j + 1][i - 1] & cell.Lower) == cell.Lower)
+                        {
+                            selectables.Add(newCellUI);
+                        }
+                        else if (i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow == j && (mapInfos[j][i - 1] & cell.Straight) == cell.Straight)
                         {
                             selectables.Add(newCellUI);
                         }
 
-
+                        //▼ 이미 지나온 루트와 현재 방 표시
                         if (saving.curRoomNumber == i && saving.curRoomRow == j)
                         {
                             newCellUI.Find("Highlight_Current").gameObject.SetActive(true);
+                            newCellUI.Find("Disabled").gameObject.SetActive(false);
                         }
                         else if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
                         {
                             newCellUI.Find("Highlight_Passed").gameObject.SetActive(true);
+                            newCellUI.Find("Disabled").gameObject.SetActive(false);
                         }
 
-
+                        //▼ 어떤 방인지 표시
                         if ((mapInfos[j][i] & ~cell.ClrType) == cell.Normal)
                         {
                             newCellUI.Find("Normal").gameObject.SetActive(true);
@@ -397,22 +414,92 @@ namespace park
                         {
                             newCellUI.Find("Default").gameObject.SetActive(true);
                         }
+
                         uiObjects.Add(newBoxUI);
                         uiObjects.Add(newCellUI);
                     }
-
                 }
             }
-            
+
+            //2022_02_19 보상UI 등의 처리가 끝나고 나중에 위치 변경할 것. 아직 호출될 메소드가 아님.
+            SelectableButtonsActive();
         }
-        
-        public void Buttonclick()
+        public List<park.cell> GetMapData()//2차원리스트->1차원리스트 getter
         {
+            List<park.cell> mapSave = new List<park.cell>();
+            for (int i = 0; i < mapInfos.Count; i++)
+            {
+                for (int j = 0; j < mapInfos[i].Count; j++)
+                {
+                    mapSave.Add(mapInfos[i][j]);
+                }
+            }
+            return mapSave;
+        }
+        public void SetMapData(List<park.cell> mapSave)//1차원리스트->2차원리스트 setter
+        {
+            for (int i = 0; i < row; i++)
+            {
+                List<park.cell> temp = new List<park.cell>(col);
+                for (int j = 0; j < col; j++)
+                {
+                    temp.Add(mapSave[i * col + j]);
+                }
+                mapInfos.Add(temp);
+            }
+        }
+        public void SelectableButtonsActive()//씬 내의 활동이 끝난 후 호출될 메소드. 다음 방을 고를 때 비활성화되어있던 버튼들이 활성화.
+        {
+            foreach (RectTransform rect in selectables)
+            {
+                rect.GetComponent<Button>().interactable = true;
+                rect.Find("Disabled").gameObject.SetActive(false);
+            }
+        }
+        public void UpdateMapData(int r, int c) //다음 Room을 선택했을 때 이 메소드로 MapInfos를 수정 후 SwitchScene이 변경사항을 저장.
+        {
+            if (saving.curRoomNumber != col - 1)
+            {
+                Debug.Log("뭔가 입력이 잘못됐다!");
+            }
+            else
+            {
+                mapInfos[saving.curRoomRow][saving.curRoomNumber] |= cell.Checked;
+                saving.curRoomRow = r;
+                saving.curRoomNumber = c;
+            }
+        }
+
+        public void ArgumentsRandomize() //디버그용 : 안씀
+        {
+            // 행 ,열 ,여백 랜덤값지정
+            row = (int)(Random.Range(3, 7));
+            col = (int)(Random.Range(10, 50));
+            margin = Random.Range(10,50);
+        }
+        public void DebugButtonclick() //디버그용 : 안씀
+        {
+            //초기에 맵 생성의 오류를 확인하기 위해 임시로 냅둔 버튼이 호출하던 메소드.
+            //그냥 버튼 누르면 새로운 조합의 맵이 생성되는 것.
+            //계속 눌러보면서 가지치는 꼴을 보면 재미있다.
             Clearing();
             Initializing();
             MapGeneration();
             MapDraw();
         }
-
+        public void debugMapInfos() //디버그용 : 안씀
+        {
+            //각종 오류의 원인을 알게 해준 일등공신.
+            //4~5개의 오타를 성공적으로 고칠 수 있었다.
+            //디버그로그는 신이다
+            Debug.Log(mapInfos != null);
+            for (int j =0; j<row; j++)
+            {
+                for (int i = 0; i < col; i++)
+                {
+                    Debug.Log(j.ToString() + i.ToString() + mapInfos[j][i]);
+                }
+            }
+        }
     }
 }

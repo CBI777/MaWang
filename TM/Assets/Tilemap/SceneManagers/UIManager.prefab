@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573745653221830134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 666.2145, y: 320.3562, z: -172.31238}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,18 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 0}
-  margin: 10
-  row: 10
+  margin: 20
+  row: 4
   col: 13
   uiPrefab_box: {fileID: 4666638758133532098, guid: a9bc6f1fc1ac49a4fb5ad4def324436c, type: 3}
   uiPrefab_cell: {fileID: 750806069290969460, guid: 02a0d499b8807fa458d10631a05180fc, type: 3}
   uiPrefab_line: {fileID: 3751555114638622584, guid: 808db98bd898ed04c9bda2ca155cb8e6, type: 3}
-  uiObjects: []
   wayChangeProbability: 0.3
   wayAddProbability: 0.3
   EliteProbability: 0.2
   ShopProbability: 0.2
   EventProbability: 0.2
+  uiObjects: []
 --- !u!114 &573745653221830131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +72,8 @@ MonoBehaviour:
   pausePanel: {fileID: 0}
   mainPanel: {fileID: 0}
   mapPanel: {fileID: 0}
+  levelManager: {fileID: 0}
   spawnManager: {fileID: 0}
   inputManager: {fileID: 0}
+  mapUI: {fileID: 0}
   player: {fileID: 0}

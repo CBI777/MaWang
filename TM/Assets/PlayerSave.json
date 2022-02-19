@@ -13,7 +13,7 @@
     "artifact3": "Artifact__Hand",
     "stageNumber": 1,
     "prevRoomNumber": -1,
-    "curRoomNumber": 0,
+    "curRoomNumber": -1,
     "curRoomRow": 0,
     "roomType": "Title",
     "stageVar1": -1,

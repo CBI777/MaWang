@@ -17,10 +17,7 @@ public class SaveManager : MonoBehaviour
     //만약 전 스테이지와 이번 room이 다르면 (다음 스테이지로 최초 진행)
     //random으로 돌려야한다.
     private bool sameCheck;
-    public bool getSameCheck()
-    {
-        return sameCheck;
-    }
+    public bool getSameCheck(){return sameCheck;}
 
     //2022_02_09
     //Player의 data는 매 스테이지 진입시에 load된다.
@@ -42,6 +39,7 @@ public class SaveManager : MonoBehaviour
     //만약 sameCheck가 true면 그냥 불러오기니까 save도 할 필요가 없음.
     public void Start()
     {
+        Debug.Log(saving.prevRoomNumber +" " +saving.curRoomNumber + " " + saving.curRoomRow);
         if (sameCheck == false)
         {
             saving.roomType = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().currentScene;
@@ -49,14 +47,22 @@ public class SaveManager : MonoBehaviour
             switch (saving.roomType)
             {
                 case "Title":
+                    break;
                 case "Stage1_Start":
                 case "Stage2_Start":
                 case "Stage3_Start":
                     //2022_02_13 여기 제대로 저장하는 부분이 없어서 start에서는 save가 안되었던 문제 수정
-                    //맵 초기화
-                    park.MapUI.mapInfos.Clear();
-                    park.MapUI.Initializing();
-                    park.MapUI.MapGeneration();
+                    
+                    //2022_02_18 맵 초기화
+                    park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
+                    if (mapui.mapInfos!=null)
+                    {
+                        mapui.mapInfos.Clear();
+                        Debug.Log("맵초기화성공");
+                    }
+                    mapui.Initializing();
+                    mapui.MapGeneration();
+                    saving.mapData = mapui.GetMapData();
 
                     saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
                     saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
@@ -81,6 +87,7 @@ public class SaveManager : MonoBehaviour
                     break;
             }
             savePlayer(false);
+            Debug.Log(saving.prevRoomNumber + " " + saving.curRoomNumber + " " + saving.curRoomRow);
         }
     }
 
@@ -104,6 +111,9 @@ public class SaveManager : MonoBehaviour
             saving.artifact1 = player.getArtifact(0).getRealArtifactName();
             saving.artifact2 = player.getArtifact(1).getRealArtifactName();
             saving.artifact3 = player.getArtifact(2).getRealArtifactName();
+
+            //2022_02_18 맵
+            saving.mapData = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>().GetMapData();
         }
 
         string content = JsonUtility.ToJson(this.saving, true);
@@ -112,45 +122,9 @@ public class SaveManager : MonoBehaviour
         {
             writer.Write(content);
         }
-        
     }
 
-    //2022_02_09 - 이러한 save function들은 모두 SwitchScene, 즉 다음으로 넘어가는 버튼들에서 적용이 된다.
-    public void saveStageClear()
-    {
-        //2022_02_09
-        //stage 클리어시. Beta임.
-        saving.stageNumber++;
-        saving.prevRoomNumber = 0;
-        //2022_02_11 만약 saveStageClear가 stage 클리어시에 불리는 거라면
-        //다음 스테이지로 넘어가는 갈 때 cur++가 안되니까 curRoomNumber를 1로 맞춤
-        saving.curRoomNumber = 1;
-        //2022_02_11 stage를 start로. stageNumber가 4면 clear를 해야겠지?
-        saving.roomType = "Stage" + saving.stageNumber + "_Start";
-        savePlayer(true);
-    }
-
-    public void saveRoomClear()
-    {
-        //2022_02_09
-        //모종의 방법으로 클리어했음을 확인할 방법이 있어야함.
-        //즉, 전투를 클리어하고 보상창이 뜨는 상황을 의미한다.
-        //모종의 방법으로 tile과 spawn에게 이를 알려줘야함 <- 아직 구현 안함
-        //2022_02_11 임시적으로 curRoomNumber++임.
-        saving.curRoomNumber++;
-        savePlayer(true);
-    }
-
-    public void saveRoomEnd()
-    {
-        //2022_02_09
-        //실질적으로 다음 방으로 넘어갈때 사용하는 것.
-        //curRoomNumber를 ++해서 다음 방에서 random이 돌도록 만든다.
-        saving.curRoomNumber++;
-        savePlayer(false);
-    }
-
-    public void loadPlayer()
+    public void loadPlayer()//2022_02_09 이 SaveManager객체의 saving의 내용을 JSon에서 불러와 덮어쓴다.
     {
         string content;
         if (!(File.Exists(filePath)))
@@ -167,11 +141,9 @@ public class SaveManager : MonoBehaviour
         //this.mapInfo = JsonFileHandler.ReadFromJson<park.cell>(mapFilePath);
     }
 
-    //2022_02_09
-    //죽었을 때, 완전 초기로 playerSave를 돌려버린다.
-    public void killPlayer()
+    public void killPlayer()//2022_02_09 죽었을 때, 완전 초기로 playerSave를 돌려버린다.
     {
-        saving.mapData.Clear();
+        if (saving.mapData!=null) saving.mapData.Clear();
         saving.characterName = "마왕의 아들";
         saving.moveSpeed = 20;
         saving.moveDistance = 1;
@@ -202,4 +174,60 @@ public class SaveManager : MonoBehaviour
             writer.Write(content);
         }
     }
+
+
+
+    /// <summary>
+    /// 2022_02_19
+    /// save~뭐시기 메소드의 처리에 대한 주석
+    /// 
+    /// saveStageClear는 먼 후일의 얘기인듯하여 일단 주석으로 격리해놓았습니다.
+    /// 더불어,
+    /// saving.curRoomNumber를 ++하는 단계는 MapUI에서 다음 room을 고를 때 처리하는 걸로 변경했습니다
+    /// 변경하고 났더니 saveRoomClear()와 saveRoomEnd는 그저 SavePlayer를 호출하는 한 줄 외에 없는 메소드여서 전부 주석처리했습니다.
+    /// 당연히 SceneSwitch의 코드는 수정했습니다.
+    /// 후일 다시 쓸 일이 생길 것 같습니다만 일단은 어지러워서 주석으로 접어놨습니다.
+    /// </summary>
+    /// 
+    /*
+    //2022_02_09 - 이러한 save function들은 모두 SwitchScene, 즉 다음으로 넘어가는 버튼들에서 적용이 된다.
+
+    public void saveStageClear()
+    {
+        //2022_02_09
+        //stage 클리어시. Beta임.
+        saving.stageNumber++;
+        saving.prevRoomNumber = 0;
+        //2022_02_11 만약 saveStageClear가 stage 클리어시에 불리는 거라면
+        //다음 스테이지로 넘어가는 갈 때 cur++가 안되니까 curRoomNumber를 1로 맞춤
+        saving.curRoomNumber = 1;
+        //2022_02_11 stage를 start로. stageNumber가 4면 clear를 해야겠지?
+        saving.roomType = "Stage" + saving.stageNumber + "_Start";
+        savePlayer(true);
+    }
+    public void saveRoomClear()
+    {
+        //2022_02_09
+        //모종의 방법으로 클리어했음을 확인할 방법이 있어야함.
+        //즉, 전투를 클리어하고 보상창이 뜨는 상황을 의미한다.
+        //모종의 방법으로 tile과 spawn에게 이를 알려줘야함 <- 아직 구현 안함
+        //2022_02_11 임시적으로 curRoomNumber++임.
+
+        //saving.curRoomNumber++;
+        savePlayer(true);
+    }
+    public void saveRoomEnd()
+    {
+        //2022_02_09
+        //실질적으로 다음 방으로 넘어갈때 사용하는 것.
+        //curRoomNumber를 ++해서 다음 방에서 random이 돌도록 만든다.
+
+        //saving.curRoomNumber++;
+        savePlayer(false);
+    }
+
+    */
+   
+
+    
 }

@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     //2022_02_09 - 테스트를 위해서 현재 위치를 알려주는 string인 whereAmI를 생성
     [SerializeField] private LevelManager levelManager;
     private string whereAmI;
-
+    [SerializeField] private SaveBase saving;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private park.MapUI mapUI;
@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
         panelStack = new Stack<RectTransform>(8);
         
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
-        whereAmI = "Room" + levelManager.GetComponent<SaveManager>().saving.curRoomNumber + " / " + levelManager.GetComponent<LevelManager>().currentScene;
+        whereAmI = "Room" + (levelManager.GetComponent<SaveManager>().saving.curRoomNumber+1) + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
         changeArtifact(3, player.getArtifact(2).getRealArtifactName());
 
         //2022_02_16
+        //mapUI.debugMapInfos();
+        mapUI.MapDraw();
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -119,6 +121,7 @@ public class UIManager : MonoBehaviour
             mapPanelNext.SetAsLastSibling();
             if (!panelStack.Peek().Equals(mapPanelNext))
             {
+                mapPanelNext.GetComponent<MapUIBtn>().SetXY(button.GetComponent<MapUIBtn>().xIndex, button.GetComponent<MapUIBtn>().yIndex);
                 mapPanelNext.gameObject.SetActive(true);
                 panelStack.Push(mapPanelNext);
             }
