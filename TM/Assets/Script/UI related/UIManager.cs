@@ -39,7 +39,9 @@ public class UIManager : MonoBehaviour
     public void Start()
     {
         panelStack = new Stack<RectTransform>(8);
-        
+        Time.timeScale = 1f; // 2022_02_20 씬 전환 전 paused 상태에서 진행하면 시간이 멈춰서 씬 시작시 자동으로 풀어주는 역할
+
+
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
         whereAmI = "Room" + (levelManager.GetComponent<SaveManager>().saving.curRoomNumber+1) + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
@@ -114,21 +116,22 @@ public class UIManager : MonoBehaviour
     }
     public void MapPanelNextActive(RectTransform button, bool flag) //2022_02_16 
     {
-        RectTransform mapPanelNext = button.parent.Find("MapPanel_Next").GetComponent<RectTransform>();
+        //2022_02_20 간단한 수정
         if (flag)
         {
+            RectTransform mapPanelNext = button.parent.Find("MapPanel_Next").GetComponent<RectTransform>();
             mapPanelNext.anchoredPosition = new Vector2(button.anchoredPosition.x + 160, button.anchoredPosition.y - 10);
             mapPanelNext.SetAsLastSibling();
             if (!panelStack.Peek().Equals(mapPanelNext))
             {
-                mapPanelNext.GetComponent<MapUIBtn>().SetXY(button.GetComponent<MapUIBtn>().xIndex, button.GetComponent<MapUIBtn>().yIndex);
+                mapPanelNext.GetComponent<MapUIBtn>().SetXY(button.GetChild(0).GetComponent<MapUIBtn>().xIndex, button.GetChild(0).GetComponent<MapUIBtn>().yIndex);
                 mapPanelNext.gameObject.SetActive(true);
                 panelStack.Push(mapPanelNext);
             }
         }
         else
         {
-            if (!panelStack.Peek().Equals(mapPanelNext))
+            if (panelStack.Peek().Equals(button))
                 panelStack.Pop().gameObject.SetActive(false);
         }
     }

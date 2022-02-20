@@ -54,15 +54,18 @@ public class TileManager : MonoBehaviour
         if (levelManager.GetComponent<SaveManager>().getSameCheck())
         {
             tilemapVar = levelManager.GetComponent<SaveManager>().saving.stageVar1;
+            Debug.Log("true");
         }
         else
         {
             tilemapVar = Random.Range(0, (roomVar));
-        }
-
+            Debug.Log("false");
+        }   
         //2022_02_09 - load때문에 Instantiate하는 함수 내부를 변경.
+        Debug.Log(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString());
         map = Tilemap.Instantiate(
                 Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString()));
+
         //모든 map의 이름은 Map?  이며, /Tilemap/ 폴더 내부에 존재한다. 이걸 instantiate한 다음,
         //grid를 가지고 있는 Tilemanager, 즉 이 gameObject(TileManager script)의 transform을 부모로 지정해줘야지
         //제대로 출력이 된다.

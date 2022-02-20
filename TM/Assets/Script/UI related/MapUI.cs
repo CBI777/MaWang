@@ -124,11 +124,9 @@ namespace park
 
         public void SelectDraw(Transform button, bool flag)//이제 어딜 갈지 선택하는 걸 표시
         {
-            Debug.Log(selectables.Count);
             foreach (RectTransform rect in selectables)
             {
                 rect.Find("Highlight_Selected").gameObject.SetActive(false);
-                Debug.Log(rect);
             }
             button.Find("Highlight_Selected").gameObject.SetActive(flag);
         } 
@@ -293,6 +291,9 @@ namespace park
 
             float grid; // 행, 열의 개수에 따른 한 칸의 크기를 유동적으로 사용. 
 
+            Debug.Log(scrollRect);
+            Debug.Log(scrollRect.content);
+            Debug.Log(scrollRect.content.sizeDelta);
             scrollRect.content.sizeDelta = new Vector2(scrollRect.content.rect.height / row * col, scrollRect.GetComponent<RectTransform>().sizeDelta.y-margin);
             grid = scrollRect.content.rect.height / row;
             scrollRect.content.anchoredPosition = new Vector2(0, 0);
@@ -368,11 +369,11 @@ namespace park
                         {
                             selectables.Add(newCellUI);
                         }
-                        else if (j > 0 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow + 1 == j && (mapInfos[j - 1][i - 1] & cell.Upper) == cell.Upper)
+                        else if (j > 0 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow + 1 == j && (mapInfos[j - 1][i - 1] & cell.Lower) == cell.Lower)
                         {
                             selectables.Add(newCellUI);
                         }
-                        else if (j < row - 1 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow - 1 == j && (mapInfos[j + 1][i - 1] & cell.Lower) == cell.Lower)
+                        else if (j < row - 1 && i > 0 && saving.curRoomNumber + 1 == i && saving.curRoomRow - 1 == j && (mapInfos[j + 1][i - 1] & cell.Upper) == cell.Upper )
                         {
                             selectables.Add(newCellUI);
                         }
@@ -420,9 +421,6 @@ namespace park
                     }
                 }
             }
-
-            //2022_02_19 보상UI 등의 처리가 끝나고 나중에 위치 변경할 것. 아직 호출될 메소드가 아님.
-            SelectableButtonsActive();
         }
         public List<park.cell> GetMapData()//2차원리스트->1차원리스트 getter
         {
@@ -438,6 +436,7 @@ namespace park
         }
         public void SetMapData(List<park.cell> mapSave)//1차원리스트->2차원리스트 setter
         {
+            mapInfos = new List<List<cell>>(row);
             for (int i = 0; i < row; i++)
             {
                 List<park.cell> temp = new List<park.cell>(col);
@@ -458,13 +457,14 @@ namespace park
         }
         public void UpdateMapData(int r, int c) //다음 Room을 선택했을 때 이 메소드로 MapInfos를 수정 후 SwitchScene이 변경사항을 저장.
         {
-            if (saving.curRoomNumber != col - 1)
+            if (saving.curRoomNumber != c - 1)
             {
                 Debug.Log("뭔가 입력이 잘못됐다!");
             }
             else
             {
-                mapInfos[saving.curRoomRow][saving.curRoomNumber] |= cell.Checked;
+                Debug.Log("r:" + r + "c:" + c);
+                if (saving.curRoomNumber>-1)mapInfos[saving.curRoomRow][saving.curRoomNumber] |= cell.Checked;
                 saving.curRoomRow = r;
                 saving.curRoomNumber = c;
             }
@@ -497,7 +497,7 @@ namespace park
             {
                 for (int i = 0; i < col; i++)
                 {
-                    Debug.Log(j.ToString() + i.ToString() + mapInfos[j][i]);
+                    Debug.Log("방 좌표 :" +j.ToString() + i.ToString() + mapInfos[j][i]);
                 }
             }
         }

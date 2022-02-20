@@ -21,13 +21,13 @@ public class SwitchScene : MonoBehaviour
     //saveRoomEnd를 통해서 방이 끝났을 때 저장함수를 부르고, sceneName에 따라 다음 scene으로 이동한다.
     public static void changeScene(string sceneName)
     {
-        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(false);
+        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(false,true);
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
     }
     //2022_02_11 테스트를 위한 임시적인 함수
     public static void testchangeScene(string sceneName)
     {
-        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(true);
+        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(true,true);
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
     }
 
@@ -44,7 +44,7 @@ public class SwitchScene : MonoBehaviour
     {
         //이어하기 data가 있는데도 새로하기를 누르는 경우를 대비하여 killPlayer를 넣어둠.
         GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().killPlayer();
-        changeScene("Stage1_Start");
-        //GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene("Stage1_Start");
+        //changeScene("Stage1_Start");
+        GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene("Stage1_Start");
     }
 }

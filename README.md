@@ -31,27 +31,33 @@
 2. Script에 유물 테스트와 관련된 TestArtifact 코드를 추가
 
 
----20220216 변경점---
+---20220220 변경점---
 
 ---주요사항---
-1. 맵 관련 UI 손봤습니다.
-1. 맵 관련 하여 일부 static으로 변경했습니다.
+1. Map관련 UI들을 통해 다음 맵을 선택할 수 있습니다
+2. 더불어 저장 관련 코드의 흐름이 변경되었습니다.
+
+
 
 ---수정---
-1. MapUI의 MapGeneration(), mapInfos, 등 초기 맵 설정 관련 필드, 메소드 static으로 바꿨습니다
-2. SwitchScene의 메소드 4개를 전부 static으로만 바꿨습니다.
-3. MapUIBtn 스크립트 파일이 추가되었습니다.
-4. playerSave 뭐시기를 그냥 Save뭐시기로 바꿨습니다.
-5. SaveBase에 curRoomRow 추가했습니다.
-6. SaveBase의 curRoomNumber, prevRoomNumber의 기본값을 -1로 설정했습니다. (killPlayer)
+1. MapUIBtn 스크립트 파일이 추가되었습니다.
+2. 클래스 playerSave~를 그냥 Save~로 바꿨습니다.
+3. SaveBase에 curRoomRow 추가했습니다.
+4. SaveBase의 curRoomNumber, prevRoomNumber의 기본값을 -1로 설정했습니다. (killPlayer)
+5. MapUI가 SaveManager의 saving을 접근합니다.
+6. SaveManager의 saveRoomEnd, saveRoomClear, saveStageClear를 주석처리
+7. curRoomNumber의 수정을 MapUI가 합니다.
+8. SaveManager의 savePlayer의 인수를 추가.(bool player, bool map) : 즉 savePlayer가 map도 저장
+9. SwitchScene의 호출하는 메소드 변경
+10. 또 뭐있지 (직접 질문 환영)
 
 ---코드 변경---
-1. SaveBase
-2. SaveManager
-3. MapUI
-4. MapUIBtn (+)
-5. UIManager
-6. 
+1. MapUI
+2. MapUIBtn 
+3. UIManager 
+4. SwitchScene 
+5. SaveManager 
+6. SaveBase 변경
 
 
 

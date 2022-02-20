@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Inspector
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
@@ -45,10 +45,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 678, y: 492}
+  m_MaxSize: {x: 14001, y: 14042}
   vertical: 0
-  controlID: 31
+  controlID: 63
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 541
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -95,8 +95,8 @@ MonoBehaviour:
     y: 0
     width: 245
     height: 676
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -151,7 +151,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 32
+  controlID: 22
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 33
+  controlID: 96
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -462,22 +462,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Tilemap/SceneManagers
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Tilemap/SceneManagers
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\A\MaWang\TM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 142}
-    m_SelectedIDs: 70700000
-    m_LastClickedID: 28784
-    m_ExpandedIDs: 00000000487000004a7000004c7000004e70000050700000527000005470000056700000587000005a7000005c70000000ca9a3b
+    scrollPos: {x: 0, y: 462}
+    m_SelectedIDs: 3e560000
+    m_LastClickedID: 22078
+    m_ExpandedIDs: 000000003a4a00003c4a00003e4a0000404a0000424a0000444a0000464a0000484a00004a4a00004c4a00004e4a0000584a00006e4a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -505,7 +505,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000487000004a7000004c7000004e70000050700000527000005470000056700000587000005a7000005c700000
+    m_ExpandedIDs: 000000003a4a00003c4a00003e4a0000404a0000424a0000444a0000464a0000484a00004a4a00004c4a00004e4a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -626,9 +626,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 8ec7ffff
-      m_LastClickedID: -14450
-      m_ExpandedIDs: 90c7ffffecc7ffffe8c8ffff60caffffbccbffff86cfffff
+      m_SelectedIDs: 12480000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9646f5ff4247f5ffec47f5ff4a97f5ff8c98f5ff449af5ff6480fdff60c9fdff38cafdff040cfeff1048feffca6ffeffe870feff2e83feffbc93feff22aafeff4cc2feffe4c2feff6ac3feffdcc3feff36c4fefff2c5fefffec5feffacdcfeff5cddfeff68ddfeff8edefeff9adefeff7af0feffcaf4feffd4f4feffe0f4feff5af5feffb8f5feffaef6feff020bffffa20bffff160cffff120dffff1c0dffff200dffff260dffffae0dffff220effff360effffce0effffc20fffff1cb9ffffa8d1ffffaed1ffff1cd3ffff20d3ffff22d3ffffc2d3ffffc6d5ffff00f3ffff7cf6ffffa4f9ffff46faffff60fbffff0062000024620000026300001463000094630000a0630000ac7400008e750000a0750000207600002c760000d2790000b07a0000c27a0000427b00007a7c0000587d00006a7d0000ea7d0000f67d0000ac940000dc960000069900006a9c0000489d00005a9d00003c9f0000789f0000829f00001ea00000f4aa0000e8ac000024ad00002ead0000caad0000f0b8000008b9000078bf00000cc0000030c0000048c0000052c00000eec0000046c9000016020100b4020100bc02010024bb010036bb010060bb01006abb010006bc0100bebe01006cbf01009cbf010046ca0100f4ca010024cb01004ecf010078cf01001ed00100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

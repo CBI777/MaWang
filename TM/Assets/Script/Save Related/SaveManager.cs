@@ -43,6 +43,7 @@ public class SaveManager : MonoBehaviour
         if (sameCheck == false)
         {
             saving.roomType = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().currentScene;
+            park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
             saving.prevRoomNumber = saving.curRoomNumber;
             switch (saving.roomType)
             {
@@ -54,11 +55,11 @@ public class SaveManager : MonoBehaviour
                     //2022_02_13 여기 제대로 저장하는 부분이 없어서 start에서는 save가 안되었던 문제 수정
                     
                     //2022_02_18 맵 초기화
-                    park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
+                    
                     if (mapui.mapInfos!=null)
                     {
                         mapui.mapInfos.Clear();
-                        Debug.Log("맵초기화성공");
+                        Debug.Log("mapinfoscleared");
                     }
                     mapui.Initializing();
                     mapui.MapGeneration();
@@ -80,13 +81,19 @@ public class SaveManager : MonoBehaviour
                     //이벤트
                     break;
                 default: //여기가 나머지 처리하는 곳인가봄? _Normal & _Elite
-                    
+                    if (mapui != null)
+                    {
+                        Debug.Log(saving.mapData);
+                        mapui.SetMapData(saving.mapData);
+                    }
+                    Debug.Log(saving.mapData);
+
                     saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
                     saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
                     saving.stageVar3 = -1;
                     break;
             }
-            savePlayer(false);
+            savePlayer(false,false);
             Debug.Log(saving.prevRoomNumber + " " + saving.curRoomNumber + " " + saving.curRoomRow);
         }
     }
@@ -94,7 +101,7 @@ public class SaveManager : MonoBehaviour
     //2022_02_09
     //Player의 data를 받아와서 저장.
     //이 때문에 상점이나 이런 곳에서도 player를 안보이도록 생성하는 것이 필요.
-    public void savePlayer(bool playerSave)
+    public void savePlayer(bool playerSave, bool mapSave)
     {
         if(playerSave)
         {
@@ -114,6 +121,18 @@ public class SaveManager : MonoBehaviour
 
             //2022_02_18 맵
             saving.mapData = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>().GetMapData();
+        }
+        if (mapSave)
+        {
+            park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
+            if (mapui.mapInfos != null)
+            {
+                saving.mapData = mapui.GetMapData();
+            }
+            else
+            {
+                Debug.Log("mapsavefailed");
+            }
         }
 
         string content = JsonUtility.ToJson(this.saving, true);
@@ -158,7 +177,7 @@ public class SaveManager : MonoBehaviour
         saving.artifact3 = "Artifact__Hand";
         ///////////////////////////////
         saving.stageNumber = 1;
-        saving.prevRoomNumber = -1;
+        saving.prevRoomNumber = -2;
         saving.curRoomNumber = -1;
         saving.curRoomRow = 0;
         saving.roomType = "Title";

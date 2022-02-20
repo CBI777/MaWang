@@ -32,27 +32,27 @@ public class MapUIBtn : MonoBehaviour
         if (uiManager != null)
         {//보스나 Start로 가는건 아직 구현 안함
             string scene = "Stage";
-            scene += saving.curRoomNumber + "_";
-            if ((mapUI.mapInfos[xIndex][yIndex] & ~park.cell.ClrType) == park.cell.Normal)
+            scene += saving.stageNumber + "_";
+            if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Normal)
             {
                 scene = "Stage";
-                scene += saving.curRoomNumber + "_";
+                scene += saving.stageNumber + "_";
                 scene += "Normal";
             }
-            else if ((mapUI.mapInfos[xIndex][yIndex] & ~park.cell.ClrType) == park.cell.Elite)
+            else if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Elite)
             {
                 scene = "Stage";
-                scene += saving.curRoomNumber + "_";
+                scene += saving.stageNumber + "_";
                 scene += "Elite";
             }
-            else if ((mapUI.mapInfos[xIndex][yIndex] & ~park.cell.ClrType) == park.cell.Shop)
+            else if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Shop)
             {
                 scene += "Shop";
             }
-            else if ((mapUI.mapInfos[xIndex][yIndex] & ~park.cell.ClrType) == park.cell.Event)
+            else if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Event)
             {
                 scene = "Stage";
-                scene += saving.curRoomNumber + "_";
+                scene += saving.stageNumber + "_";
                 scene += "Event";
             }
             else
@@ -60,6 +60,7 @@ public class MapUIBtn : MonoBehaviour
                 scene = "Title";
                 Debug.Log("이건 무슨 오류일까..?");
             }
+            mapUI.UpdateMapData(yIndex,xIndex);
             SwitchScene.changeScene(scene);
         }
         else
@@ -69,7 +70,7 @@ public class MapUIBtn : MonoBehaviour
     {
         if (uiManager != null)
         {
-            uiManager.MapPanelNextActive(null,false);
+            uiManager.MapPanelNextActive(transform.GetComponent<RectTransform>(), false);
         }
         else
             Debug.Log("UIManager null");

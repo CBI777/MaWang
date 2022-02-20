@@ -1633,7 +1633,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 548871471}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1858476679}
+        m_TargetAssemblyTypeName: MapUIBtn, Assembly-CSharp
+        m_MethodName: MapNextButtonAccept
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &548871471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,10 +2126,10 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\uB300\uD654\uAC00 \uB05D\uB0A8"
 --- !u!222 &733619085
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2987,7 +2999,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 996074685}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1858476679}
+        m_TargetAssemblyTypeName: MapUIBtn, Assembly-CSharp
+        m_MethodName: MapNextButtonCancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &996074685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3044,7 +3068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1085836285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3108,7 +3132,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1085836287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 418282450}
+        m_TargetAssemblyTypeName: park.MapUI, Assembly-CSharp
+        m_MethodName: SelectableButtonsActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1085836287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5274,6 +5310,7 @@ GameObject:
   - component: {fileID: 1858476676}
   - component: {fileID: 1858476678}
   - component: {fileID: 1858476677}
+  - component: {fileID: 1858476679}
   m_Layer: 5
   m_Name: MapPanel_Next
   m_TagString: Untagged
@@ -5341,6 +5378,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858476675}
   m_CullTransparentMesh: 1
+--- !u!114 &1858476679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858476675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14ee177a98547ba4fb10f3820f38dd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xIndex: 0
+  yIndex: 0
 --- !u!1 &1937469425
 GameObject:
   m_ObjectHideFlags: 0
