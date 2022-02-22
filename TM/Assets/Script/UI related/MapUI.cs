@@ -159,6 +159,13 @@ namespace park
                     {
                         c = cell.Normal | cell.Straight;
                     }
+                    else if (i == col - 1)  // 마지막 열이면(==보스) Boss 설정
+                    {
+                        if (j == 0)
+                            c = cell.Boss;
+                        else
+                            c = cell.Null;
+                    }
                     else
                     {
                         if ((mapInfos[j][i - 1]&cell.Straight)==cell.Straight) // 왼칸의 앞길 있으면 : 셀 생성
@@ -206,11 +213,9 @@ namespace park
                         }
                         // ▲ 이전 열의 정보를 통해 Null or 셀 생성을 결정.
 
-
-
-                        if (i == col - 1)  // 마지막 열이면(==보스) Boss 설정
+                        if (i == col - 1)  // 보스는 이미 설정함
                         {
-                            c = cell.Boss;
+                            continue;
                         }
                         else if (i == col - 2) // 마지막 전 열이면(==보스 직전 단계면) PreBoss 설정
                         {
@@ -254,7 +259,6 @@ namespace park
                             }
                         }
 
-
                         // ▼ 셀의 타입(노말/엘리트/이벤트..) 지정
                         if ((c & cell.Boss) != cell.Boss)
                         {
@@ -278,9 +282,7 @@ namespace park
                             }
                         }
                     }
-                    
 
-                    
                     mapInfos[j][i] = c;
                 }
             }
@@ -288,12 +290,10 @@ namespace park
         public void MapDraw() //** UI에 직접 그리기 (Instantiate) 및 속성 변경
         {
             selectables.Clear();
-
             float grid; // 행, 열의 개수에 따른 한 칸의 크기를 유동적으로 사용. 
 
             Debug.Log(scrollRect);
             Debug.Log(scrollRect.content);
-            Debug.Log(scrollRect.content.sizeDelta);
             scrollRect.content.sizeDelta = new Vector2(scrollRect.content.rect.height / row * col, scrollRect.GetComponent<RectTransform>().sizeDelta.y-margin);
             grid = scrollRect.content.rect.height / row;
             scrollRect.content.anchoredPosition = new Vector2(0, 0);
@@ -310,7 +310,7 @@ namespace park
                         newLineUI.sizeDelta = new Vector2(grid, margin*0.5f);
                         newLineUI.rotation = Quaternion.Euler(0f, 0f, 0f);
                         newLineUI.anchoredPosition = new Vector2((i + 1) * grid, -(j + 0.5f) * grid);
-                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
+                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked && ((mapInfos[j][i+1] & cell.Checked)==cell.Checked || (saving.curRoomNumber == i+1 && saving.curRoomRow == j)))
                         {
                             newLineUI.Find("Orange").gameObject.SetActive(true);
                         }
@@ -326,7 +326,7 @@ namespace park
                         newLineUI.sizeDelta = new Vector2(grid*1.4f, margin*0.5f );
                         newLineUI.rotation = Quaternion.Euler(0f, 0f, 45f);
                         newLineUI.anchoredPosition = new Vector2((i + 1) * grid, -j * grid);
-                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
+                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked && ((j>0 && (mapInfos[j - 1][i + 1] & cell.Checked) == cell.Checked) || (saving.curRoomNumber == i + 1 && saving.curRoomRow == j-1)))
                         {
                             newLineUI.Find("Orange").gameObject.SetActive(true);
                         }
@@ -342,7 +342,7 @@ namespace park
                         newLineUI.sizeDelta = new Vector2(grid*1.4f, margin*0.5f);
                         newLineUI.rotation = Quaternion.Euler(0f, 0f, -45f);
                         newLineUI.anchoredPosition = new Vector2((i + 1) * grid, -(j+1) * grid);
-                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked)
+                        if ((mapInfos[j][i] & cell.Checked) == cell.Checked && ((j<row-1 &&(mapInfos[j + 1][i + 1] & cell.Checked) == cell.Checked )|| (saving.curRoomNumber == i + 1 && saving.curRoomRow == j+1)))
                         {
                             newLineUI.Find("Orange").gameObject.SetActive(true);
                         }
@@ -354,7 +354,7 @@ namespace park
                     }
                     // ▲ 길 그리기
                     // ▼ 셀 그리기
-                    if ((mapInfos[j][i] & ~cell.ClrType) != cell.Null)
+                    if (mapInfos[j][i] != cell.Null)
                     {
                         var newBoxUI = Instantiate(uiPrefab_box, scrollRect.content).GetComponent<RectTransform>();
                         newBoxUI.sizeDelta = new Vector2(grid, grid);
@@ -363,6 +363,20 @@ namespace park
                         newCellUI.sizeDelta = new Vector2(grid - margin, grid - margin);
                         newCellUI.gameObject.GetComponent<MapUIBtn>().xIndex = i;
                         newCellUI.gameObject.GetComponent<MapUIBtn>().yIndex = j;
+
+                        //▼ 보스방 그리기 : 특별취급(규격이 다름..?)
+                        if (mapInfos[j][i]== cell.Boss)
+                        {
+                            newBoxUI.anchoredPosition = new Vector2(i * grid, (grid - scrollRect.content.rect.height) / 2);
+                            newCellUI.Find("Boss").gameObject.SetActive(true);
+                            if ((mapInfos[saving.curRoomRow][saving.curRoomNumber] & ~cell.ClrLoc) == cell.PreBoss)
+                            {
+                                selectables.Add(newCellUI);
+                            }
+                            uiObjects.Add(newBoxUI);
+                            uiObjects.Add(newCellUI);
+                            continue;
+                        }
 
                         //▼ 현재 방과 연결된 다음 방들의 구별. -> 현재 방이 끝난 후 버튼이 활성화될 방들.
                         if (saving.curRoomNumber == -1 && i==0)

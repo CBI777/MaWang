@@ -55,6 +55,12 @@ public class MapUIBtn : MonoBehaviour
                 scene += saving.stageNumber + "_";
                 scene += "Event";
             }
+            else if (mapUI.mapInfos[yIndex][xIndex] == park.cell.Boss)
+            {
+                scene = "Stage";
+                scene += saving.stageNumber + "_";
+                scene += "Boss";
+            }
             else
             {
                 scene = "Title";

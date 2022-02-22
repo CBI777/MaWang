@@ -122,12 +122,13 @@ public class UIManager : MonoBehaviour
             RectTransform mapPanelNext = button.parent.Find("MapPanel_Next").GetComponent<RectTransform>();
             mapPanelNext.anchoredPosition = new Vector2(button.anchoredPosition.x + 160, button.anchoredPosition.y - 10);
             mapPanelNext.SetAsLastSibling();
+            mapPanelNext.GetComponent<MapUIBtn>().SetXY(button.GetChild(0).GetComponent<MapUIBtn>().xIndex, button.GetChild(0).GetComponent<MapUIBtn>().yIndex);
             if (!panelStack.Peek().Equals(mapPanelNext))
             {
-                mapPanelNext.GetComponent<MapUIBtn>().SetXY(button.GetChild(0).GetComponent<MapUIBtn>().xIndex, button.GetChild(0).GetComponent<MapUIBtn>().yIndex);
                 mapPanelNext.gameObject.SetActive(true);
                 panelStack.Push(mapPanelNext);
             }
+
         }
         else
         {
