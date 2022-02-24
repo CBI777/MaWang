@@ -1,5 +1,45 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
+---20220224 변경---
+
+---주요사항---
+1.Title 씬에서의 UI를 손봤습니다.
+2.Title씬 관련 스크립트 파일이 일부 수정되었습니다.
+
+---수정---
+1.BlockButton의 이름, 위치 변경 -> UI Related 의 StartLoadGameButton으로
+2.StartStoryUI 스크립트를 생성했습니다. (Title씬의 Canvas에 속함)
+3.Title 씬에 초기 스토리 설명 기능을 추가했습니다.
+
+
+---20220220 변경점---
+
+---주요사항---
+1. Map관련 UI들을 통해 다음 맵을 선택할 수 있습니다
+2. 더불어 저장 관련 코드의 흐름이 변경되었습니다.
+
+
+
+---수정---
+1. MapUIBtn 스크립트 파일이 추가되었습니다.
+2. 클래스 playerSave~를 그냥 Save~로 바꿨습니다.
+3. SaveBase에 curRoomRow 추가했습니다.
+4. SaveBase의 curRoomNumber, prevRoomNumber의 기본값을 -1로 설정했습니다. (killPlayer)
+5. MapUI가 SaveManager의 saving을 접근합니다.
+6. SaveManager의 saveRoomEnd, saveRoomClear, saveStageClear를 주석처리
+7. curRoomNumber의 수정을 MapUI가 합니다.
+8. SaveManager의 savePlayer의 인수를 추가.(bool player, bool map) : 즉 savePlayer가 map도 저장
+9. SwitchScene의 호출하는 메소드 변경
+10. 또 뭐있지 (직접 질문 환영)
+
+---코드 변경---
+1. MapUI
+2. MapUIBtn 
+3. UIManager 
+4. SwitchScene 
+5. SaveManager 
+6. SaveBase 변경
+
 
 ---20220214 변경점---
 
@@ -31,33 +71,6 @@
 2. Script에 유물 테스트와 관련된 TestArtifact 코드를 추가
 
 
----20220220 변경점---
-
----주요사항---
-1. Map관련 UI들을 통해 다음 맵을 선택할 수 있습니다
-2. 더불어 저장 관련 코드의 흐름이 변경되었습니다.
-
-
-
----수정---
-1. MapUIBtn 스크립트 파일이 추가되었습니다.
-2. 클래스 playerSave~를 그냥 Save~로 바꿨습니다.
-3. SaveBase에 curRoomRow 추가했습니다.
-4. SaveBase의 curRoomNumber, prevRoomNumber의 기본값을 -1로 설정했습니다. (killPlayer)
-5. MapUI가 SaveManager의 saving을 접근합니다.
-6. SaveManager의 saveRoomEnd, saveRoomClear, saveStageClear를 주석처리
-7. curRoomNumber의 수정을 MapUI가 합니다.
-8. SaveManager의 savePlayer의 인수를 추가.(bool player, bool map) : 즉 savePlayer가 map도 저장
-9. SwitchScene의 호출하는 메소드 변경
-10. 또 뭐있지 (직접 질문 환영)
-
----코드 변경---
-1. MapUI
-2. MapUIBtn 
-3. UIManager 
-4. SwitchScene 
-5. SaveManager 
-6. SaveBase 변경
 
 
 
@@ -95,5 +108,7 @@
 5. SpawnManager의 코드를 변경
 6. TileManager의 코드를 변경
 7. CharacterBase의 코드를 변경
+
+
 8. PlayerSaveManager의 코드를 변경
 9. BlockButton을 더 직관적이게 변경
