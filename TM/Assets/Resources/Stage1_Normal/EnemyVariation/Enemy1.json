@@ -13,7 +13,7 @@
     {
       "x": 1,
       "y": 1,
-      "wantedObject": "Enemy_Slime2"
+      "wantedObject": "Enemy_Normal_Golem2"
     },
     {
       "x": 3,
@@ -43,27 +43,27 @@
     {
       "x": -3,
       "y": -2,
-      "wantedObject": "Enemy_Slime1"
+      "wantedObject": "Enemy_Normal_Golem1"
     },
     {
       "x": 8,
       "y": 3,
-      "wantedObject": "Enemy_Slime1"
+      "wantedObject": "Enemy_Normal_Golem1"
     },
     {
       "x": -4,
       "y": 2,
-      "wantedObject": "Enemy_Slime2"
+      "wantedObject": "Enemy_Normal_Golem2"
     },
     {
       "x": -6,
       "y": 6,
-      "wantedObject": "Enemy_Slime1"
+      "wantedObject": "Enemy_Normal_Golem1"
     },
     {
       "x": 0,
       "y": -4,
-      "wantedObject": "Enemy_Slime2"
+      "wantedObject": "Enemy_Normal_Golem2"
     }
   ]
 }

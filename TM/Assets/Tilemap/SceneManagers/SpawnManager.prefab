@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd1c139b753bb08408848c8286ca6bd1, type: 3}
+  m_Sprite: {fileID: -8868272330977153355, guid: 5dd4696699b815a4994f78a855243bde, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,11 +104,6 @@ MonoBehaviour:
   hpBackground: {fileID: 0}
   hpForeground: {fileID: 0}
   directionArrow: {fileID: 6283885320565261193}
-  attackRange:
-  - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 0, y: -1, z: 0}
   maxHp: 20
   hp: 20
   isDestroyable: 1
@@ -117,11 +112,12 @@ MonoBehaviour:
   dirHud: 1
   gold: 0
   artifacts:
-  - 
-  - 
-  - 
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spawnManager: {fileID: 0}
-  UIManager: {fileID: 0}
+  uiManager: {fileID: 0}
+  curArtifact: 0
 --- !u!1 &3487735583837477002
 GameObject:
   m_ObjectHideFlags: 0
