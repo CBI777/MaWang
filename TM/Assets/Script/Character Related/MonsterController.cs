@@ -158,7 +158,7 @@ public class MonsterController : MonoBehaviour
         this.AttackFlag = false;
         float sec = 5.0f / attspd;
 
-        while(sec >= 0)
+        while (sec >= 0)
         {
             sec -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
@@ -166,21 +166,14 @@ public class MonsterController : MonoBehaviour
         this.AttackFlag = true;
     }
 
-
-
-    /*
-    void Start()
+    protected IEnumerator warnArea(Vector3 loc, List<Vector3Int> range, float beforeCast)
     {
-        StartCoroutine(randomMove(2.0f/transform.GetComponent<CharacterBase>().getMoveSpd()));
-    }
-
-    IEnumerator randomMove(float coolTime)
-    {
-        while (true)
+        foreach(Vector3Int p in range)
         {
-            moveToPlayer();
-            yield return new WaitForSeconds(coolTime);
+            Destroy(GameObject.Instantiate(
+                Resources.Load("Effect/Warning", typeof(GameObject)) as GameObject,
+                (loc + new Vector3(0, 0, -0.1f) + p), Quaternion.Euler(new Vector3(0, 0, 0))), beforeCast);
         }
+        yield return null;
     }
-    */
 }

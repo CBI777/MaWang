@@ -102,10 +102,7 @@ public class Player : CharacterBase
         {
             for (int i = 0; i< effectRange.Count; i++)
             {
-                GameObject.Instantiate(
-                Resources.Load("Effect/" + effectName, typeof(GameObject)) as GameObject,
-                (transform.position + effectRange[i]),
-                Quaternion.Euler(DirectionChange.dirToRotation(effectDir[i])));
+                EffectHelper.printEffect(effectName, (transform.position + effectRange[i]), DirectionChange.dirToRotation(effectDir[i]));
             }
         }
     }

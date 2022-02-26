@@ -150,11 +150,10 @@ public class SpawnManager : MonoBehaviour
         {
             if(tileManager.damagePlayer(damage, (originalGridPosition + range)))
             {
-                GameObject.Instantiate(
-                Resources.Load("Effect/" + effectName, typeof(GameObject)) as GameObject,
-                (originalGridPosition + range),
-                Quaternion.Euler(DirectionChange.dirToRotation(range)));
+                EffectHelper.printEffect(effectName, (originalGridPosition + range), DirectionChange.dirToRotation(range));
             }
         }
     }
+
+    
 }
