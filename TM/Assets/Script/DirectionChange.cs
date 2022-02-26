@@ -12,7 +12,7 @@ public static class DirectionChange
     public static Vector3Int dirToVector(Directions directions)
     {
         Vector3Int temp = new Vector3Int(0, 0, 0);
-        switch(directions)
+        switch (directions)
         {
             case Directions.E:
                 temp.x = 1;
@@ -26,15 +26,75 @@ public static class DirectionChange
             case Directions.S:
                 temp.y = -1;
                 break;
+            case Directions.O:
+                break;
         }
 
         return temp;
     }
 
     /// <summary>
+    /// 방향인 Direction을 Vector3로 바꿔준다.
+    /// </summary>
+    /// <param name="directions"></param>
+    /// <returns></returns>
+    public static Vector3 dirToNormalVec(Directions directions)
+    {
+        Vector3 temp = new Vector3(0, 0, 0);
+        switch (directions)
+        {
+            case Directions.E:
+                temp.x = 1;
+                break;
+            case Directions.N:
+                temp.y = 1;
+                break;
+            case Directions.W:
+                temp.x = -1;
+                break;
+            case Directions.S:
+                temp.y = -1;
+                break;
+            case Directions.O:
+                break;
+        }
+
+        return temp;
+    }
+
+    /// <summary>
+    /// Vector3Int를 Direction으로 바꿔준다. O는 지원하지 않는다.
+    /// </summary>
+    /// <param name="vec"></param>
+    /// <returns></returns>
+    public static Directions VecIntToDir(Vector3Int vec)
+    {
+        if ((vec.x + vec.y) == 1)//그냥 나가면 E
+        {
+            if (vec.y == 1)//N
+            {
+                return Directions.N;
+            }
+            return Directions.E;
+        }
+        else
+        {
+            if (vec.y == -1)//S
+            {
+                return Directions.S;
+            }
+            else//W
+            {
+                return Directions.W;
+            }
+        }
+    }
+
+    /// <summary>
     /// 방향인 Directions를 그에 맞는 회전으로 바꿔준다.
     /// 기준은 동쪽 = Vector(1,0) = Directions.E
     /// 사용할때는 Quaternion.Euler()의 매개변수로 사용할 것.
+    ///  O는 지원하지 않는다.
     /// </summary>
     /// <param name="directions"></param>
     /// <returns></returns>
@@ -63,15 +123,16 @@ public static class DirectionChange
     /// 방향인 Directions를 그에 맞는 회전으로 바꿔준다.
     /// 기준은 Vector3Int(1, 0, 0) = 동쪽.
     /// 사용할때는 Quaternion.Euler()의 매개변수로 사용할 것.
+    ///  O는 지원하지 않는다.
     /// </summary>
     /// <param name="vec"></param>
     /// <returns></returns>
     public static Vector3 dirToRotation(Vector3Int vec)
     {
         Vector3 temp = new Vector3(0f, 0f, 0f);
-        if((vec.x + vec.y) == 1)//그냥 나가면 E
+        if ((vec.x + vec.y) == 1)//그냥 나가면 E
         {
-            if(vec.y == 1)//N
+            if (vec.y == 1)//N
             {
                 temp.z = 90f;
             }

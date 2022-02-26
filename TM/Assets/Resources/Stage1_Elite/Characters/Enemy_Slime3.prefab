@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 2879298947764195397}
   m_Layer: 0
   m_Name: Enemy_Slime3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,7 +401,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1559429811144305195, guid: e71cef1e4abc1094f946bd014944aa3a, type: 3}
+  m_Sprite: {fileID: -7178361595078746961, guid: 34da8dc1a9a1ff241864ebb7e1d17156, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -432,11 +432,6 @@ MonoBehaviour:
   hpBackground: {fileID: 6527831446980355478}
   hpForeground: {fileID: 6527831445559040794}
   directionArrow: {fileID: 6172898323237936854}
-  attackRange:
-  - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 0, y: -1, z: 0}
   maxHp: 20
   hp: 20
   isDestroyable: 1
@@ -455,3 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839475558a00d4f4ea1dd426198a9dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loc: {x: 0, y: 0, z: 0}
+  playerLoc: {fileID: 11400000, guid: 27d7fa541436f334caeaf41d86841bd1, type: 2}
+  alertRange: 0
+  beforeCast: 0

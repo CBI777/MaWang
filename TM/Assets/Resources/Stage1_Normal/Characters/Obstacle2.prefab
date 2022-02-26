@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 8065615198057403663}
   m_Layer: 0
   m_Name: Obstacle2
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46bdf8009b88fe847a5cacd673ef4e78, type: 3}
+  m_Sprite: {fileID: -7758654770391990377, guid: fa7d3cf5c6e083c4e92df4918472126f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -255,7 +255,6 @@ MonoBehaviour:
   hpBackground: {fileID: 268685015879000870}
   hpForeground: {fileID: 4338436041240132839}
   directionArrow: {fileID: 8262578441118152118}
-  attackRange: []
   maxHp: 8
   hp: 8
   isDestroyable: 1

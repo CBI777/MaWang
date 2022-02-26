@@ -22,13 +22,10 @@ public class Artifact__BasicPotion : Artifact
     {
         player.hpHeal(8);
         print("used " + artifactName);
-        this.atDestroy(player);
-    }
-
-    public override void atDestroy(Player player)
-    {
         player.deleteArtifact();
     }
+
+    //public override void atDestroy(Player player) { }
 
     //public override void atClear(Player player) { }
 }

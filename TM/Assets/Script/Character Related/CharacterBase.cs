@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 
-public enum Directions { E, W, S, N }
+public enum Directions { E, W, S, N, O } //O = origin
 
 [System.Serializable]
 public class CharacterBase : MonoBehaviour
@@ -20,9 +20,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] private GameObject hpBackground;
     [SerializeField] private Image hpForeground;
     [SerializeField] protected GameObject directionArrow;
-
-    [SerializeField]
-    protected List<Vector3Int> attackRange;
 
     [SerializeField] protected int maxHp;
     [SerializeField] protected int hp;
@@ -48,18 +45,23 @@ public class CharacterBase : MonoBehaviour
     public int getMaxHp() { return this.maxHp; }
     public bool getIsDestroyable() { return this.isDestroyable; }
     public Directions getDirections() { return this.direction; }
-    public List<Vector3Int> getAttackRange()
-    {
-        return this.attackRange;
-    }
-    //22_2_9 - setDirection추가
+
+    //몬스터용
     public void setDirection(Directions dir, Vector3 loc)
     {
         if (hpHud) { hpBackground.transform.position = loc + (new Vector3(0, 0.5f)); }
         this.direction = dir;
+
+        //22_02_25 flip기능 추가
+        if (this.direction == Directions.S || this.direction == Directions.W)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else { gameObject.GetComponent<SpriteRenderer>().flipX = true; }
+
         if (dirHud) { directionArrow.transform.position = loc + (new Vector3(0, -0.4f)); rotateArrow(); }
     }
-    //2022_02_10 - 이쪽은 player가 사용할 것.
+    //이쪽이 player용
     public void setDirection(Vector3 dir, Vector3 loc)
     {
         if (hpHud) { hpBackground.transform.position = loc + (new Vector3(0, 0.5f)); }
@@ -69,7 +71,40 @@ public class CharacterBase : MonoBehaviour
         else if (dir.x == -1 && dir.y == 0) { this.direction = Directions.W; }
         else { this.direction = Directions.S; }
 
+        //22_02_25 flip기능 추가
+        if (this.direction == Directions.S || this.direction == Directions.W)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else { gameObject.GetComponent<SpriteRenderer>().flipX = true; }
+
         if (dirHud) { directionArrow.transform.position = loc + (new Vector3(0, -0.4f)); rotateArrow(); }
+    }
+
+
+    //22_02_25
+    /// <summary>
+    /// 지정된 값만큼 힘을 변경해주는 함수. 1이하로는 내려갈 수 없다.
+    /// </summary>
+    /// <param name="newstr">힘의 변화도</param>
+    public void changeStr(int plusStr)
+    {
+        this.strength += plusStr;
+        if (this.strength <= 0)
+        {
+            this.strength = 1;
+        }
+    }
+
+    //22_02_25
+    /// <summary>
+    /// 지정된 값으로 힘을 변경해주는 함수. 1이하로는 내려갈 수 없다.
+    /// </summary>
+    /// <param name="newStr">새로운 힘의 int</param>
+    public void setStr(int newStr)
+    {
+        if (newStr <= 0) { this.strength = 1; }
+        else { this.strength = newStr; }
     }
 
 

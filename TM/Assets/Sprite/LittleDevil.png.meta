@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: e71cef1e4abc1094f946bd014944aa3a
+guid: b7bc2c194ebdec9498eaf76e63ce0c94
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1559429811144305195
-    second: Monster_Stone_0
+      213: -889230706657889086
+    second: LittleDevil_0
   - first:
-      213: -1827350485425912072
-    second: Monster_Stone_1
+      213: -718993794667733260
+    second: LittleDevil_1
+  - first:
+      213: 835490501010571950
+    second: LittleDevil_2
+  - first:
+      213: -4266168012671947721
+    second: LittleDevil_3
+  - first:
+      213: -3798816150632111839
+    second: LittleDevil_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -38,7 +47,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -52,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 1024
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,43 +106,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Monster_Stone_0
+      name: LittleDevil_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 128
-        height: 128
+        y: 2048
+        width: 1024
+        height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b2a2969a62534a510800000000000000
-      internalID: 1559429811144305195
+      spriteID: 2c479463261d8a3f0800000000000000
+      internalID: -889230706657889086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Monster_Stone_1
+      name: LittleDevil_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 1024
+        y: 2048
+        width: 1024
+        height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f60d0c4a62f3a6e0800000000000000
-      internalID: -1827350485425912072
+      spriteID: 4fe9e1104fe9506f0800000000000000
+      internalID: -718993794667733260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LittleDevil_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea2c2fd1f22489b00800000000000000
+      internalID: 835490501010571950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LittleDevil_3
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ced8cabc68bc4c0800000000000000
+      internalID: -4266168012671947721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LittleDevil_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1216e8686d4e74bc0800000000000000
+      internalID: -3798816150632111839
       vertices: []
       indices: 
       edges: []

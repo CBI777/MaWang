@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curStage: 
-  stageVar: 0
+  levelManager: {fileID: 0}
+  roomVar: 0
   tileDatas: []
+  playerLoc: {fileID: 11400000, guid: 27d7fa541436f334caeaf41d86841bd1, type: 2}
 --- !u!156049354 &8255974696849982349
 Grid:
   m_ObjectHideFlags: 0

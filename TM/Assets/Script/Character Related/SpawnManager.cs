@@ -127,7 +127,6 @@ public class SpawnManager : MonoBehaviour
         {
             return true;
         }
-
         //print("Unable to move to " + (originalGridPosition + (Vector3)amount));
         return false;
     }
@@ -139,9 +138,23 @@ public class SpawnManager : MonoBehaviour
         bool temp = false;
         foreach (Vector3Int range in attackRange)
         {
-            temp = temp|(tileManager.damageObject(damage, (originalGridPosition + range)));
+            temp = temp | (tileManager.damageObject(damage, (originalGridPosition + range)));
         }
 
         return temp;
+    }
+
+    public void AttackPlayer(Vector3 originalGridPosition, List<Vector3Int> attackRange, int damage, string effectName)
+    {
+        foreach (Vector3Int range in attackRange)
+        {
+            if(tileManager.damagePlayer(damage, (originalGridPosition + range)))
+            {
+                GameObject.Instantiate(
+                Resources.Load("Effect/" + effectName, typeof(GameObject)) as GameObject,
+                (originalGridPosition + range),
+                Quaternion.Euler(DirectionChange.dirToRotation(range)));
+            }
+        }
     }
 }

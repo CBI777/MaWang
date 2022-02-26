@@ -18,13 +18,14 @@ public class TestArtifact : MonoBehaviour
         artName.Add("Artifact__Spear");
         artName.Add("Artifact__FourBladeSword");
         artName.Add("Artifact__Hand");
+        artName.Add("Artifact__Dumbbell");
     }
 
     public void changeArtifact()
     {
         player.deleteArtifact(artName[art], cur);
         art++; cur++;
-        if (art == 4) { art = 0; }
+        if (art == 5) { art = 0; }
         if (cur == 4) { cur = 1; }
     }
 

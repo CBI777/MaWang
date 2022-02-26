@@ -154,6 +154,8 @@ public class Player : CharacterBase
         //Artifact temp = this.artifacts[slot - 1];
         //Artifact temp = this.artifacts[curArtifact];
         this.artifacts[curArtifact] = Resources.Load<GameObject>("Artifacts/" + artifactName).GetComponent<Artifact>();
+        //22_02_25 atEarn추가
+        this.artifacts[curArtifact].atEarn(this);
         uiManager.changeArtifact((curArtifact + 1), this.artifacts[curArtifact].getRealArtifactName());
         //Destroy(temp);
     }
@@ -172,6 +174,8 @@ public class Player : CharacterBase
         //Artifact temp = this.artifacts[slot-1];
         this.artifacts[slot - 1].atDestroy(this);
         this.artifacts[slot - 1] = Resources.Load<GameObject>("Artifacts/" + artifactName).GetComponent<Artifact>();
+        //22_02_25 atEarn추가
+        this.artifacts[slot - 1].atEarn(this);
         uiManager.changeArtifact((slot), this.artifacts[slot - 1].getRealArtifactName());
         //Destroy(temp);
     }

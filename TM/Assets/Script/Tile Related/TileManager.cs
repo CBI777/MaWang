@@ -35,8 +35,8 @@ public class TileManager : MonoBehaviour
     public Dictionary<Vector3Int, GameObject> tileLocations
         = new Dictionary<Vector3Int, GameObject>();
 
-
-
+    [SerializeField]
+    private ScriptableLocation playerLoc;
 
     private void Awake()
     {
@@ -147,22 +147,43 @@ public class TileManager : MonoBehaviour
         return temp;
     }
 
+    public bool damagePlayer(int damage, Vector3 gridPosition)
+    {
+        bool temp = false;
+        Vector3Int pos = map.WorldToCell(gridPosition);
+        if (isTileDestroyable(pos) && tileLocations[pos].CompareTag("Player"))
+        {
+            temp = true;
+            if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
+            {
+                tileLocations.Remove(pos);
+            }
+        }
+
+        return temp;
+    }
+
     //타일의 (x, y) 위치에 캐릭터의 정보를 저장하는 함수
     public void placeObject(GameObject target, Vector3 gridPosition)
     {
         Vector3Int pos = map.WorldToCell(gridPosition);
+        if (target.CompareTag("Player")) { playerLoc.setLocation(pos.x, pos.y); }
+        else if(target.CompareTag("Enemy"))
+        {
+            target.GetComponent<MonsterController>().setLocation(pos.x, pos.y);
+        }
         tileLocations.Add(pos, target);
     }
 
     //(x, y)에 있었던 정보를 (z, w)로 옮기는 함수
+    //player용
     public bool moveObject(Vector3 originalGridPosition, Vector3 gridPosition)
     {
-        foreach (Vector3Int v in tileLocations.Keys) {
-            if (tileLocations[v].CompareTag("Player"))
-            Debug.Log(v);
-        }
-
-
+        /*foreach (Vector3Int v in tileLocations.Keys)
+            {
+                if (tileLocations[v].CompareTag("Player"))
+                    Debug.Log(v);
+            }*/
 
         Vector3Int originalPos = map.WorldToCell(originalGridPosition);
         Vector3Int newPos = map.WorldToCell(gridPosition);
@@ -174,16 +195,56 @@ public class TileManager : MonoBehaviour
 
         if (isTileSafe(newPos))
         {
+            playerLoc.setLocation(newPos.x, newPos.y);
             tileLocations.Add(newPos, target);
             tileLocations.Remove(originalPos);
-            foreach (Vector3Int v in tileLocations.Keys)
+            /*foreach (Vector3Int v in tileLocations.Keys)
             {
                 if (tileLocations[v].CompareTag("Player"))
                     Debug.Log(v);
-            }
+            }*/
+
             return true;
         }
         return false;
+    }
+    
+    public Directions moveObject(Vector3Int originalPos, Directions dir)
+    {
+        GameObject target = tileLocations[originalPos];
+        if (isTileSafe((originalPos + DirectionChange.dirToVector(dir))))
+        {
+            Vector3Int newPos = (originalPos + DirectionChange.dirToVector(dir));
+            target.GetComponent<MonsterController>().setLocation(newPos.x, newPos.y);
+            tileLocations.Add(newPos, target);
+            tileLocations.Remove(originalPos);
+
+            return (dir);
+        }
+        return (Directions.O);
+    }
+
+
+
+    //monster용
+    public Directions moveSequence(Vector3Int originalPos, List<Directions> Sequence)
+    {
+        GameObject target = tileLocations[originalPos];
+
+        foreach(Directions d in Sequence)
+        {
+            if(isTileSafe((originalPos + DirectionChange.dirToVector(d))))
+            {
+                Vector3Int newPos = (originalPos + DirectionChange.dirToVector(d));
+                target.GetComponent<MonsterController>().setLocation(newPos.x, newPos.y);
+                tileLocations.Add(newPos, target);
+                tileLocations.Remove(originalPos);
+
+                return (d);
+            }
+        }
+
+        return (Directions.O);
     }
 
     //디버깅용 - 해당 tile위에 있는 무언가의 characterName을 반환

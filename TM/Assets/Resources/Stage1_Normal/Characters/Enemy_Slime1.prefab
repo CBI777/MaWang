@@ -86,10 +86,10 @@ GameObject:
   - component: {fileID: 380935292606702138}
   - component: {fileID: 6670803611870358543}
   - component: {fileID: 3547563240093902049}
-  - component: {fileID: 2495271206479601887}
+  - component: {fileID: 1844659853699380852}
   m_Layer: 0
   m_Name: Enemy_Slime1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1559429811144305195, guid: e71cef1e4abc1094f946bd014944aa3a, type: 3}
+  m_Sprite: {fileID: 2767302116329075216, guid: 34da8dc1a9a1ff241864ebb7e1d17156, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,18 +180,13 @@ MonoBehaviour:
   hpBackground: {fileID: 6900126847346758924}
   hpForeground: {fileID: 6900126848768142208}
   directionArrow: {fileID: 90842186194841795}
-  attackRange:
-  - {x: 1, y: 0, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: 0, y: -1, z: 0}
   maxHp: 6
   hp: 6
   isDestroyable: 1
   direction: 0
   hpHud: 1
   dirHud: 1
---- !u!114 &2495271206479601887
+--- !u!114 &1844659853699380852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,9 +195,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6889894687622552253}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839475558a00d4f4ea1dd426198a9dfd, type: 3}
+  m_Script: {fileID: 11500000, guid: 07378f3ba51f3bf4f87a923c87bec57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loc: {x: 0, y: 0, z: 0}
+  playerLoc: {fileID: 11400000, guid: 27d7fa541436f334caeaf41d86841bd1, type: 2}
+  alertRange: 6
+  beforeCast: 1
+  readyRange: 1
+  attackRange:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
 --- !u!1 &6900126847346758924
 GameObject:
   m_ObjectHideFlags: 0

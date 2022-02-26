@@ -10,6 +10,8 @@ TagManager:
   - UIManager
   - InputManager
   - Text
+  - Enemy
+  - Obstacle
   layers:
   - Default
   - TransparentFX
