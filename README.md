@@ -1,5 +1,43 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
+---20220226 변경점---
+
+---주요사항---
+1. 몬스터 및 플레이어가 움직이는 방향에 따라서 sprite가 flip됩니다.
+2. 몬스터가 플레이어를 향해 걸어오는 AI가 Normal map에서 적용됩니다.
+3. 몬스터가 플레이어를 향해 공격을 해옴 - Warning Sign은 아직 미적용상태입니다.
+
+---수정---
+1. Artifacts/ArtifactImage 내부의 유물들의 이미지를 모두 변경
+
+2. 필요없는 sprite제거
+3. Elite몹의 sprite변경
+4. 장애물의 sprite변경
+
+5. NotUsed 폴더 삭제
+6. ScriptableFloatVariable 코드 삭제 - ScriptableLocation으로 변경
+
+
+---코드 변경---
+1. Player 코드 변경
+2. Characterbase 코드 변경
+3. TileManager 코드 변경
+4. SpawnManager 코드 변경
+5. DirectionChange 코드 변경 - static function 몇 개 더 추가
+6. TestArtifact 코드 변경 - 아령에 맞추어 처리
+7. Artifact__Potion 코드 변경 - bug fix
+8. MonsterController 코드 변경
+
+
+---추가---
+1. 새로운 유물 - 아령이 추가되었습니다. 공격시 맨손의 공격이 나가지만, 획득시 힘+2, 잃어버리면 다시 힘-2인 유물입니다.
+
+
+
+###########################################################################################################################################################
+
+
+
 ---20220224 변경---
 
 ---주요사항---
