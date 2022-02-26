@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
         do
         {
-            //await Task.Delay(2000);
+            await Task.Delay(2000);
             //2022_02_09 - 일부러 delay를 2초정도 줌. 이건 빼도 무방. debug / 너무 빠른 transition방지용이다.
         } while (scene.progress < 0.9f);
         ////2022_02_09 - Unity는 scene이 0.9가 되었을 때 load가 되기 때문에 0.9로 두어야함.

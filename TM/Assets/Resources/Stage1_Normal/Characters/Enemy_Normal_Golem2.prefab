@@ -174,9 +174,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Small Golem
   moveDistance: 1
-  moveSpeed: 2
+  moveSpeed: 4
   strength: 2
-  attackSpeed: 1
+  attackSpeed: 2
   hpBackground: {fileID: 2872818040024892751}
   hpForeground: {fileID: 2872818038628694979}
   directionArrow: {fileID: 906921775082897218}
@@ -202,6 +202,9 @@ MonoBehaviour:
   playerLoc: {fileID: 11400000, guid: 27d7fa541436f334caeaf41d86841bd1, type: 2}
   alertRange: 6
   beforeCast: 1
+  AttackFlag: 1
+  ActFlag: 1
+  MoveFlag: 1
   readyRange: 1
   attackRange:
   - {x: 1, y: 0, z: 0}

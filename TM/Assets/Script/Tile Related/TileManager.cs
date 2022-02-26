@@ -10,11 +10,9 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private string curStage;
 
-    //2022_02_09 - inspector가 좋다고 하셔서 levelManager도 inspector로 넣도록 했습니다.
     [SerializeField]
     private LevelManager levelManager;
-    //2022_02_09 이름 때문에 혼동을 주지 않기 위해서 StageVar -> RoomVar로 이름을 변경
-    //참고로, 이건 mapVariation의 갯수가 얼마나되는지를 알려주는 변수다.
+    //mapVariation의 갯수가 얼마나되는지를 알려주는 변수다.
     [SerializeField]
     private int roomVar;
 
@@ -72,9 +70,6 @@ public class TileManager : MonoBehaviour
         map.transform.parent = gameObject.transform;
     }
 
-    //2022_02_09 - 안쓰는 update지움
-
-
     //타일의 type을 확인(벽? 데미지타일? 일반 길?...)
     public tileType isTileType(Vector3Int gridPosition)
     {
@@ -82,27 +77,6 @@ public class TileManager : MonoBehaviour
 
         return dataFromTiles[wantedTile].type;
     }
-
-    /*
-    private void Update()
-    {
-        //디버깅용 - 필요한 정보를 보여주기 위한 부분
-        
-        if(Input.GetMouseButton(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int gridPosition = map.WorldToCell(mousePosition);
-
-            print("there is " + getTileObjectName(gridPosition));
-
-
-            TileBase clickedTile = map.GetTile(gridPosition);
-
-            tileType istype = dataFromTiles[clickedTile].type;
-            print("Tile " + clickedTile + "'s type is " + istype.ToString());
-        }
-       
-    }*/
 
 
     //타일의 (x, y)로 캐릭터의 위치를 변경할 수 있는지 확인할 때 사용
