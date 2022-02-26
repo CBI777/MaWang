@@ -10,6 +10,10 @@ public class SaveManager : MonoBehaviour
     private Player player;
     public SaveBase saving;
 
+    //2022_02_25 원래 findTag였던거 그냥 인스펙터 참조로 바꿨습니다 (findTag 는 NULLERROR가 뜨면 그 뒤의 코드가 전부 멈춰버림..)
+    [SerializeField] park.MapUI mapui;
+    [SerializeField] LevelManager levelManager;
+
     //2022_02_09
     //전 room이 이번 room과 같은지 확인하는 변수가 sameCheck.
     //전 room이 이번 room과 같다면 (불러오기)를 진행한거라,
@@ -40,10 +44,10 @@ public class SaveManager : MonoBehaviour
     public void Start()
     {
         Debug.Log(saving.prevRoomNumber +" " +saving.curRoomNumber + " " + saving.curRoomRow);
+        
         if (sameCheck == false)
         {
-            saving.roomType = GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().currentScene;
-            park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
+            saving.roomType = levelManager.currentScene;
             saving.prevRoomNumber = saving.curRoomNumber;
             switch (saving.roomType)
             {
@@ -81,21 +85,23 @@ public class SaveManager : MonoBehaviour
                     //이벤트
                     break;
                 default: //여기가 나머지 처리하는 곳인가봄? _Normal & _Elite
-                    if (mapui != null)
-                    {
-                        Debug.Log(saving.mapData);
-                        mapui.SetMapData(saving.mapData);
-                    }
-                    Debug.Log(saving.mapData);
-
+                    
                     saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
                     saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
                     saving.stageVar3 = -1;
                     break;
             }
+            
+
             savePlayer(false,false);
             Debug.Log(saving.prevRoomNumber + " " + saving.curRoomNumber + " " + saving.curRoomRow);
         }
+        if (mapui != null)
+        {
+            Debug.Log(saving.mapData);
+            mapui.SetMapData(saving.mapData);
+        }
+        Debug.Log(saving.roomType);
     }
 
     //2022_02_09
