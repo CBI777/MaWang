@@ -21,16 +21,10 @@ public class SwitchScene : MonoBehaviour
     //saveRoomEnd를 통해서 방이 끝났을 때 저장함수를 부르고, sceneName에 따라 다음 scene으로 이동한다.
     public static void changeScene(string sceneName)
     {
-        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(false,true);
-        GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
-    }
-    //2022_02_11 테스트를 위한 임시적인 함수
-    public static void testchangeScene(string sceneName)
-    {
+        //22_03_01
         GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(true,true);
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
     }
-
     //load를 하는 경우 사용한다.
     //원래 있었던 방이 어디었는지를 확인하기 위해서 saving내의 roomType을 확인한다.
     public static void loadLatestScene()
@@ -56,7 +50,10 @@ public class SwitchScene : MonoBehaviour
     //22_03_01
     public static void QuitGame()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
-
 }

@@ -82,12 +82,12 @@ public class CharacterBase : MonoBehaviour
     }
 
 
-    //22_02_25
+    //22_03_01 virtual로 변경
     /// <summary>
     /// 지정된 값만큼 힘을 변경해주는 함수. 1이하로는 내려갈 수 없다.
     /// </summary>
     /// <param name="newstr">힘의 변화도</param>
-    public void changeStr(int plusStr)
+    public virtual void changeStr(int plusStr)
     {
         this.strength += plusStr;
         if (this.strength <= 0)

@@ -36,11 +36,19 @@ public class LevelManager : MonoBehaviour
         scene.allowSceneActivation = true;
     }
 
+    //22_03_01
     public void levelClear()
     {
-        
+        if(currentScene == "Stage1_Boss")
+        {
+            //다이얼로그를 여기서 발동하도록 처리
+            //다이얼로그쪽은 여러모로 변경이 필요할 것으로 보인다.
+            //일단, 보스를 깨자마자 끄면 여기로는 올 수 없게 되므로...
+            //최악의 경우에는 if문을 빠져나가지도 못할 가능성이 크다.
+        }
+        transform.GetComponent<SaveManager>().saveRoomClear();
     }
-
+    //22_03_01
     public void gameOver()
     {
         transform.GetComponent<SaveManager>().killPlayer();

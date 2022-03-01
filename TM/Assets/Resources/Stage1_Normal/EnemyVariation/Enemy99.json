@@ -1,0 +1,9 @@
+{
+  "Items": [
+    {
+      "x": 0,
+      "y": 0,
+      "wantedObject": "Player"
+    }
+  ]
+}

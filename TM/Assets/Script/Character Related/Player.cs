@@ -18,6 +18,17 @@ public class Player : CharacterBase
     [SerializeField] private int curArtifact;
 
     public int getGold() { return this.gold; }
+    //22_03_01
+    public void changeGold(int amount)
+    {
+        this.gold += amount;
+        if(this.gold <= 0)
+        {
+            this.gold = 0;
+        }
+        uiManager.changeGold(this.gold);
+    }
+
     //2022_02_13 getCurArtifact 추가
     public int getCurArtifact() { return this.curArtifact; }
     public void setCurArtifact(int num) { this.curArtifact = num; }
@@ -32,6 +43,31 @@ public class Player : CharacterBase
         {
             return null;
         }
+    }
+    //22_03_01
+    public void changeMaxHP(int plusHp)
+    {
+        this.maxHp += plusHp;
+        this.hp += plusHp;
+        uiManager.changeHpBar();
+    }
+    //22_03_01
+    public override void changeStr(int plusStr)
+    {
+        base.changeStr(plusStr);
+        uiManager.changeSTR(this.strength);
+    }
+    //22_03_01
+    public void changeMovSpd(int plusSpd)
+    {
+        this.moveSpeed += plusSpd;
+        uiManager.changeMOVSPD(this.moveSpeed);
+    }
+    //22_03_01
+    public void changeAtkSpd(int plusAtkspd)
+    {
+        this.attackSpeed += plusAtkspd;
+        uiManager.changeATKSPD(this.attackSpeed);
     }
 
     public void updatePlayer(SaveBase player)
@@ -77,9 +113,7 @@ public class Player : CharacterBase
         {
             foreach(Vector3Int vec in attackRange)
             {
-                GameObject.Instantiate(
-                Resources.Load("Effect/" + effectName, typeof(GameObject)) as GameObject,
-                (transform.position + vec), Quaternion.Euler(DirectionChange.dirToRotation(vec)));
+                EffectHelper.printEffect(effectName, (transform.position + vec), DirectionChange.dirToRotation(vec));
             }
         }
     }
@@ -198,8 +232,9 @@ public class Player : CharacterBase
         {
             this.hp = 0;
             uiManager.changeHpBar();
+            //22_03_01
+            GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().gameOver();
             Destroy(gameObject);
-            //>>>>>>>>>>>>>LevelManager한테 killPlayer 실행하고 gameover시키는 코드 필요
             return true;
         }
         this.hp -= damage;

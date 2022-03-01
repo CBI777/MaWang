@@ -115,17 +115,11 @@ public class TileManager : MonoBehaviour
             if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
             {
                 tileLocations.Remove(pos);
-            }
-
-            //22_03_01
-            if (GameObject.FindWithTag("Player") == null)
-            {
-                levelManager.gameOver();
-                return temp;
-            }
-            if(GameObject.FindWithTag("Enemy") == null)
-            {
-                levelManager.levelClear();
+                //22_03_01 destroy는 나갈때까지 안됨. 즉, 마지막 적을 쓰러뜨렸다면 반드시 이 안에서 1이라는 값이 나옴.
+                if (GameObject.FindGameObjectsWithTag("Enemy").Length == 1)
+                {
+                    levelManager.levelClear();
+                }
             }
         }
 
@@ -142,12 +136,6 @@ public class TileManager : MonoBehaviour
             if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
             {
                 tileLocations.Remove(pos);
-            }
-            //22_03_01
-            if (GameObject.FindWithTag("Player") == null)
-            {
-                Debug.Log("tileManager act");
-                levelManager.gameOver();
             }
         }
 
@@ -194,7 +182,6 @@ public class TileManager : MonoBehaviour
                 if (tileLocations[v].CompareTag("Player"))
                     Debug.Log(v);
             }*/
-
             return true;
         }
         return false;
