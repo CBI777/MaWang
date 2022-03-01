@@ -47,4 +47,16 @@ public class SwitchScene : MonoBehaviour
         //changeScene("Stage1_Start");
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene("Stage1_Start");
     }
+
+    //22_03_01
+    public static void toTitle()
+    {
+        GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene("Title");
+    }
+    //22_03_01
+    public static void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

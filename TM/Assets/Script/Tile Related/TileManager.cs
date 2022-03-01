@@ -116,6 +116,17 @@ public class TileManager : MonoBehaviour
             {
                 tileLocations.Remove(pos);
             }
+
+            //22_03_01
+            if (GameObject.FindWithTag("Player") == null)
+            {
+                levelManager.gameOver();
+                return temp;
+            }
+            if(GameObject.FindWithTag("Enemy") == null)
+            {
+                levelManager.levelClear();
+            }
         }
 
         return temp;
@@ -131,6 +142,12 @@ public class TileManager : MonoBehaviour
             if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
             {
                 tileLocations.Remove(pos);
+            }
+            //22_03_01
+            if (GameObject.FindWithTag("Player") == null)
+            {
+                Debug.Log("tileManager act");
+                levelManager.gameOver();
             }
         }
 

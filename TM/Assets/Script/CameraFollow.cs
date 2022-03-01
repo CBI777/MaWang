@@ -25,7 +25,11 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 desiredPosition = target.transform.position + offset;
-        this.transform.position = Vector3.SmoothDamp(this.transform.position, desiredPosition, ref velocity, smoothSpeed);
+        //22_03_01 player가 죽으면 더이상 안따라다니도록 조치
+        if(target != null)
+        {
+            Vector3 desiredPosition = target.transform.position + offset;
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, desiredPosition, ref velocity, smoothSpeed);
+        }
     }
 }

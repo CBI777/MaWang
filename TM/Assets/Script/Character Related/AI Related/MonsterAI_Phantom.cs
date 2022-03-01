@@ -8,9 +8,6 @@ public class MonsterAI_Phantom : MonsterController
     private int readyRange = 8;
 
     [SerializeField]
-    private int escapeRange = 3;
-
-    [SerializeField]
     List<Vector3Int> attackRange = new List<Vector3Int>
     { new Vector3Int(0, 0, 0), new Vector3Int(1, 0, 0), new Vector3Int(0, 1, 0), new Vector3Int(-1, 0, 0), new Vector3Int(0, -1, 0),
       new Vector3Int(2, 0, 0), new Vector3Int(0, 2, 0), new Vector3Int(-2, 0, 0), new Vector3Int(0, -2, 0),

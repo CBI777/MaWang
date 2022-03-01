@@ -35,4 +35,15 @@ public class LevelManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
     }
+
+    public void levelClear()
+    {
+        
+    }
+
+    public void gameOver()
+    {
+        transform.GetComponent<SaveManager>().killPlayer();
+        GameObject.FindWithTag("UIManager").GetComponent<UIManager>().gameOver();
+    }
 }

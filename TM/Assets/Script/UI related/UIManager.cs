@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel;
+    //22_03_01 gameOver를 위한 패널의 추가
+    [SerializeField] private RectTransform gameOverPanel;
     //모든 씬에서 있을 것으로 예상
     //이 외의 대화 진행이나 이벤트, 상점만의 UI 등은 이 클래스를 상속받아서 활용하는걸로? _02_07_06:42
     //아니면 얘네는 기본UI로 냅두고 새로운 UI에 대한 건 따로 스크립트를 만들어서 그것들로 조립하는 식으로? _02_07_06:48
@@ -34,7 +36,8 @@ public class UIManager : MonoBehaviour
 
     private bool pauseFlag = false;
     private bool attackFlag = true, moveFlag = true;
-
+    //22_03_01 게임오버를 위한 flag 추가
+    private bool gameOverFlag = false;
 
     public void Start()
     {
@@ -62,7 +65,9 @@ public class UIManager : MonoBehaviour
 
     public void Escape(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        //22_03_01 게임오버가 되면 ESC도 안먹히게 하고 싶다.
+        //그래서 gameoverflag도 검사를 하도록 바꾸었다.
+        if (context.performed && !gameOverFlag)
         {
             if (panelStack.Count == 0)
             {
@@ -83,6 +88,21 @@ public class UIManager : MonoBehaviour
         panelStack.Pop().gameObject.SetActive(false);
         panelStack.Peek().gameObject.SetActive(true);
     }
+
+    //22_03_01 게임오버를 위한 함수
+    public void gameOver()
+    {
+        print("Waaaa");
+        //gameOverFlag가 true로 바뀌었어도, player의 기본적인 움직임을 막는것은 pauseFlag.
+        gameOverFlag = true;
+        pauseFlag = true;
+        Time.timeScale = 0f;
+        AudioListener.pause = true;
+        gameOverPanel.gameObject.SetActive(true);
+        panelStack.Push(gameOverPanel);
+    }
+
+    
     public void Pause()
     {
         if (pausePanel != null)
