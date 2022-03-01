@@ -1,6 +1,46 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
 
+
+----20220301 / 23:13----
+//22_03_01  로 찾아보시면 빠르게 변경사항을 확인할 수 있습니다.
+
+---주요사항---
+1. 적을 모두 물리쳤을 때, 결산 화면이 뜹니다. Normal과 Elite에서 동작하나, Elite에서는 실험횟수가 모자랍니다.
+결산화면에서는 움직일 수 없으며, ESC로 메뉴를 띄우는 것만 가능합니다.
+2. 결산화면에서 나가게 될 경우, 이어하기를 누르면 결산화면으로 다시 돌아옵니다.
+3. 게임 오버 화면이 추가되었습니다. 주인공이 죽게 되면 gameOver화면이 뜨며, gameover화면에서는 타이틀로 돌아가기와 quit만 작동됩니다.
+4. Player의 공격 effect가 가끔 적의 아래에서 발동되는 버그를 수정하였습니다.
+5. 결산화면에서 유물 보상을 얻을 경우, 유물 보상의 위에 커서를 대면 설명이 나옵니다.
+
+---수정---
+1. Canvas 내부에 새로운 UI를 추가하였습니다. ClearAward, Description 그리고 gameover입니다.
+
+
+---코드 변경---
+1. TileManager 코드 변경 => 적 섬멸 완료를 체크하는 코드를 추가
+2. LevelManager 코드 변경 => level clear나 game over시 발동하는 코드를 추가
+3. UIManger 코드 변경 => gameover와 level clear시 ui를 위한 코드를 대거 추가 / 변경
+4. CameraFollow 코드 변경 => gameover시의 처리와 관련된 코드를 변경
+5. Player 코드 변경 => gameover시의 처리와 관련된 코드를 추가 / 능력치 관련 코드 추가
+6. SaveManager 코드 변경 => level clear시와 관련된 코드를 추가 / 변경
+7. SwitchScene 코드 변경 => 새로운 함수를 두개 추가 / map button을 이용할 때 changeScene을 써서 저장이 제대로 되지 않던 오류 수정
+8. SaveBase 코드 변경 => stageFlag를 추가
+
+---추가---
+1. ImageAnimation 코드를 UI Related 폴더에 추가
+2. EnemyVariation에 Enemy99를 각각 추가. 이는 클리어하고 저장하고 껐다 켰을 때 player만 나오도록 하기 위함.
+3. ScriptableArtifact 스크립트 추가
+4. SceneManagers에 유물 백과사전 역할을 하는 ArtifactDictionary를 추가. NULL인 0번을 제외하고 List의 n번째 유물을 불러올 수 있게 해준다.
+5. ClearPanel 스크립트 추가
+
+
+##############################################################################
+
+
+
+
+
 ----20220226 / 22:56----
 1. 새로운 몬스터인 Phantom을 추가하였습니다.
 2. Phantom의 AI를 추가하였습니다.
