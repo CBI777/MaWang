@@ -10,9 +10,6 @@ public class ClearPanel : MonoBehaviour
     ScriptableArtifact artifactDictionary;
 
     [SerializeField]
-    UIManager uiManager;
-
-    [SerializeField]
     UnityEngine.UI.Button gold;
     [SerializeField]
     UnityEngine.UI.Button artifact0;
@@ -76,7 +73,7 @@ public class ClearPanel : MonoBehaviour
         goldImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         goldImage.GetComponent<ImageAnimation>().enabled = true;
         gold.onClick.AddListener( () =>
-        { this.changeGold(); gold.interactable = false; goldImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); goldImage.GetComponent<ImageAnimation>().enabled = false; }
+        { this.changeGold(); gold.interactable = false; goldImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); goldImage.GetComponent<ImageAnimation>().enabled = false; SoundEffecter.playSFX("EarnIt"); }
         );
 
         if (artiAward != 0)
@@ -89,44 +86,47 @@ public class ClearPanel : MonoBehaviour
             artifactText2.text = "3번 유물과 교체";
             artifactImage.sprite = Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactDictionary.getArtifact(arti));
             artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            //22_03_02
+            artifactImage.GetComponent<EventTrigger>().enabled = true;
             description.text = artifactDictionary.getArtifactDescription(artiAward);
             artifact0.onClick.AddListener(() =>
-            { this.changeArtifact(1); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(1); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); SoundEffecter.playSFX("EarnIt"); });
             artifact1.onClick.AddListener(() =>
-            { this.changeArtifact(2); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(2); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); SoundEffecter.playSFX("EarnIt"); });
             artifact2.onClick.AddListener(() =>
-            { this.changeArtifact(3); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(3); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); SoundEffecter.playSFX("EarnIt"); });
         }
 
         if(statChangeAward != 0)
         {
             hp.interactable = true;
-            hpText.text = "체력 증가";
+            hpText.text = "체력 " + (this.statChangeAward * 2) + "증가";
             atkspd.interactable = true;
-            atkspdText.text = "공격속도 증가";
+            atkspdText.text = "공격속도 " + (this.statChangeAward) + "증가";
             movspd.interactable = true;
-            movspdText.text = "이동속도 증가";
+            movspdText.text = "이동속도 " + (this.statChangeAward) + "증가";
             str.interactable = true;
-            strText.text = "힘 증가";
+            strText.text = "힘 " + (this.statChangeAward) + "증가";
             statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
 
             hp.onClick.AddListener(() =>
             { this.changeHp(); hp.interactable = false; atkspd.interactable = false; movspd.interactable = false; str.interactable = false;
-                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); SoundEffecter.playSFX("EarnIt");
+            });
             atkspd.onClick.AddListener(() =>
             {
                 this.changeAgl(); hp.interactable = false; atkspd.interactable = false; movspd.interactable = false; str.interactable = false;
-                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
+                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); SoundEffecter.playSFX("EarnIt");
             });
             movspd.onClick.AddListener(() =>
             {
                 this.changeSpd(); hp.interactable = false; atkspd.interactable = false; movspd.interactable = false; str.interactable = false;
-                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
+                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); SoundEffecter.playSFX("EarnIt");
             });
             str.onClick.AddListener(() =>
             {
                 this.changeStr(); hp.interactable = false; atkspd.interactable = false; movspd.interactable = false; str.interactable = false;
-                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f);
+                statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); SoundEffecter.playSFX("EarnIt");
             });
         }
     }

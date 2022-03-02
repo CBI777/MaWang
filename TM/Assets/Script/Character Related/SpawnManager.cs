@@ -144,13 +144,14 @@ public class SpawnManager : MonoBehaviour
         return temp;
     }
 
-    public void AttackPlayer(Vector3 originalGridPosition, List<Vector3Int> attackRange, int damage, string effectName)
+    public void AttackPlayer(Vector3 originalGridPosition, List<Vector3Int> attackRange, int damage, string effectName, string soundName)
     {
         foreach (Vector3Int range in attackRange)
         {
             if(tileManager.damagePlayer(damage, (originalGridPosition + range)))
             {
                 EffectHelper.printEffect(effectName, (originalGridPosition + range), DirectionChange.dirToRotation(range));
+                SoundEffecter.playSFX(soundName);
             }
         }
     }

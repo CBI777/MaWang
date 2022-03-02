@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 9426005}
   - component: {fileID: 9426004}
   - component: {fileID: 9426003}
+  - component: {fileID: 9426006}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -206,6 +207,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &9426006
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9426002}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 56140fa4bd46f8d4bb75f2757ca5400c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.677
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &37373050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1336,7 @@ GameObject:
   - component: {fileID: 502695067}
   - component: {fileID: 502695071}
   - component: {fileID: 502695070}
+  - component: {fileID: 502695069}
   - component: {fileID: 502695068}
   m_Layer: 5
   m_Name: Button_NewGame
@@ -1323,6 +1421,30 @@ MonoBehaviour:
           m_StringArgument: Stage1_Normal
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 502695069}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Button_Sure
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &502695069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502695066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dfdf9e59db7fa49965ecefb50739a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &502695070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2978,6 +3100,7 @@ GameObject:
   - component: {fileID: 1674306462}
   - component: {fileID: 1674306461}
   - component: {fileID: 1674306460}
+  - component: {fileID: 1674306463}
   m_Layer: 5
   m_Name: Btn_Cancel
   m_TagString: Untagged
@@ -3061,6 +3184,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1674306463}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Button_No
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1674306461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3099,6 +3234,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674306458}
   m_CullTransparentMesh: 1
+--- !u!114 &1674306463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674306458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dfdf9e59db7fa49965ecefb50739a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1700726410
 GameObject:
   m_ObjectHideFlags: 0
@@ -3245,6 +3392,7 @@ GameObject:
   - component: {fileID: 1776013730}
   - component: {fileID: 1776013732}
   - component: {fileID: 1776013729}
+  - component: {fileID: 1776013734}
   - component: {fileID: 1776013733}
   m_Layer: 5
   m_Name: Button_LoadGame
@@ -3329,6 +3477,18 @@ MonoBehaviour:
           m_StringArgument: Stage1_Normal
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1776013734}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Button_Yes
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1776013730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3392,6 +3552,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 748065728}
+--- !u!114 &1776013734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776013727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dfdf9e59db7fa49965ecefb50739a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1800527759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,6 +3820,7 @@ GameObject:
   - component: {fileID: 1843794943}
   - component: {fileID: 1843794942}
   - component: {fileID: 1843794941}
+  - component: {fileID: 1843794944}
   m_Layer: 5
   m_Name: Btn_Accept
   m_TagString: Untagged
@@ -3731,6 +3904,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1843794944}
+        m_TargetAssemblyTypeName: ButtonSFX, Assembly-CSharp
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Button_Yes
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1843794942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,6 +3954,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843794939}
   m_CullTransparentMesh: 1
+--- !u!114 &1843794944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843794939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dfdf9e59db7fa49965ecefb50739a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882999463
 GameObject:
   m_ObjectHideFlags: 0

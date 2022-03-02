@@ -108,15 +108,19 @@ public class TileManager : MonoBehaviour
     public bool damageObject(int damage, Vector3 gridPosition)
     {
         bool temp = false;
+        string label;
         Vector3Int pos = map.WorldToCell(gridPosition);
+        
         if (isTileDestroyable(pos))
         {
             temp = true;
             if (tileLocations[pos].GetComponent<CharacterBase>().hpDamage(damage))
             {
+                label = tileLocations[pos].tag;
                 tileLocations.Remove(pos);
-                //22_03_01 destroy는 나갈때까지 안됨. 즉, 마지막 적을 쓰러뜨렸다면 반드시 이 안에서 1이라는 값이 나옴.
-                if (GameObject.FindGameObjectsWithTag("Enemy").Length == 1)
+                //22_03_02 destroy는 나갈때까지 안됨. 즉, 마지막 적을 쓰러뜨렸다면 반드시 이 안에서 1이라는 값이 나옴.
+                //추가적으로 label이 enemy여야만 작동을 하게된다.
+                if (label == "Enemy" && GameObject.FindGameObjectsWithTag("Enemy").Length == 1)
                 {
                     levelManager.levelClear();
                 }

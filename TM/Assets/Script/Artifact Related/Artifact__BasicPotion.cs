@@ -22,6 +22,7 @@ public class Artifact__BasicPotion : Artifact
     {
         player.hpHeal(8);
         print("used " + artifactName);
+        SoundEffecter.playSFX("Heal");
         player.deleteArtifact();
     }
 

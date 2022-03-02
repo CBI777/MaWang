@@ -25,7 +25,7 @@ public class Artifact__FourBladeSword : Artifact
         range.Add(new Vector3Int(0, -1, 0));
         range.Add(new Vector3Int(1, 0, 0));
         range.Add(new Vector3Int(-1, 0, 0));
-        player.attack(range, 1f, "SwordSlash");
+        player.attack(range, 1f, "SwordSlash", "Slash1");
         print("used " + artifactName);
     }
 
