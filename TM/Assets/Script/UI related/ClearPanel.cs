@@ -89,13 +89,15 @@ public class ClearPanel : MonoBehaviour
             artifactText2.text = "3번 유물과 교체";
             artifactImage.sprite = Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactDictionary.getArtifact(arti));
             artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            //22_03_02
+            artifactImage.GetComponent<EventTrigger>().enabled = true;
             description.text = artifactDictionary.getArtifactDescription(artiAward);
             artifact0.onClick.AddListener(() =>
-            { this.changeArtifact(1); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(1); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); });
             artifact1.onClick.AddListener(() =>
-            { this.changeArtifact(2); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(2); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); });
             artifact2.onClick.AddListener(() =>
-            { this.changeArtifact(3); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.5f); });
+            { this.changeArtifact(3); artifact0.interactable = false; artifact1.interactable = false; artifact2.interactable = false; artifactImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f); });
         }
 
         if(statChangeAward != 0)

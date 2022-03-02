@@ -226,7 +226,7 @@ public class SaveManager : MonoBehaviour
         {
             case "Stage1_Normal":
                 gold = Random.Range(40, 61);
-                //artifact = Random.Range(3, 6); //µð¹ö±ë¿ë
+                artifact = Random.Range(3, 6); //µð¹ö±ë¿ë
                 statusChange = 1;
                 break;
             case "Stage1_Elite":
