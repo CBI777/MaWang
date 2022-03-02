@@ -48,8 +48,7 @@ public class Player : CharacterBase
     public void changeMaxHP(int plusHp)
     {
         this.maxHp += plusHp;
-        this.hp += plusHp;
-        uiManager.changeHpBar();
+        hpHeal(plusHp);
     }
     //22_03_01
     public override void changeStr(int plusStr)

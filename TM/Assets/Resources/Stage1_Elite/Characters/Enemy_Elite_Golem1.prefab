@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 8147875114865312}
   - component: {fileID: 6469100189510720661}
   - component: {fileID: 3778187119082198139}
-  - component: {fileID: 2879298947764195397}
+  - component: {fileID: 2850821817708431336}
   m_Layer: 0
   m_Name: Enemy_Elite_Golem1
   m_TagString: Enemy
@@ -438,7 +438,7 @@ MonoBehaviour:
   direction: 0
   hpHud: 1
   dirHud: 1
---- !u!114 &2879298947764195397
+--- !u!114 &2850821817708431336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,10 +447,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6541613031024618023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839475558a00d4f4ea1dd426198a9dfd, type: 3}
+  m_Script: {fileID: 11500000, guid: c4cc9cc06c327b24e929544eedf9d54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loc: {x: 0, y: 0, z: 0}
   playerLoc: {fileID: 11400000, guid: 27d7fa541436f334caeaf41d86841bd1, type: 2}
-  alertRange: 0
-  beforeCast: 0
+  alertRange: 9
+  beforeCast: 2
+  AttackFlag: 1
+  ActFlag: 1
+  MoveFlag: 1
+  readyRange1: 1
+  attackRange1:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 0, y: -1, z: 0}
