@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel;
+    [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel, dialogPanel;
     //모든 씬에서 있을 것으로 예상
     //이 외의 대화 진행이나 이벤트, 상점만의 UI 등은 이 클래스를 상속받아서 활용하는걸로? _02_07_06:42
     //아니면 얘네는 기본UI로 냅두고 새로운 UI에 대한 건 따로 스크립트를 만들어서 그것들로 조립하는 식으로? _02_07_06:48
@@ -24,17 +24,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private park.MapUI mapUI;
     [SerializeField] private Player player;
 
+    //2022_02_28 
+    [SerializeField] private List<string> dialog;
+    private IEnumerator NewDialogEnumerator;
+
     private Stack<RectTransform> panelStack;
     //UI들은 큼직한 Panel 단위로 묶어서 관리할 것.
     //Main Panel을 제외하고 Input의 제어권을 가진 Panel은 단 하나만 존재할것.
     //하나를 연 상태에서 다른 하나를 또 열면 그 전 상태로 돌아가기 위해 ESC를 사용.
     //위와 같은 규칙을 준수하기 위해 만들어진 스택이라고 볼 수 있다.
 
-
-
     private bool pauseFlag = false;
     private bool attackFlag = true, moveFlag = true;
 
+    
 
     public void Start()
     {
@@ -55,6 +58,17 @@ public class UIManager : MonoBehaviour
         //2022_02_16
         //mapUI.debugMapInfos();
         mapUI.MapDraw();
+
+
+        //2022_02_28
+        if (dialogPanel != null)
+        {
+            pauseFlag = true;
+            Time.timeScale = 0f;
+            AudioListener.pause = true;
+            NewDialogEnumerator = DialogProgress();
+            NewDialogEnumerator.MoveNext();
+        }
     }
 
     public bool getAttackFlag() { return attackFlag; }
@@ -262,5 +276,35 @@ public class UIManager : MonoBehaviour
     {
         mainPanel.Find("panel_main").Find("Img_Art" + num.ToString()).GetComponent<Image>().sprite =
             Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactName);
+    }
+
+    public IEnumerator DialogProgress()
+    {
+        int index = 0;
+        while (index < dialog.Count)
+        {
+
+            dialogPanel.gameObject.SetActive(true); 
+            string[] tempStr;
+            tempStr = dialog[index].Split('_');
+            foreach(Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
+            {
+                Debug.Log(index + " " + r.gameObject.name + " " + tempStr[0] +" "+ r.gameObject.name.Equals(tempStr[0]));
+                if (r.gameObject.name.Equals(tempStr[0])) r.enabled = true;
+                else r.enabled = false;
+            }
+            dialogPanel.Find("Background").Find("Img_Name").Find("Text").GetComponent<Text>().text = tempStr[0];
+            dialogPanel.Find("Background").Find("Text").GetComponent<Text>().text = tempStr[1];
+            yield return index;
+            index++;
+        }
+        pauseFlag = false;
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+        dialogPanel.gameObject.SetActive(false);
+    }
+    public void DialogNext()
+    {
+        NewDialogEnumerator.MoveNext();
     }
 }

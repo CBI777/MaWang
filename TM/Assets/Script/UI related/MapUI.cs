@@ -369,7 +369,7 @@ namespace park
                         {
                             newBoxUI.anchoredPosition = new Vector2(i * grid, (grid - scrollRect.content.rect.height) / 2);
                             newCellUI.Find("Boss").gameObject.SetActive(true);
-                            if ((mapInfos[saving.curRoomRow][saving.curRoomNumber] & ~cell.ClrLoc) == cell.PreBoss)
+                            if (saving.curRoomNumber > -1 && saving.curRoomNumber < col && saving.curRoomRow > -1 && saving.curRoomRow < row && (mapInfos[saving.curRoomRow][saving.curRoomNumber] & ~cell.ClrLoc) == cell.PreBoss)
                             {
                                 selectables.Add(newCellUI);
                             }
