@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f75b7c8fa8c93824d8bc1b58db7de276
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - artifactDictionary: {fileID: 11400000, guid: 947965fdc1b09ae4fb99b3a609531241, type: 2}
+  - gold: {instanceID: 0}
+  - artifact: {instanceID: 0}
+  - hp: {instanceID: 0}
+  - atkspd: {instanceID: 0}
+  - movspd: {instanceID: 0}
+  - str: {instanceID: 0}
+  - goldText: {instanceID: 0}
+  - goldImage: {instanceID: 0}
+  - artifactText: {instanceID: 0}
+  - artifactImage: {instanceID: 0}
+  - statusBackground: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

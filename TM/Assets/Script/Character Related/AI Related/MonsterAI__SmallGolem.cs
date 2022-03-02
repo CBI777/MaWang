@@ -20,9 +20,9 @@ public class MonsterAI__SmallGolem : MonsterController
         if(AttackFlag)
         {
             this.ActFlag = false;
-
-            StartCoroutine(warnArea(transform.position, attackRange, beforeCast));
             float sec = 1.0f * this.beforeCast;
+            StartCoroutine(warnArea(transform.position, attackRange, sec));
+            
             while (sec >= 0f)
             {
                 sec -= Time.deltaTime;

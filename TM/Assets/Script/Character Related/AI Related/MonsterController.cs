@@ -143,7 +143,7 @@ public class MonsterController : MonoBehaviour
     protected IEnumerator moveCoolTime()
     {
         this.MoveFlag = false;
-        float sec = (2.0f / movspd);
+        float sec = (4.0f / movspd);
 
         while (sec >= 0)
         {
@@ -172,7 +172,7 @@ public class MonsterController : MonoBehaviour
         {
             Destroy(GameObject.Instantiate(
                 Resources.Load("Effect/Warning", typeof(GameObject)) as GameObject,
-                (loc + new Vector3(0, 0, -0.1f) + p), Quaternion.Euler(new Vector3(0, 0, 0))), beforeCast);
+                (loc + new Vector3(0, 0, -0.1f) + p), Quaternion.Euler(new Vector3(0, 0, 0)), transform), beforeCast);
         }
         yield return null;
     }

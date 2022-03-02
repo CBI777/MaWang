@@ -7,6 +7,11 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
+    
+    //22_03_01 gameOver를 위한 패널의 추가
+    [SerializeField] private RectTransform gameOverPanel;
+    //22_03_01 levelClear를 위한 패널의 추가
+    [SerializeField] private RectTransform levelClearPanel;
     [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel, dialogPanel;
     //모든 씬에서 있을 것으로 예상
     //이 외의 대화 진행이나 이벤트, 상점만의 UI 등은 이 클래스를 상속받아서 활용하는걸로? _02_07_06:42
@@ -18,8 +23,6 @@ public class UIManager : MonoBehaviour
     //2022_02_09 - 테스트를 위해서 현재 위치를 알려주는 string인 whereAmI를 생성
     [SerializeField] private LevelManager levelManager;
     private string whereAmI;
-    [SerializeField] private SaveBase saving;
-    [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private park.MapUI mapUI;
     [SerializeField] private Player player;
@@ -36,25 +39,39 @@ public class UIManager : MonoBehaviour
 
     private bool pauseFlag = false;
     private bool attackFlag = true, moveFlag = true;
+    //22_03_01 게임오버를 위한 flag 추가
+    private bool gameOverFlag = false;
+    //22_03_01 보상을 위한 flag 추가
+    private bool clearFlag = false;
 
-    
-
-    public void Start()
+    //22_03_01 타이밍 문제로 awake추가
+    public void Awake()
     {
         panelStack = new Stack<RectTransform>(8);
         Time.timeScale = 1f; // 2022_02_20 씬 전환 전 paused 상태에서 진행하면 시간이 멈춰서 씬 시작시 자동으로 풀어주는 역할
+    }
 
-
+    public void Start()
+    {
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
         whereAmI = "Room" + (levelManager.GetComponent<SaveManager>().saving.curRoomNumber+1) + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
+        //22_03_01
+        if(levelManager.GetComponent<SaveManager>().saving.stageFlag)
+        {
+            displayClearAward(levelManager.GetComponent<SaveManager>().saving.stageVar3);
+        }
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
         //2022_02_14
         changeArtifact(1, player.getArtifact(0).getRealArtifactName());
         changeArtifact(2, player.getArtifact(1).getRealArtifactName());
         changeArtifact(3, player.getArtifact(2).getRealArtifactName());
-
+        //22_03_01
+        changeATKSPD(player.getAttackSpd());
+        changeMOVSPD(player.getMoveSpd());
+        changeSTR(player.getStr());
+        changeGold(player.getGold());
         //2022_02_16
         //mapUI.debugMapInfos();
         mapUI.MapDraw();
@@ -76,19 +93,36 @@ public class UIManager : MonoBehaviour
 
     public void Escape(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        //22_03_01 게임오버가 되면 ESC도 안먹히게 하고 싶다.
+        //그래서 gameoverflag도 검사를 하도록 바꾸었다.
+        //또한, clear화면과 stack의 문제점을 해결하려고 clearFlag의 검사를 추가하였다.
+        if (context.performed && !gameOverFlag)
         {
-            if (panelStack.Count == 0)
+            if(clearFlag)
             {
-                Pause();
-            }
-            else if (panelStack.Count == 1)
-            {
-                Resume();
+                if (panelStack.Count == 1)
+                {
+                    Pause();
+                }
+                else
+                {
+                    BackUI();
+                }
             }
             else
             {
-                BackUI();
+                if (panelStack.Count == 0)
+                {
+                    Pause();
+                }
+                else if (panelStack.Count == 1)
+                {
+                    Resume();
+                }
+                else
+                {
+                    BackUI();
+                }
             }
         }
     }
@@ -97,6 +131,36 @@ public class UIManager : MonoBehaviour
         panelStack.Pop().gameObject.SetActive(false);
         panelStack.Peek().gameObject.SetActive(true);
     }
+
+    //22_03_01 게임오버를 위한 함수
+    public void gameOver()
+    {
+        //gameOverFlag가 true로 바뀌었어도, player의 기본적인 움직임을 막는것은 pauseFlag.
+        gameOverFlag = true;
+        pauseFlag = true;
+        Time.timeScale = 0f;
+        AudioListener.pause = true;
+        gameOverPanel.gameObject.SetActive(true);
+        panelStack.Push(gameOverPanel);
+    }
+
+    //22_03_01 clear를 위한 함수
+    public void displayClearAward(int award)
+    {
+        mapUI.SelectableButtonsActive();
+        clearFlag = true;
+        pauseFlag = true;
+        int gold = award % 1000;
+        int artifactNum = (award / 1000) % 1000;
+        int statusChange = award / 1000000;
+        //print("gold :" + gold + ", artifactNum" + artifactNum + ", statusChange" + statusChange);
+
+        levelClearPanel.gameObject.SetActive(true);
+        panelStack.Push(levelClearPanel);
+        levelClearPanel.GetComponent<ClearPanel>().setAwards(gold, artifactNum, statusChange);
+    }
+
+    
     public void Pause()
     {
         if (pausePanel != null)
@@ -306,5 +370,26 @@ public class UIManager : MonoBehaviour
     public void DialogNext()
     {
         NewDialogEnumerator.MoveNext();
+    }
+
+    //22_03_01 gold 바꿔주는 함수
+    public void changeGold(int num)
+    {
+        mainPanel.Find("panel_main").Find("text_gold").GetComponent<Text>().text = (num.ToString() + "G");
+    }
+    //22_03_01 힘 바꿔주는 함수
+    public void changeSTR(int num)
+    {
+        mainPanel.Find("panel_main").Find("text_dmg").GetComponent<Text>().text = num.ToString();
+    }
+    //22_03_01 이속 바꿔주는 함수
+    public void changeMOVSPD(int num)
+    {
+        mainPanel.Find("panel_main").Find("text_spd").GetComponent<Text>().text = num.ToString();
+    }
+    //22_03_01 공속 바꿔주는 함수
+    public void changeATKSPD(int num)
+    {
+        mainPanel.Find("panel_main").Find("text_agl").GetComponent<Text>().text = num.ToString();
     }
 }

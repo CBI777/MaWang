@@ -53,7 +53,7 @@ MonoBehaviour:
   uiPrefab_line: {fileID: 3751555114638622584, guid: 808db98bd898ed04c9bda2ca155cb8e6, type: 3}
   wayChangeProbability: 0.1
   wayAddProbability: 0.8
-  EliteProbability: 0.01
+  EliteProbability: 0.3
   ShopProbability: 0.01
   EventProbability: 0.01
   uiObjects: []
@@ -69,11 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a9ea5b50eeac94ca3f106c4fdf39ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 0}
+  levelClearPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   mainPanel: {fileID: 0}
   mapPanel: {fileID: 0}
+  dialogPanel: {fileID: 0}
   levelManager: {fileID: 0}
-  spawnManager: {fileID: 0}
   inputManager: {fileID: 0}
   mapUI: {fileID: 0}
   player: {fileID: 0}
+  dialog: []

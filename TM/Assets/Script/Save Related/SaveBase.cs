@@ -51,4 +51,8 @@ public class SaveBase
     public int stageVar1;
     public int stageVar2;
     public int stageVar3;
+
+    //22_03_01 - 0이면 다음 스테이지로 넘어갈 수 있고, 1이면 넘어갈 수 있도록 조치를 취하기 위해서 넣은 변수
+    //일단은 배틀 전용이기 때문에... 다른 곳에서 사용하면 오류가 발생할 가능성이 높음.
+    public bool stageFlag;
 }

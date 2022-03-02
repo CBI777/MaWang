@@ -47,6 +47,7 @@ public class SaveManager : MonoBehaviour
         
         if (sameCheck == false)
         {
+            saving.stageFlag = false;
             saving.roomType = levelManager.currentScene;
             saving.prevRoomNumber = saving.curRoomNumber;
             switch (saving.roomType)
@@ -190,6 +191,8 @@ public class SaveManager : MonoBehaviour
         saving.stageVar1 = -1;
         saving.stageVar2 = -1;
         saving.stageVar3 = -1;
+        //22_03_01
+        saving.stageFlag = false;
 
 
         string content = JsonUtility.ToJson(this.saving);
@@ -200,7 +203,61 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    //22_03_01
+    public void saveRoomClear()
+    {
+        //Enemy99는 player밖에 없는, 클리어시의 display용이다.
+        saving.stageFlag = true;
+        saving.stageVar2 = 99;
+        saving.stageVar3 = setAward();
+        savePlayer(true, false);
 
+        GameObject.FindWithTag("UIManager").GetComponent<UIManager>().displayClearAward(saving.stageVar3);
+    }
+
+    //22_03_01
+    public int setAward()
+    {
+        int gold = 0; //gold는 말 그대로 획득하게 될 골드
+        int artifact = 0; //artifact는 각 artifact의 번호로 결정함
+        int statusChange = 0; //statusChange는 0이면 보상 없음, 1이면 소폭 상승, 2면 중폭 상승, 3이면 대폭 상승
+
+        switch(saving.roomType)
+        {
+            case "Stage1_Normal":
+                gold = Random.Range(40, 61);
+                //artifact = Random.Range(3, 6); //디버깅용
+                statusChange = 1;
+                break;
+            case "Stage1_Elite":
+                gold = Random.Range(65, 103);
+                if(Random.Range(0,2) == 0)
+                {
+                    //원하는 능력치 중폭 증가
+                    statusChange = 2;
+                }
+                else
+                {
+                    //artifact 하나 획득
+                    artifact = Random.Range(3,6);
+                }
+                break;
+            case "Stage1_Boss":
+                gold = Random.Range(201, 206);
+                //artifact = ??? 지금은 강한 artifact가 없어서 내버려둠
+                statusChange = 3;
+                break;
+        }
+
+        /*StageVar3에 저장하는 결과는 다음과 같다 :
+          _ / ___ / ___
+        1. 100까지 : StageVar3 %1000을 통해서 gold 획득량을 얻음
+        2. 1000~100000까지 : (StageVar3/1000)%1000을 통해서 artifact를 얻음
+        3. 1000000 : StageVar3/1000000을 통해서 능력치의 증가폭을 얻는다.
+        */
+
+        return (gold + (artifact * 1000) + (statusChange * 1000000));
+    }
 
     /// <summary>
     /// 2022_02_19
@@ -230,17 +287,7 @@ public class SaveManager : MonoBehaviour
         saving.roomType = "Stage" + saving.stageNumber + "_Start";
         savePlayer(true);
     }
-    public void saveRoomClear()
-    {
-        //2022_02_09
-        //모종의 방법으로 클리어했음을 확인할 방법이 있어야함.
-        //즉, 전투를 클리어하고 보상창이 뜨는 상황을 의미한다.
-        //모종의 방법으로 tile과 spawn에게 이를 알려줘야함 <- 아직 구현 안함
-        //2022_02_11 임시적으로 curRoomNumber++임.
-
-        //saving.curRoomNumber++;
-        savePlayer(true);
-    }
+    
     public void saveRoomEnd()
     {
         //2022_02_09
@@ -252,7 +299,7 @@ public class SaveManager : MonoBehaviour
     }
 
     */
-   
 
-    
+
+
 }

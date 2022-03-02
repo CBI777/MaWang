@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10787dbeca516f4ba065896f1f758e6, type: 3}
+  m_Name: ArtifactDictionary
+  m_EditorClassIdentifier: 
+  artifactDictionary:
+  - NULL
+  - Artifact__Hand
+  - Artifact__BasicPotion
+  - Artifact__FourBladeSword
+  - Artifact__Spear
+  - Artifact__Dumbbell
+  artifactRealName:
+  - NULL
+  - "\uB9E8\uC190"
+  - "\uADF8\uB0E5 \uD3EC\uC158"
+  - "\uC0AC\uBA74\uAC80"
+  - "\uCC3D"
+  - "\uC544\uB839"
+  artifactDescription:
+  - NULL
+  - "\uBC14\uB77C\uBCF4\uACE0 \uC788\uB294 \uBC29\uD5A5 \uD55C \uCE78 \uC55E\uC5D0
+    0.7\uBC30\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
+  - "\uC0AC\uC6A9\uD558\uBA74 Hp\uB97C 8\uD68C\uBCF5\uD558\uACE0 \uC5C6\uC5B4\uC9C4\uB2E4."
+  - "\uBC29\uD5A5\uC5D0 \uAD00\uACC4\uC5C6\uC774 \uC0C1\uD558\uC88C\uC6B0 \uD55C
+    \uCE78, \uCD1D 4\uCE78\uC5D0 1\uBC30\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
+  - "\uBC14\uB77C\uBCF4\uACE0 \uC788\uB294 \uBC29\uD5A5\uC73C\uB85C \uB450 \uCE78\uAE4C\uC9C0,
+    1.2\uBC30\uC758 \uB370\uBBF8\uC9C0\uB97C \uC785\uD78C\uB2E4."
+  - "\uAC00\uC9C0\uACE0 \uC788\uC73C\uBA74 \uD798\uC774 2 \uC0C1\uC2B9\uD55C\uB2E4.
+    \uC783\uC5B4\uBC84\uB9AC\uBA74 \uD6A8\uACFC\uAC00 \uC5C6\uC5B4\uC9C4\uB2E4."
