@@ -22,8 +22,8 @@ public class SwitchScene : MonoBehaviour
     public static void changeScene(string sceneName)
     {
         //22_03_02
-        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(true,true);
         GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().saving.stageFlag = false;
+        GameObject.FindWithTag("LevelManager").GetComponent<SaveManager>().savePlayer(true,true);
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene(sceneName);
     }
     //load를 하는 경우 사용한다.

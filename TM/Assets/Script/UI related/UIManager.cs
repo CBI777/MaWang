@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     private bool gameOverFlag = false;
     //22_03_01 보상을 위한 flag 추가
     private bool clearFlag = false;
+    //22_03_02
+    private bool dialogFlag = false;
 
     //22_03_01 타이밍 문제로 awake추가
     public void Awake()
@@ -80,6 +82,7 @@ public class UIManager : MonoBehaviour
         //2022_02_28
         if (dialogPanel != null)
         {
+            dialogFlag = true;
             pauseFlag = true;
             Time.timeScale = 0f;
             AudioListener.pause = true;
@@ -98,7 +101,7 @@ public class UIManager : MonoBehaviour
         //또한, clear화면과 stack의 문제점을 해결하려고 clearFlag의 검사를 추가하였다.
         if (context.performed && !gameOverFlag)
         {
-            if(clearFlag)
+            if (clearFlag || dialogFlag)
             {
                 if (panelStack.Count == 1)
                 {
@@ -345,10 +348,10 @@ public class UIManager : MonoBehaviour
     public IEnumerator DialogProgress()
     {
         int index = 0;
+        panelStack.Push(dialogPanel);
+        dialogPanel.gameObject.SetActive(true); 
         while (index < dialog.Count)
         {
-
-            dialogPanel.gameObject.SetActive(true); 
             string[] tempStr;
             tempStr = dialog[index].Split('_');
             foreach(Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
@@ -362,10 +365,12 @@ public class UIManager : MonoBehaviour
             yield return index;
             index++;
         }
+        dialogFlag = false;
         pauseFlag = false;
         Time.timeScale = 1f;
         AudioListener.pause = false;
         dialogPanel.gameObject.SetActive(false);
+        BackUI();
     }
     public void DialogNext()
     {
