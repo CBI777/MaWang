@@ -13,6 +13,6 @@ public class ButtonSFX : MonoBehaviour
     //À½¾Ç ¹Ù²Ù±â
     public static void changeBGM(string musicName)
     {
-        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().changeMusic(musicName);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().ChangeMusic(musicName);
     }
 }

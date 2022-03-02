@@ -1,5 +1,14 @@
 # MaWang
 2021 하반기 EDGE 게임개발대회
+
+---20220303 / 05:50 ---
+1. Pause > SettingPanel 구현 (normal, start, elite)
+2. 전체 볼륨 조정을 위한 AudioManager, SoundEffecter, SFXButton 대폭 수정 (임시/임의로 변경한 점이 많으니 추후 이의나 수정 환영)
+3. 볼륨 슬라이더 전용 VolumeSlider스크립트 추가
+4. SelectableButtonsActive 관련 버그 해결
+5. 초반 스토리 스킵버튼 적용
+6. 다이얼로그 중 pause 후 resume 시 time이 흐르던 버그 해결
+
 --20220303 / 02:27---
 //22_03_02  로 찾아보시면 빠르게 변경사항을 확인할 수 있습니다.
 
@@ -18,6 +27,8 @@
 1. 전 버전에서는 문제 없었던 것으로 확인 했었는데, 게임 클리어가 되어도 map이 게임 클리어가 되지 않은 상태로 인식합니다.
 UIManger 내의 displayClearAward에서 SelectableButtonsActive를 했을 때, BattleFixed branch에서는 클리어가 되었었는데 지금은 안되는 것으로 보입니다.
 뭐가 문제인지를 잘 모르겠습니다...
+
+
 
 ---코드 변경---
 1. Player 코드 변경 - 효과음 부분
