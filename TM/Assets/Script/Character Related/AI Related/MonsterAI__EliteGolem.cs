@@ -39,7 +39,7 @@ public class MonsterAI__EliteGolem : MonsterController
 
                 yield return new WaitForFixedUpdate();
             }
-            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange1, gameObject.GetComponent<CharacterBase>().getStr()*2, "FistSlash");
+            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange1, gameObject.GetComponent<CharacterBase>().getStr()*2, "FistSlash", "Punch");
             yield return new WaitForFixedUpdate();
             this.ActFlag = true;
 
@@ -61,7 +61,7 @@ public class MonsterAI__EliteGolem : MonsterController
                 yield return new WaitForFixedUpdate();
             }
             //22_03_02 넓은 범위 데미지가 제대로 들어가지 않던 버그를 수정
-            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange2, (gameObject.GetComponent<CharacterBase>().getStr() * 2), "Explosion_Orange");
+            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange2, (gameObject.GetComponent<CharacterBase>().getStr() * 2), "Explosion_Orange", "GroundShake");
             yield return new WaitForFixedUpdate();
             this.ActFlag = true;
 

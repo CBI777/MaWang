@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    
+    //22_03_02 audioManager 추가
+    [SerializeField] private AudioManager audioManager;
     //22_03_01 gameOver를 위한 패널의 추가
     [SerializeField] private RectTransform gameOverPanel;
     //22_03_01 levelClear를 위한 패널의 추가
@@ -139,7 +140,6 @@ public class UIManager : MonoBehaviour
         gameOverFlag = true;
         pauseFlag = true;
         Time.timeScale = 0f;
-        AudioListener.pause = true;
         gameOverPanel.gameObject.SetActive(true);
         panelStack.Push(gameOverPanel);
     }
@@ -147,14 +147,16 @@ public class UIManager : MonoBehaviour
     //22_03_01 clear를 위한 함수
     public void displayClearAward(int award)
     {
+        
         mapUI.SelectableButtonsActive();
         clearFlag = true;
         pauseFlag = true;
         int gold = award % 1000;
         int artifactNum = (award / 1000) % 1000;
         int statusChange = award / 1000000;
-        //print("gold :" + gold + ", artifactNum" + artifactNum + ", statusChange" + statusChange);
-
+        print(gold + ", " + artifactNum + ", " + statusChange);
+        //22_03_02 배경음악 변경 추가
+        audioManager.changeMusic("Result");
         levelClearPanel.gameObject.SetActive(true);
         panelStack.Push(levelClearPanel);
         levelClearPanel.GetComponent<ClearPanel>().setAwards(gold, artifactNum, statusChange);
@@ -170,7 +172,10 @@ public class UIManager : MonoBehaviour
             // Update는 못막음. Couroutine의 yield return waitforseconds는 막음. FixedUpdate 막음.
             // : player를 직접 조작하는 (InputManager <-> Player) 이벤트를 막을 수 없음.
             // 따라서 pauseFlag를 통해 InputManager의 전투관련 입력을 막을 생각임.
-            AudioListener.pause = true;
+
+            //22_03_02 배경음악이 pausePanel 들어갔다 나오면 그냥 멈춰버려서... 볼륨을 줄이는 것으로 타협했습니다
+            audioManager.changeVolume(0.2f);
+            //AudioListener.pause = true;
             pausePanel.gameObject.SetActive(true);
             panelStack.Push(pausePanel);
         }
@@ -181,7 +186,8 @@ public class UIManager : MonoBehaviour
         {
             pauseFlag = false;
             Time.timeScale = 1f;
-            AudioListener.pause = false;
+            audioManager.changeVolume(0.7f);
+            //AudioListener.pause = false;
             pausePanel.gameObject.SetActive(false);
             panelStack.Pop();
         }

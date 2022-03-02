@@ -12,6 +12,7 @@ TagManager:
   - Text
   - Enemy
   - Obstacle
+  - AudioManager
   layers:
   - Default
   - TransparentFX

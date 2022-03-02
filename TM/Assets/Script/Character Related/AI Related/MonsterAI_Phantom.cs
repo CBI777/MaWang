@@ -49,7 +49,7 @@ public class MonsterAI_Phantom : MonsterController
                 yield return new WaitForFixedUpdate();
             }
             gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(playerTarget, 
-                attackRange, gameObject.GetComponent<CharacterBase>().getStr(), "Explosion_Orange");
+                attackRange, gameObject.GetComponent<CharacterBase>().getStr(), "Explosion_Orange", "Magic1");
             yield return new WaitForFixedUpdate();
             this.ActFlag = true;
 

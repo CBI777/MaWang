@@ -29,7 +29,7 @@ public class MonsterAI__SmallGolem : MonsterController
 
                 yield return new WaitForFixedUpdate();
             }
-            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange, gameObject.GetComponent<CharacterBase>().getStr(), "FistSlash");
+            gameObject.GetComponentInParent<SpawnManager>().AttackPlayer(transform.position, attackRange, gameObject.GetComponent<CharacterBase>().getStr(), "FistSlash", "Punch");
             yield return new WaitForFixedUpdate();
             this.ActFlag = true;
 

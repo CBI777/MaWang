@@ -105,7 +105,8 @@ public class Player : CharacterBase
     /// <param name="attackRange">어디를 때릴건지(보통 player의 방향에 따라서 달라질거고,)</param>
     /// <param name="damageMultiply">공격계수. 소수점을 이용함. [player.strength*계수] 로 데미지가 결정</param>
     /// <param name="effectName">공격에 사용되는 effect이름. Effect 폴더 내의 이름을 써주면 된다.</param>
-    public void attack(List<Vector3Int> attackRange, float damageMultiply, string effectName)
+    /// <param name="sfxName">공격의 효과음 이름. SoundEffects 폴더 내의 이름을 써주면 된다.</param>
+    public void attack(List<Vector3Int> attackRange, float damageMultiply, string effectName, string sfxName)
     {
         if(spawnManager.AttackCharacter(transform.position, attackRange,
             Mathf.RoundToInt(this.strength*damageMultiply)))
@@ -113,6 +114,7 @@ public class Player : CharacterBase
             foreach(Vector3Int vec in attackRange)
             {
                 EffectHelper.printEffect(effectName, (transform.position + vec), DirectionChange.dirToRotation(vec));
+                SoundEffecter.playSFX(sfxName);
             }
         }
     }
@@ -128,7 +130,8 @@ public class Player : CharacterBase
     /// /// <param name="effectDir">effect의 방향은? (1,0) (0,1) (-1,0) (0, -1)으로</param>
     /// <param name="damageMultiply">공격계수. 소수점을 이용함. [player.strength*계수] 로 데미지가 결정</param>
     /// <param name="effectName">공격에 사용되는 effect이름. Effect 폴더 내의 이름을 써주면 된다.</param>
-    public void attack(List<Vector3Int> attackRange, List<Vector3Int> effectRange, List<Vector3Int> effectDir, float damageMultiply, string effectName)
+    /// <param name="sfxName">공격의 효과음 이름. SoundEffects 폴더 내의 이름을 써주면 된다.</param>
+    public void attack(List<Vector3Int> attackRange, List<Vector3Int> effectRange, List<Vector3Int> effectDir, float damageMultiply, string effectName, string sfxName)
     {
         if (spawnManager.AttackCharacter(transform.position, attackRange,
             Mathf.RoundToInt(this.strength * damageMultiply)))
@@ -137,6 +140,7 @@ public class Player : CharacterBase
             {
                 EffectHelper.printEffect(effectName, (transform.position + effectRange[i]), DirectionChange.dirToRotation(effectDir[i]));
             }
+            SoundEffecter.playSFX(sfxName);
         }
     }
 
@@ -231,7 +235,6 @@ public class Player : CharacterBase
         {
             this.hp = 0;
             uiManager.changeHpBar();
-            //22_03_01
             GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().gameOver();
             Destroy(gameObject);
             return true;
