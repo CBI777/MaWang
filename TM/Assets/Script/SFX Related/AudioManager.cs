@@ -7,24 +7,34 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     AudioSource bgm;
 
-    public void changeMusic(string musicName)
+    private void Start()
+    {
+        bgm.volume = SoundEffecter.getVolume();
+    }
+
+    public float GetVolume() { return this.bgm.volume; }
+
+    public void ChangeMusic(string musicName)
     {
         StartCoroutine(soundDownAndUp(musicName));
     }
-
-    /// <summary>
-    /// 볼륨을 amount로 맞춥니다. 0.0~1.0f. 기본적으로는 0.7f입니다.
-    /// </summary>
-    /// <param name="amount"></param>
-    public void changeVolume(float amount)
-    {
-        this.bgm.volume = amount;
-    }
-
-    public void changeMusicWithoutDelay(string musicName)
+    public void ChangeMusicWithoutDelay(string musicName)
     {
         bgm.clip = Resources.Load<AudioClip>("SFX/Music/" + musicName);
         bgm.Play();
+    }
+ 
+    //03_03 볼륨 일괄 조정을 위하여..!
+    public void UpdateMasterVolume(float amount)
+    {
+        SoundEffecter.setVolume(amount);
+        bgm.volume=SoundEffecter.getVolume();
+    }
+
+    //03_03 static은 인스펙터에 안뜨네요..?
+    public void Mute()
+    {
+        bgm.volume = SoundEffecter.mute();
     }
 
     IEnumerator soundDownAndUp(string musicName)

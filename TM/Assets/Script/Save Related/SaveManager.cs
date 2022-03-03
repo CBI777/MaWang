@@ -131,7 +131,7 @@ public class SaveManager : MonoBehaviour
         }
         if (mapSave)
         {
-            park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
+            //park.MapUI mapui = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>();
             if (mapui.mapInfos != null)
             {
                 saving.mapData = mapui.GetMapData();

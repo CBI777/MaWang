@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RectTransform gameOverPanel;
     //22_03_01 levelClear를 위한 패널의 추가
     [SerializeField] private RectTransform levelClearPanel;
-    [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel, dialogPanel;
+    [SerializeField] private RectTransform pausePanel, mainPanel, mapPanel, dialogPanel, settingPanel;
     //모든 씬에서 있을 것으로 예상
     //이 외의 대화 진행이나 이벤트, 상점만의 UI 등은 이 클래스를 상속받아서 활용하는걸로? _02_07_06:42
     //아니면 얘네는 기본UI로 냅두고 새로운 UI에 대한 건 따로 스크립트를 만들어서 그것들로 조립하는 식으로? _02_07_06:48
@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     private bool gameOverFlag = false;
     //22_03_01 보상을 위한 flag 추가
     private bool clearFlag = false;
+    //22_03_02
+    private bool dialogFlag = false;
 
     //22_03_01 타이밍 문제로 awake추가
     public void Awake()
@@ -57,11 +59,7 @@ public class UIManager : MonoBehaviour
         //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
         whereAmI = "Room" + (levelManager.GetComponent<SaveManager>().saving.curRoomNumber+1) + " / " + levelManager.GetComponent<LevelManager>().currentScene;
         GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
-        //22_03_01
-        if(levelManager.GetComponent<SaveManager>().saving.stageFlag)
-        {
-            displayClearAward(levelManager.GetComponent<SaveManager>().saving.stageVar3);
-        }
+        
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
         //2022_02_14
@@ -76,11 +74,16 @@ public class UIManager : MonoBehaviour
         //2022_02_16
         //mapUI.debugMapInfos();
         mapUI.MapDraw();
-
+        //22_03_01
+        if(levelManager.GetComponent<SaveManager>().saving.stageFlag)
+        {
+            displayClearAward(levelManager.GetComponent<SaveManager>().saving.stageVar3);
+        }
 
         //2022_02_28
         if (dialogPanel != null)
         {
+            dialogFlag = true;
             pauseFlag = true;
             Time.timeScale = 0f;
             AudioListener.pause = true;
@@ -99,7 +102,7 @@ public class UIManager : MonoBehaviour
         //또한, clear화면과 stack의 문제점을 해결하려고 clearFlag의 검사를 추가하였다.
         if (context.performed && !gameOverFlag)
         {
-            if(clearFlag)
+            if (clearFlag || dialogFlag)
             {
                 if (panelStack.Count == 1)
                 {
@@ -129,8 +132,9 @@ public class UIManager : MonoBehaviour
     }
     public void BackUI()
     {
+        //03_03
         panelStack.Pop().gameObject.SetActive(false);
-        panelStack.Peek().gameObject.SetActive(true);
+        if (panelStack.Count>0) panelStack.Peek().gameObject.SetActive(true);
     }
 
     //22_03_01 게임오버를 위한 함수
@@ -147,7 +151,6 @@ public class UIManager : MonoBehaviour
     //22_03_01 clear를 위한 함수
     public void displayClearAward(int award)
     {
-        
         mapUI.SelectableButtonsActive();
         clearFlag = true;
         pauseFlag = true;
@@ -156,7 +159,7 @@ public class UIManager : MonoBehaviour
         int statusChange = award / 1000000;
         print(gold + ", " + artifactNum + ", " + statusChange);
         //22_03_02 배경음악 변경 추가
-        audioManager.changeMusic("Result");
+        audioManager.ChangeMusic("Result");
         levelClearPanel.gameObject.SetActive(true);
         panelStack.Push(levelClearPanel);
         levelClearPanel.GetComponent<ClearPanel>().setAwards(gold, artifactNum, statusChange);
@@ -174,7 +177,8 @@ public class UIManager : MonoBehaviour
             // 따라서 pauseFlag를 통해 InputManager의 전투관련 입력을 막을 생각임.
 
             //22_03_02 배경음악이 pausePanel 들어갔다 나오면 그냥 멈춰버려서... 볼륨을 줄이는 것으로 타협했습니다
-            audioManager.changeVolume(0.2f);
+            //audioManager.changeVolume(0.2f);
+            //22_03_03 볼륨 조절에서 뭔가 복잡해져서 그냥 볼륨 줄이는 것도 없앴습니다.
             //AudioListener.pause = true;
             pausePanel.gameObject.SetActive(true);
             panelStack.Push(pausePanel);
@@ -186,7 +190,7 @@ public class UIManager : MonoBehaviour
         {
             pauseFlag = false;
             Time.timeScale = 1f;
-            audioManager.changeVolume(0.7f);
+            //audioManager.changeVolume(audioManager.getVolume()*0.7f);
             //AudioListener.pause = false;
             pausePanel.gameObject.SetActive(false);
             panelStack.Pop();
@@ -292,7 +296,6 @@ public class UIManager : MonoBehaviour
             else { Debug.Log("이동쿨"); }
         }
     }
-
     public IEnumerator AttackCooltime() // 공격이 성공했을 시 쿨타임 돌리기 -> 다시 공격 호출(키를 누르고 있는 경우 연속적으로)
     {
         if (mainPanel != null)
@@ -328,33 +331,14 @@ public class UIManager : MonoBehaviour
             moveFlag = true;
             Move(new InputAction.CallbackContext());
         }
-    }
-    //2022_02_11 - hp바를 변경하는 함수의 추가
-    public void changeHpBar()
-    {
-        mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
-        mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
-    }
-
-    //2022_02_14 
-    /// <summary>
-    /// Artifact에 해당하는 이미지를 나타내주는 함수
-    /// </summary>
-    /// <param name="num"> 교체를 원하는 아티팩트 번호, 1, 2, 3 순서로 센다 </param>
-    /// <param name="artifactName"> 교체를 원하는 아티팩트의 img 이름</param>
-    public void changeArtifact(int num, string artifactName)
-    {
-        mainPanel.Find("panel_main").Find("Img_Art" + num.ToString()).GetComponent<Image>().sprite =
-            Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactName);
-    }
-
+    }    
     public IEnumerator DialogProgress()
     {
         int index = 0;
+        panelStack.Push(dialogPanel);
+        dialogPanel.gameObject.SetActive(true); 
         while (index < dialog.Count)
         {
-
-            dialogPanel.gameObject.SetActive(true); 
             string[] tempStr;
             tempStr = dialog[index].Split('_');
             foreach(Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
@@ -368,16 +352,48 @@ public class UIManager : MonoBehaviour
             yield return index;
             index++;
         }
+        dialogFlag = false;
         pauseFlag = false;
         Time.timeScale = 1f;
         AudioListener.pause = false;
-        dialogPanel.gameObject.SetActive(false);
+        //dialogPanel.gameObject.SetActive(false);
+        BackUI();
     }
     public void DialogNext()
     {
         NewDialogEnumerator.MoveNext();
     }
+    //2022_02_11 - hp바를 변경하는 함수의 추가
+    public void SettingActive()
+    {
+        if (settingPanel != null)
+        {
+            settingPanel.gameObject.SetActive(true);
+            panelStack.Peek().gameObject.SetActive(false);
+            panelStack.Push(settingPanel);
+        }
+        else
+        {
+            Debug.Log("UIManager -> settingPanel Reference error");
+        }
+    }
 
+    public void changeHpBar()
+    {
+        mainPanel.Find("hp_bar").GetComponent<Slider>().value = (float)player.getHp() / player.getMaxHp();
+        mainPanel.Find("hp_bar").GetComponentInChildren<Text>().text = player.getHp() + "\n/\n" + player.getMaxHp();
+    }
+    //2022_02_14 
+    /// <summary>
+    /// Artifact에 해당하는 이미지를 나타내주는 함수
+    /// </summary>
+    /// <param name="num"> 교체를 원하는 아티팩트 번호, 1, 2, 3 순서로 센다 </param>
+    /// <param name="artifactName"> 교체를 원하는 아티팩트의 img 이름</param>
+    public void changeArtifact(int num, string artifactName)
+    {
+        mainPanel.Find("panel_main").Find("Img_Art" + num.ToString()).GetComponent<Image>().sprite =
+            Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactName);
+    }
     //22_03_01 gold 바꿔주는 함수
     public void changeGold(int num)
     {

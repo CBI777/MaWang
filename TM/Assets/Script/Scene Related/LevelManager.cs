@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
     //22_03_01
     public void levelClear()
     {
-        if(currentScene == "Stage1_Boss")
+        if(currentScene.Equals("Stage1_Boss"))
         {
             //다이얼로그를 여기서 발동하도록 처리
             //다이얼로그쪽은 여러모로 변경이 필요할 것으로 보인다.
