@@ -99,6 +99,7 @@ public class SpawnManager : MonoBehaviour
         else
         {
             Debug.Log("Critical Error!! 플레이어의 위치가 좋지 않아요! 바꿔바꿔 당장바꿔");
+            Debug.Log(loc + ", " + loc2);
         }
         instructions.Remove(instructions[0]);
 
