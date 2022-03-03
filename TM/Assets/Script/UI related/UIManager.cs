@@ -140,6 +140,8 @@ public class UIManager : MonoBehaviour
     //22_03_01 게임오버를 위한 함수
     public void gameOver()
     {
+        //22_03_03 gameOver 배경음 변경 추가
+        audioManager.ChangeMusicWithoutDelay("GameOver");
         //gameOverFlag가 true로 바뀌었어도, player의 기본적인 움직임을 막는것은 pauseFlag.
         gameOverFlag = true;
         pauseFlag = true;
