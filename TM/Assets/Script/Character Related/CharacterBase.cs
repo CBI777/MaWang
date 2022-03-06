@@ -16,9 +16,9 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] protected int strength;
     [SerializeField] protected int attackSpeed;
 
-    //22_02_10 - hud를 위한 변수 추가 inspector에서 보이도록 했습니다.
-    [SerializeField] private GameObject hpBackground;
-    [SerializeField] private Image hpForeground;
+    //220306 - protected 변경
+    [SerializeField] protected GameObject hpBackground;
+    [SerializeField] protected Image hpForeground;
     [SerializeField] protected GameObject directionArrow;
 
     [SerializeField] protected int maxHp;
@@ -33,7 +33,8 @@ public class CharacterBase : MonoBehaviour
      * 3. 부술 수 있는 장애물은 hp바는 필요하고 방향은 필요 없음. 따라서 true, false
      * 4. 부술 수 없는 장애물은 둘 다 필요없음. 따라서 false, false
      */
-    [SerializeField] private bool hpHud;
+    //220306 - protected 변경
+    [SerializeField] protected bool hpHud;
     [SerializeField] protected bool dirHud;
 
     public string getName() { return this.name; }
@@ -46,8 +47,8 @@ public class CharacterBase : MonoBehaviour
     public bool getIsDestroyable() { return this.isDestroyable; }
     public Directions getDirections() { return this.direction; }
 
-    //몬스터용
-    public void setDirection(Directions dir, Vector3 loc)
+    //220306
+    public virtual void setDirection(Directions dir, Vector3 loc)
     {
         if (hpHud) { hpBackground.transform.position = loc + (new Vector3(0, 0.5f)); }
         this.direction = dir;
@@ -61,6 +62,8 @@ public class CharacterBase : MonoBehaviour
 
         if (dirHud) { directionArrow.transform.position = loc + (new Vector3(0, -0.4f)); rotateArrow(); }
     }
+
+
     //이쪽이 player용
     public void setDirection(Vector3 dir, Vector3 loc)
     {

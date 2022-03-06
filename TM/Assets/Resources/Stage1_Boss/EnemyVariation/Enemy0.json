@@ -1,0 +1,14 @@
+{
+  "Items": [
+    {
+      "x": -1,
+      "y": -4,
+      "wantedObject": "Player"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "wantedObject": "Enemy_Boss_OoRunePaal"
+    }
+  ]
+}
