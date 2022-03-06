@@ -52,15 +52,11 @@ public class TileManager : MonoBehaviour
         if (levelManager.GetComponent<SaveManager>().getSameCheck())
         {
             tilemapVar = levelManager.GetComponent<SaveManager>().saving.stageVar1;
-            Debug.Log("true");
         }
         else
         {
             tilemapVar = Random.Range(0, (roomVar));
-            Debug.Log("false");
-        }   
-        //2022_02_09 - load때문에 Instantiate하는 함수 내부를 변경.
-        Debug.Log(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString());
+        }
         map = Tilemap.Instantiate(
                 Resources.Load<Tilemap>(curStage + "/Tilemap/" + "Map" + tilemapVar.ToString()));
 
@@ -77,7 +73,6 @@ public class TileManager : MonoBehaviour
 
         return dataFromTiles[wantedTile].type;
     }
-
 
     //타일의 (x, y)로 캐릭터의 위치를 변경할 수 있는지 확인할 때 사용
     //타일이 비어있으며, 움직일 수 있는 타일이어야 true를 반환
@@ -162,18 +157,9 @@ public class TileManager : MonoBehaviour
     //player용
     public bool moveObject(Vector3 originalGridPosition, Vector3 gridPosition)
     {
-        /*foreach (Vector3Int v in tileLocations.Keys)
-            {
-                if (tileLocations[v].CompareTag("Player"))
-                    Debug.Log(v);
-            }*/
 
         Vector3Int originalPos = map.WorldToCell(originalGridPosition);
         Vector3Int newPos = map.WorldToCell(gridPosition);
-        /*if(!tileLocations.ContainsKey(originalPos))
-        {
-            return false;
-        }*/
         GameObject target = tileLocations[originalPos];
 
         if (isTileSafe(newPos))
@@ -181,11 +167,6 @@ public class TileManager : MonoBehaviour
             playerLoc.setLocation(newPos.x, newPos.y);
             tileLocations.Add(newPos, target);
             tileLocations.Remove(originalPos);
-            /*foreach (Vector3Int v in tileLocations.Keys)
-            {
-                if (tileLocations[v].CompareTag("Player"))
-                    Debug.Log(v);
-            }*/
             return true;
         }
         return false;

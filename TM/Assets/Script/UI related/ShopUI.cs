@@ -51,7 +51,7 @@ public class ShopUI : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             img_artifact[i].sprite = Resources.Load<Sprite>("Artifacts/ArtifactImage/" + artifactDictionary.getArtifact(slotIndex[i]));
-            description[i].text = artifactDictionary.getArtifact(slotIndex[i]).Substring(artifactDictionary.getArtifact(slotIndex[i]).LastIndexOf('_')) + "\n" + artifactDictionary.getArtifactDescription(slotIndex[i]) + "\n가격 : " + artifactDictionary.getArtifactPrice(slotIndex[i]) +"Gold"; 
+            description[i].text = artifactDictionary.getArtifactRealName(slotIndex[i]) + "\n" + artifactDictionary.getArtifactDescription(slotIndex[i]) + "\n가격 : " + artifactDictionary.getArtifactPrice(slotIndex[i]) +"Gold"; 
         }
     }
     /// <summary>
@@ -81,6 +81,7 @@ public class ShopUI : MonoBehaviour
                     img_artifact[index].sprite = sold_out;
                     btn_buy[index].interactable = false;
                     btn_buy[index].image.color = new Color(1f, 1f, 1f, 0.5f);
+                    SoundEffecter.playSFX("Caching");
                     player.changeGold(-artifactDictionary.getArtifactPrice(slotIndex[index]));
                     slotConfirmPanel.gameObject.SetActive(false);
                     return;
@@ -93,6 +94,7 @@ public class ShopUI : MonoBehaviour
                 img_artifact[index].sprite = sold_out;
                 btn_buy[index].interactable = false;
                 btn_buy[index].image.color = new Color(1f, 1f, 1f, 0.5f);
+                SoundEffecter.playSFX("Caching");
                 player.changeGold(-artifactDictionary.getArtifactPrice(slotIndex[index]));
                 slotConfirmPanel.gameObject.SetActive(false);
                 return;
@@ -103,6 +105,7 @@ public class ShopUI : MonoBehaviour
                 img_artifact[index].sprite = sold_out;
                 btn_buy[index].interactable = false;
                 btn_buy[index].image.color = new Color(1f, 1f, 1f, 0.5f);
+                SoundEffecter.playSFX("Caching");
                 player.changeGold(-artifactDictionary.getArtifactPrice(slotIndex[index]));
                 slotConfirmPanel.gameObject.SetActive(false);
                 return;
@@ -113,6 +116,7 @@ public class ShopUI : MonoBehaviour
                 img_artifact[index].sprite = sold_out;
                 btn_buy[index].interactable = false;
                 btn_buy[index].image.color = new Color(1f, 1f, 1f, 0.5f);
+                SoundEffecter.playSFX("Caching");
                 player.changeGold(-artifactDictionary.getArtifactPrice(slotIndex[index]));
                 slotConfirmPanel.gameObject.SetActive(false);
                 return;
