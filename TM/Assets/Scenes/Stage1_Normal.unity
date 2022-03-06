@@ -2088,7 +2088,7 @@ MonoBehaviour:
       - m_Target: {fileID: 259661853}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: MapActive
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3905,9 +3905,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 259661852}
     - target: {fileID: 6161842481563956668, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1091199709}
+    - target: {fileID: 6161842481563956668, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 259661853}
+    - target: {fileID: 6161842481563956668, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
+      propertyPath: tileManager
+      value: 
+      objectReference: {fileID: 8255974696221260825}
+    - target: {fileID: 6161842481563956668, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 750579869}
+    - target: {fileID: 6161842481563956668, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
+      propertyPath: spawnManager
+      value: 
+      objectReference: {fileID: 1091199710}
     - target: {fileID: 8513596330249903446, guid: 8224522cf6e17cd44a90672da877a857, type: 3}
       propertyPath: currentScene
       value: Stage1_Normal

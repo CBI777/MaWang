@@ -21,11 +21,8 @@ public class Player : CharacterBase
     //22_03_01
     public void changeGold(int amount)
     {
-        this.gold += amount;
-        if(this.gold <= 0)
-        {
-            this.gold = 0;
-        }
+        if (this.gold+amount>=0) this.gold += amount;
+        if(this.gold <= 0) this.gold = 0;
         uiManager.changeGold(this.gold);
     }
 
@@ -71,6 +68,7 @@ public class Player : CharacterBase
 
     public void updatePlayer(SaveBase player)
     {
+        Debug.Log("이이이ㅣ이이이이잉");
         //2022_02_13 CurArtifact관련 초기화 처리.
         this.curArtifact = 0;
         this.characterName = player.characterName;

@@ -198,10 +198,15 @@ public class UIManager : MonoBehaviour
             panelStack.Pop();
         }
     }
-    public void MapActive()
+    public void MapActive(bool cleared)
     {
+        if (cleared)
+        {
+            clearFlag = true;
+            mapUI.SelectableButtonsActive();
+        }
         mapPanel.gameObject.SetActive(true);
-        panelStack.Peek().gameObject.SetActive(false);
+        if (panelStack.Count>0) panelStack.Peek().gameObject.SetActive(false);
         panelStack.Push(mapPanel);
     }
     public void MapPanelNextActive(RectTransform button, bool flag) //2022_02_16 
