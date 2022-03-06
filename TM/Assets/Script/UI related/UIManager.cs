@@ -56,9 +56,6 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        //2022_02_09 - 테스트를 위해 추가한 부분, 나중에 변경할 때 지우셔도 무방한 부분입니다.
-        whereAmI = "Room" + (levelManager.GetComponent<SaveManager>().saving.curRoomNumber+1) + " / " + levelManager.GetComponent<LevelManager>().currentScene;
-        GameObject.FindWithTag("Text").GetComponent<Text>().text = whereAmI;
         
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();

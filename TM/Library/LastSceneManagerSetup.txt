@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/Stage1_Boss.unity
-=======
 - path: Assets/Scenes/Shop.unity
->>>>>>> 20220306_Shop
   isLoaded: 1
   isActive: 1
   isSubScene: 0

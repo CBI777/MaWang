@@ -50,7 +50,7 @@ public class Boss : CharacterBase
 
     private IEnumerator WaitForScene()
     {
-        float sec = 1f;
+        float sec = 0.5f;
         while (sec >= 0f)
         {
             sec -= Time.deltaTime;

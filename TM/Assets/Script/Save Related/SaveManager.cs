@@ -48,7 +48,7 @@ public class SaveManager : MonoBehaviour
     public void Start()
     {
         Debug.Log(saving.prevRoomNumber +" " +saving.curRoomNumber + " " + saving.curRoomRow);
-        
+        if (levelManager.currentScene == "Stage1_Clear") { return; }
         if (sameCheck == false)
         {
             saving.stageFlag = false;
