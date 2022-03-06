@@ -71,55 +71,63 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        /*
-        instructions.Add(new InstructionData(1.5f, 1.5f, "Enemy_Slime"));
-        instructions.Add(new InstructionData(3f, 2f, "Obstacle1"));
-        instructions.Add(new InstructionData(4f, 5f, "Obstacle1"));
-        instructions.Add(new InstructionData(-6f, -8f, "Enemy_Slime"));
-
-        JsonFileHandler.SaveToJson<InstructionData>(instructions, fileName);
-        */
-        instructions = JsonFileHandler.ReadFromJson<InstructionData>(fileName);
-
-        //2022_02_09 - 실제로 보여지는 것과 좌표계는 다르기 때문에...
-        //loc은 실제 좌표계를 담당, loc2는 우리가 보기에 좋게 하기 위한 좌표임.
-        //즉, tileManager에게 들어가는건 loc, instantiate나 position은 loc2
-        //이게 들어가야했는데 실수입니다. 죄송합니다
-        Vector2 loc;
-        Vector2 loc2;
-
-        loc = new Vector2(instructions[0].x, instructions[0].y);
-        loc2 = new Vector2(instructions[0].x + 0.5f, instructions[0].y + 0.5f);
-        if (tileManager.isTileSafe(loc))
+        if (curStage.Equals("Shop"))
         {
-            tileManager.placeObject(player.gameObject, loc);
-            player.transform.position = loc2;
-            // 2022_02_09 player좌표 여기서 바꿔도 상관 없습니다
+
         }
         else
         {
-            Debug.Log("Critical Error!! 플레이어의 위치가 좋지 않아요! 바꿔바꿔 당장바꿔");
-            Debug.Log(loc + ", " + loc2);
-        }
-        instructions.Remove(instructions[0]);
+            /*
+            instructions.Add(new InstructionData(1.5f, 1.5f, "Enemy_Slime"));
+            instructions.Add(new InstructionData(3f, 2f, "Obstacle1"));
+            instructions.Add(new InstructionData(4f, 5f, "Obstacle1"));
+            instructions.Add(new InstructionData(-6f, -8f, "Enemy_Slime"));
 
-        foreach (var InstructionData in instructions)
-        {
-            loc = new Vector2(InstructionData.x, InstructionData.y);
-            loc2 = new Vector2(InstructionData.x + 0.5f, InstructionData.y + 0.5f);
+            JsonFileHandler.SaveToJson<InstructionData>(instructions, fileName);
+            */
+            instructions = JsonFileHandler.ReadFromJson<InstructionData>(fileName);
 
-            if(!(tileManager.isTileSafe(loc)))
+            //2022_02_09 - 실제로 보여지는 것과 좌표계는 다르기 때문에...
+            //loc은 실제 좌표계를 담당, loc2는 우리가 보기에 좋게 하기 위한 좌표임.
+            //즉, tileManager에게 들어가는건 loc, instantiate나 position은 loc2
+            //이게 들어가야했는데 실수입니다. 죄송합니다
+            Vector2 loc;
+            Vector2 loc2;
+
+            loc = new Vector2(instructions[0].x, instructions[0].y);
+            loc2 = new Vector2(instructions[0].x + 0.5f, instructions[0].y + 0.5f);
+            if (tileManager.isTileSafe(loc))
             {
-                print("something wrong with the location" + loc);
+                tileManager.placeObject(player.gameObject, loc);
+                player.transform.position = loc2;
+                // 2022_02_09 player좌표 여기서 바꿔도 상관 없습니다
             }
             else
             {
-                tileManager.placeObject(GameObject.Instantiate(
-                Resources.Load(curStage + "/Characters/" + InstructionData.wantedObject, typeof(GameObject)) as GameObject,
-                loc2, Quaternion.identity, transform), loc);
+                Debug.Log("Critical Error!! 플레이어의 위치가 좋지 않아요! 바꿔바꿔 당장바꿔");
+                Debug.Log(loc + ", " + loc2);
+            }
+            instructions.Remove(instructions[0]);
+
+            foreach (var InstructionData in instructions)
+            {
+                loc = new Vector2(InstructionData.x, InstructionData.y);
+                loc2 = new Vector2(InstructionData.x + 0.5f, InstructionData.y + 0.5f);
+
+                if (!(tileManager.isTileSafe(loc)))
+                {
+                    print("something wrong with the location" + loc);
+                }
+                else
+                {
+                    tileManager.placeObject(GameObject.Instantiate(
+                    Resources.Load(curStage + "/Characters/" + InstructionData.wantedObject, typeof(GameObject)) as GameObject,
+                    loc2, Quaternion.identity, transform), loc);
+                }
             }
         }
         player.updatePlayer(levelManager.GetComponent<SaveManager>().saving);
+        
     }
 
     public bool MoveCharacter(Vector3 originalGridPosition, Vector2 amount)

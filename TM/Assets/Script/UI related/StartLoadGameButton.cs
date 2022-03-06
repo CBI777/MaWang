@@ -13,7 +13,7 @@ public class StartLoadGameButton : MonoBehaviour
         //kill player를 하고 Title밖으로 나간적이 없다면, 그 순간만 유일하게 RoomType이 Title이다.
         //2022_02_13 수정됨 RoomType비교로
         SaveManager sm = levelManager.GetComponent<SaveManager>();
-        if(sm!=null && sm.saving.roomType.Equals("Title"))
+        if(sm==null || sm.saving.roomType.Equals("Title"))
         {
             this.transform.GetComponent<Image>().color = Color.black;
             this.transform.GetComponent<Button>().interactable = false;

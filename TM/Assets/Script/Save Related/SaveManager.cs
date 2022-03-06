@@ -7,12 +7,16 @@ public class SaveManager : MonoBehaviour
 {
     private string filePath;
 
-    private Player player;
     public SaveBase saving;
 
     //2022_02_25 원래 findTag였던거 그냥 인스펙터 참조로 바꿨습니다 (findTag 는 NULLERROR가 뜨면 그 뒤의 코드가 전부 멈춰버림..)
     [SerializeField] park.MapUI mapui;
+    [SerializeField] ShopUI shopui;
     [SerializeField] LevelManager levelManager;
+    [SerializeField] TileManager tileManager;
+    [SerializeField] SpawnManager spawnManager;
+    [SerializeField] UIManager uiManager;
+    [SerializeField] Player player;
 
     //2022_02_09
     //전 room이 이번 room과 같은지 확인하는 변수가 sameCheck.
@@ -70,12 +74,14 @@ public class SaveManager : MonoBehaviour
                     mapui.MapGeneration();
                     saving.mapData = mapui.GetMapData();
 
-                    saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
-                    saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
+                    saving.stageVar1 = tileManager.getTilemapVar();
+                    saving.stageVar2 = spawnManager.getEnemyVar();
                     saving.stageVar3 = -1;
                     break;
                 case "Shop":
-                    //상점
+                    saving.stageVar1 = shopui.getSlotIndex(0);
+                    saving.stageVar2 = shopui.getSlotIndex(1);
+                    saving.stageVar3 = shopui.getSlotIndex(2);
                     break;
                 case "Heal":
                     //회복
@@ -86,9 +92,9 @@ public class SaveManager : MonoBehaviour
                     //이벤트
                     break;
                 default: //여기가 나머지 처리하는 곳인가봄? _Normal & _Elite
-                    
-                    saving.stageVar1 = GameObject.FindWithTag("TileManager").GetComponent<TileManager>().getTilemapVar();
-                    saving.stageVar2 = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>().getEnemyVar();
+
+                    saving.stageVar1 = tileManager.getTilemapVar();
+                    saving.stageVar2 = spawnManager.getEnemyVar();
                     saving.stageVar3 = -1;
                     break;
             }
@@ -112,7 +118,7 @@ public class SaveManager : MonoBehaviour
     {
         if(playerSave)
         {
-            player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            //player = GameObject.FindWithTag("Player").GetComponent<Player>();
             saving.characterName = player.getName();
             saving.moveSpeed = player.getMoveSpd();
             saving.moveDistance = player.getMoveDist();
@@ -127,7 +133,7 @@ public class SaveManager : MonoBehaviour
             saving.artifact3 = player.getArtifact(2).getRealArtifactName();
 
             //2022_02_18 맵
-            saving.mapData = GameObject.FindWithTag("UIManager").GetComponent<park.MapUI>().GetMapData();
+            saving.mapData = mapui.GetMapData();
         }
         if (mapSave)
         {
@@ -212,7 +218,7 @@ public class SaveManager : MonoBehaviour
         saving.stageVar3 = setAward();
         savePlayer(true, false);
 
-        GameObject.FindWithTag("UIManager").GetComponent<UIManager>().displayClearAward(saving.stageVar3);
+        uiManager.displayClearAward(saving.stageVar3);
     }
 
     //22_03_01

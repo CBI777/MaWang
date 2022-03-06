@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 8186489078436091987
     second: angel_0
+  - first:
+      213: -1519330624634402944
+    second: angel_1
+  - first:
+      213: -2196574385531375431
+    second: angel_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -102,7 +108,7 @@ TextureImporter:
         width: 40
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -110,6 +116,48 @@ TextureImporter:
       bones: []
       spriteID: 3585cc561704c9170800000000000000
       internalID: 8186489078436091987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: angel_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 13
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0874b4eb8d04aeae0800000000000000
+      internalID: -1519330624634402944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: angel_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 77
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b03eabfb333481e0800000000000000
+      internalID: -2196574385531375431
       vertices: []
       indices: 
       edges: []

@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
         }
         bgm.clip = Resources.Load<AudioClip>("SFX/Music/" + musicName);
         bgm.Play();
-        while (this.bgm.volume < 0.7f)
+        while (this.bgm.volume < SoundEffecter.getVolume())
         {
             this.bgm.volume += Time.deltaTime;
             yield return new WaitForFixedUpdate();

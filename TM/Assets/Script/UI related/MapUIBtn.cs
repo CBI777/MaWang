@@ -47,7 +47,7 @@ public class MapUIBtn : MonoBehaviour
             }
             else if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Shop)
             {
-                scene += "Shop";
+                scene = "Shop";
             }
             else if ((mapUI.mapInfos[yIndex][xIndex] & ~park.cell.ClrType) == park.cell.Event)
             {

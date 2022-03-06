@@ -54,7 +54,7 @@ MonoBehaviour:
   wayChangeProbability: 0.1
   wayAddProbability: 0.8
   EliteProbability: 0.3
-  ShopProbability: 0.01
+  ShopProbability: 0.4
   EventProbability: 0.01
   uiObjects: []
 --- !u!114 &573745653221830131
@@ -69,12 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a9ea5b50eeac94ca3f106c4fdf39ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
   gameOverPanel: {fileID: 0}
   levelClearPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   mainPanel: {fileID: 0}
   mapPanel: {fileID: 0}
   dialogPanel: {fileID: 0}
+  settingPanel: {fileID: 0}
   levelManager: {fileID: 0}
   inputManager: {fileID: 0}
   mapUI: {fileID: 0}
