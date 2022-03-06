@@ -114,6 +114,10 @@ public class Player : CharacterBase
                 SoundEffecter.playSFX(sfxName);
             }
         }
+        else
+        {
+            SoundEffecter.playSFX("Miss");
+        }
     }
 
     /// <summary>
@@ -138,6 +142,10 @@ public class Player : CharacterBase
                 EffectHelper.printEffect(effectName, (transform.position + effectRange[i]), DirectionChange.dirToRotation(effectDir[i]));
             }
             SoundEffecter.playSFX(sfxName);
+        }
+        else
+        {
+            SoundEffecter.playSFX("Miss");
         }
     }
 
@@ -221,6 +229,7 @@ public class Player : CharacterBase
                 Vector3 targetLoc = new Vector3(direction.x,direction.y, 0) + transform.position;
                 this.transform.position = targetLoc;
                 setDirection(direction, this.transform.position);
+                SoundEffecter.playSFX("Move");
             }
         }
     }
