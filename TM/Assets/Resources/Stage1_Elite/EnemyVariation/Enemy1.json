@@ -1,7 +1,7 @@
 {
   "Items": [
     {
-      "x": -1,
+      "x": -3,
       "y": -4,
       "wantedObject": "Player"
     },
@@ -11,13 +11,13 @@
       "wantedObject": "Enemy_Elite_Phantom"
     },
     {
-      "x": 6,
+      "x": 3,
       "y": 0,
       "wantedObject": "Enemy_Normal_Phantom1"
     },
     {
-      "x": -3,
-      "y": 0,
+      "x": -8,
+      "y": -3,
       "wantedObject": "Enemy_Normal_Phantom1"
     }
   ]

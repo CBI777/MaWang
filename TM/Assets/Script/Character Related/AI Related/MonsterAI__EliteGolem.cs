@@ -30,7 +30,7 @@ public class MonsterAI__EliteGolem : MonsterController
         if (AttackFlag)
         {
             this.ActFlag = false;
-            float sec = 1.0f * this.beforeCast;
+            float sec = 0.2f * this.beforeCast;
             StartCoroutine(warnArea(transform.position, attackRange1, sec));
 
             while (sec >= 0f)

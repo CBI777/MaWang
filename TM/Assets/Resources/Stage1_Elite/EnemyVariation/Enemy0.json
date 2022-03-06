@@ -1,28 +1,33 @@
 {
   "Items": [
     {
-      "x": -1,
+      "x": -2,
       "y": -4,
       "wantedObject": "Player"
     },
     {
-      "x": -2,
+      "x": -3,
       "y": -3,
       "wantedObject": "Obstacle2"
     },
     {
-      "x": 0,
+      "x": -1,
       "y": -3,
       "wantedObject": "Obstacle2"
     },
     {
-      "x": -2,
+      "x": -3,
       "y": -4,
       "wantedObject": "Obstacle2"
     },
     {
-      "x": 0,
+      "x": -1,
       "y": -4,
+      "wantedObject": "Obstacle2"
+    },
+    {
+      "x": -3,
+      "y": -5,
       "wantedObject": "Obstacle2"
     },
     {
@@ -32,11 +37,6 @@
     },
     {
       "x": -1,
-      "y": -5,
-      "wantedObject": "Obstacle2"
-    },
-    {
-      "x": 0,
       "y": -5,
       "wantedObject": "Obstacle2"
     },

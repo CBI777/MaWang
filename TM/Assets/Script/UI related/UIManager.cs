@@ -83,7 +83,6 @@ public class UIManager : MonoBehaviour
             dialogFlag = true;
             pauseFlag = true;
             Time.timeScale = 0f;
-            AudioListener.pause = true;
             NewDialogEnumerator = DialogProgress();
             NewDialogEnumerator.MoveNext();
         }
@@ -387,9 +386,13 @@ public class UIManager : MonoBehaviour
         dialogFlag = false;
         pauseFlag = false;
         Time.timeScale = 1f;
-        AudioListener.pause = false;
+        //AudioListener.pause = false;
         //dialogPanel.gameObject.SetActive(false);
         BackUI();
+        if (levelManager.currentScene == "Stage1_Start")
+        {
+            MapActive(true);
+        }
     }
     public void DialogNext()
     {

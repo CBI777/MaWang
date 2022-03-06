@@ -100,7 +100,7 @@ public class ClearPanel : MonoBehaviour
         if(statChangeAward != 0)
         {
             hp.interactable = true;
-            hpText.text = "체력 " + (this.statChangeAward * 2) + "증가";
+            hpText.text = "체력 " + (this.statChangeAward * 3) + "증가";
             atkspd.interactable = true;
             atkspdText.text = "공격속도 " + (this.statChangeAward) + "증가";
             movspd.interactable = true;
@@ -143,7 +143,7 @@ public class ClearPanel : MonoBehaviour
 
     private void changeHp()
     {
-        GameObject.FindWithTag("Player").GetComponent<Player>().changeMaxHP(this.statChangeAward*2);
+        GameObject.FindWithTag("Player").GetComponent<Player>().changeMaxHP(this.statChangeAward*3);
     }
 
     private void changeStr()

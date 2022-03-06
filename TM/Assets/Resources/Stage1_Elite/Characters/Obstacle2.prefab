@@ -205,8 +205,8 @@ MonoBehaviour:
   hpBackground: {fileID: 8353154290531417210}
   hpForeground: {fileID: 5504501128534500283}
   directionArrow: {fileID: 7382325902871148670}
-  maxHp: 8
-  hp: 8
+  maxHp: 15
+  hp: 15
   isDestroyable: 1
   direction: 0
   hpHud: 1

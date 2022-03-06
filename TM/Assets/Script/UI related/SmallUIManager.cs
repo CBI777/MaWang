@@ -43,7 +43,6 @@ public class SmallUIManager : MonoBehaviour
             tempStr = dialog[index].Split('_');
             foreach (Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
             {
-                Debug.Log(index + " " + r.gameObject.name + " " + tempStr[0] + " " + r.gameObject.name.Equals(tempStr[0]));
                 if (r.gameObject.name.Equals(tempStr[0])) r.enabled = true;
                 else r.enabled = false;
             }

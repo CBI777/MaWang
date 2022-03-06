@@ -54,8 +54,8 @@ MonoBehaviour:
   wayChangeProbability: 0.3
   wayAddProbability: 0.3
   EliteProbability: 0.3
-  ShopProbability: 0.2
-  EventProbability: 0.15
+  ShopProbability: 0.15
+  EventProbability: 0.1
   uiObjects: []
 --- !u!114 &573745653221830131
 MonoBehaviour:

@@ -47,6 +47,7 @@ public class SwitchScene : MonoBehaviour
     public static void toTitle()
     {
         GameObject.FindWithTag("LevelManager").GetComponent<LevelManager>().LoadScene("Title");
+        Time.timeScale = 1f;
     }
     //22_03_01
     public static void QuitGame()

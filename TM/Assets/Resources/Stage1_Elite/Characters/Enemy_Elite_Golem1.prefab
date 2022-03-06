@@ -432,8 +432,8 @@ MonoBehaviour:
   hpBackground: {fileID: 6527831446980355478}
   hpForeground: {fileID: 6527831445559040794}
   directionArrow: {fileID: 6172898323237936854}
-  maxHp: 20
-  hp: 20
+  maxHp: 35
+  hp: 35
   isDestroyable: 1
   direction: 0
   hpHud: 1
@@ -458,8 +458,4 @@ MonoBehaviour:
   ActFlag: 1
   MoveFlag: 1
   readyRange1: 1
-  attackRange1:
-  - {x: 1, y: 0, z: 0}
-  - {x: 0, y: 1, z: 0}
-  - {x: -1, y: 0, z: 0}
-  - {x: 0, y: -1, z: 0}
+  readyRange2: 3
