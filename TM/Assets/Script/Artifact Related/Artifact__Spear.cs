@@ -24,7 +24,7 @@ public class Artifact__Spear : Artifact
         range.Add(DirectionChange.dirToVector(player.getDirections()));
         range.Add(DirectionChange.dirToVector(player.getDirections()) * 2);
         effRange.Add(DirectionChange.dirToVector(player.getDirections()));
-        player.attack(range, effRange, effRange, 1.2f, "SpearSlash", "Slash2");
+        player.attack(range, effRange, effRange, 1.3f, "SpearSlash", "Slash2");
     }
 
     //public override void atDestroy(Player player) { }

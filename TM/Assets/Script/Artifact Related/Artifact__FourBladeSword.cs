@@ -25,7 +25,7 @@ public class Artifact__FourBladeSword : Artifact
         range.Add(new Vector3Int(0, -1, 0));
         range.Add(new Vector3Int(1, 0, 0));
         range.Add(new Vector3Int(-1, 0, 0));
-        player.attack(range, 1f, "SwordSlash", "Slash1");
+        player.attack(range, 0.8f, "SwordSlash", "Slash1");
     }
 
     //public override void atDestroy(Player player) { }

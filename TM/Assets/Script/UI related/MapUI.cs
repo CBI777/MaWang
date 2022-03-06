@@ -294,7 +294,7 @@ namespace park
 
             Debug.Log(scrollRect);
             Debug.Log(scrollRect.content);
-            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.rect.height / row * col, scrollRect.GetComponent<RectTransform>().sizeDelta.y-margin);
+            scrollRect.content.sizeDelta = new Vector2(scrollRect.content.rect.height / row * (col+1) + 20, scrollRect.GetComponent<RectTransform>().sizeDelta.y-margin);
             grid = scrollRect.content.rect.height / row;
             scrollRect.content.anchoredPosition = new Vector2(0, 0);
             //맵UI의 틀의 크기를 설정! (행, 열이 자유롭게 바뀔 때 필요했음)
