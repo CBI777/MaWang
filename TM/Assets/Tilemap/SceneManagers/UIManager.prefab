@@ -51,11 +51,11 @@ MonoBehaviour:
   uiPrefab_box: {fileID: 4666638758133532098, guid: a9bc6f1fc1ac49a4fb5ad4def324436c, type: 3}
   uiPrefab_cell: {fileID: 750806069290969460, guid: 02a0d499b8807fa458d10631a05180fc, type: 3}
   uiPrefab_line: {fileID: 3751555114638622584, guid: 808db98bd898ed04c9bda2ca155cb8e6, type: 3}
-  wayChangeProbability: 0.1
-  wayAddProbability: 0.8
+  wayChangeProbability: 0.3
+  wayAddProbability: 0.3
   EliteProbability: 0.3
-  ShopProbability: 0.4
-  EventProbability: 0.01
+  ShopProbability: 0.2
+  EventProbability: 0.15
   uiObjects: []
 --- !u!114 &573745653221830131
 MonoBehaviour:

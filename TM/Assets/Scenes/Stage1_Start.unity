@@ -813,7 +813,7 @@ RectTransform:
   - {fileID: 1551221560}
   - {fileID: 1697640765}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1349,7 +1349,7 @@ RectTransform:
   - {fileID: 1085836285}
   - {fileID: 2078250248}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2139,7 +2139,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 418282449}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: resumebutton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5241,9 +5241,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 304520127}
   - {fileID: 202675849}
   - {fileID: 1517774600}
+  - {fileID: 304520127}
   - {fileID: 1413034436}
   - {fileID: 881742441}
   - {fileID: 228707005}
@@ -6487,7 +6487,7 @@ RectTransform:
   - {fileID: 36877301}
   - {fileID: 400398861}
   m_Father: {fileID: 1256108705}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

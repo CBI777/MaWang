@@ -164,7 +164,38 @@ public class UIManager : MonoBehaviour
         levelClearPanel.GetComponent<ClearPanel>().setAwards(gold, artifactNum, statusChange);
     }
 
-    
+    public void resumebutton()
+    {
+        if (!gameOverFlag)
+        {
+            if (clearFlag || dialogFlag)
+            {
+                if (panelStack.Count == 1)
+                {
+                    Pause();
+                }
+                else
+                {
+                    BackUI();
+                }
+            }
+            else
+            {
+                if (panelStack.Count == 0)
+                {
+                    Pause();
+                }
+                else if (panelStack.Count == 1)
+                {
+                    Resume();
+                }
+                else
+                {
+                    BackUI();
+                }
+            }
+        }
+    }
     public void Pause()
     {
         if (pausePanel != null)

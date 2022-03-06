@@ -36,7 +36,7 @@ public class Boss : CharacterBase
     {
         if (this.hp <= damage)
         {
-            GameObject.FindWithTag("AudioManager").GetComponent<AudioSource>().volume = 0.3f;
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioSource>().volume = SoundEffecter.getVolume();
             SoundEffecter.playSFX("AAA");
             Time.timeScale = 0.3f;
             StartCoroutine(WaitForScene());

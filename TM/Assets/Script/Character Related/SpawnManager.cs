@@ -71,7 +71,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        if (curStage.Equals("Shop"))
+        if (curStage.Equals("Shop") || curStage.Equals("Stage1_Event"))
         {
 
         }

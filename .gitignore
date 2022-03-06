@@ -58,15 +58,4 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 TM/Library/
-*.dll
-TM/UserSettings/EditorUserSettings.asset
-TM/Library/SourceAssetDB
-TM/Library/SourceAssetDB-lock
-TM/Library/ScriptAssemblies/Assembly-CSharp.dll
-TM/Library/SceneVisibilityState.asset
-TM/Library/PackageManager/ProjectCache.md5
-TM/Library/InspectorExpandedItems.asset
-TM/Library/CurrentLayout-default.dwlt
-TM/Library/ArtifactDB
-TM/Assets/PlayerSave.json
-TM/Library/ArtifactDB-lock
+*.dll 
