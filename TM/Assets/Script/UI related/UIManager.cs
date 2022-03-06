@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        
+
         //2022_02_11 - hp바 부분을 함수로 변경
         changeHpBar();
         //2022_02_14
@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
         //mapUI.debugMapInfos();
         mapUI.MapDraw();
         //22_03_01
-        if(levelManager.GetComponent<SaveManager>().saving.stageFlag)
+        if (levelManager.GetComponent<SaveManager>().saving.stageFlag)
         {
             displayClearAward(levelManager.GetComponent<SaveManager>().saving.stageVar3);
         }
@@ -130,7 +130,7 @@ public class UIManager : MonoBehaviour
     {
         //03_03
         panelStack.Pop().gameObject.SetActive(false);
-        if (panelStack.Count>0) panelStack.Peek().gameObject.SetActive(true);
+        if (panelStack.Count > 0) panelStack.Peek().gameObject.SetActive(true);
     }
 
     //22_03_01 게임오버를 위한 함수
@@ -233,7 +233,7 @@ public class UIManager : MonoBehaviour
             mapUI.SelectableButtonsActive();
         }
         mapPanel.gameObject.SetActive(true);
-        if (panelStack.Count>0) panelStack.Peek().gameObject.SetActive(false);
+        if (panelStack.Count > 0) panelStack.Peek().gameObject.SetActive(false);
         panelStack.Push(mapPanel);
     }
     public void MapPanelNextActive(RectTransform button, bool flag) //2022_02_16 
@@ -307,23 +307,24 @@ public class UIManager : MonoBehaviour
                 if (inputManager.isMove('u'))
                 {
                     direction = new Vector2(0, 1);
-                }else if (inputManager.isMove('d'))
+                }
+                else if (inputManager.isMove('d'))
                 {
                     direction = new Vector2(0, -1);
                 }
-                else if(inputManager.isMove('l'))
+                else if (inputManager.isMove('l'))
                 {
-                    direction = new Vector2(-1,0);
+                    direction = new Vector2(-1, 0);
                 }
-                else if(inputManager.isMove('r'))
+                else if (inputManager.isMove('r'))
                 {
-                    direction = new Vector2(1,0);
+                    direction = new Vector2(1, 0);
                 }
                 else
                 {
                     direction = new Vector2(0, 0);
                 }
-                    player.move(direction);
+                player.move(direction);
                 StartCoroutine(MoveCooltime());
             }
         }
@@ -334,11 +335,11 @@ public class UIManager : MonoBehaviour
         {
             attackFlag = false;
             Image img_attack_cooltime = mainPanel.Find("panel_main").Find("Img_attack_clt").GetComponent<Image>();
-            float clt = 10f/player.getAttackSpd();
+            float clt = 10f / player.getAttackSpd();
             img_attack_cooltime.fillAmount = 1;
-            for (int i = 0; i < clt*100; i++)
+            for (int i = 0; i < clt * 100; i++)
             {
-                img_attack_cooltime.fillAmount = 1 - i / (clt*100);
+                img_attack_cooltime.fillAmount = 1 - i / (clt * 100);
                 yield return new WaitForSeconds(0.01f);
             }
             img_attack_cooltime.fillAmount = 0;
@@ -351,29 +352,29 @@ public class UIManager : MonoBehaviour
         if (mainPanel != null)
         {
             moveFlag = false;
-            Image img_move_cooltime= mainPanel.Find("panel_main").Find("Img_move_clt").GetComponent<Image>();
-            float clt = 10f/player.getMoveSpd();
+            Image img_move_cooltime = mainPanel.Find("panel_main").Find("Img_move_clt").GetComponent<Image>();
+            float clt = 10f / player.getMoveSpd();
             img_move_cooltime.fillAmount = 1;
-            for (int i = 0; i < clt*100; i++)
+            for (int i = 0; i < clt * 100; i++)
             {
-                img_move_cooltime.fillAmount = 1 - i / (clt*100);
+                img_move_cooltime.fillAmount = 1 - i / (clt * 100);
                 yield return new WaitForSeconds(0.01f);
             }
             img_move_cooltime.fillAmount = 0;
             moveFlag = true;
             Move(new InputAction.CallbackContext());
         }
-    }    
+    }
     public IEnumerator DialogProgress()
     {
         int index = 0;
         panelStack.Push(dialogPanel);
-        dialogPanel.gameObject.SetActive(true); 
+        dialogPanel.gameObject.SetActive(true);
         while (index < dialog.Count)
         {
             string[] tempStr;
             tempStr = dialog[index].Split('_');
-            foreach(Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
+            foreach (Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
             {
                 if (r.gameObject.name.Equals(tempStr[0])) r.enabled = true;
                 else r.enabled = false;
@@ -448,5 +449,20 @@ public class UIManager : MonoBehaviour
     public void changeATKSPD(int num)
     {
         mainPanel.Find("panel_main").Find("text_agl").GetComponent<Text>().text = num.ToString();
+    }
+
+
+    public void something(GameObject g)
+    {
+        SaveManager sm = levelManager.GetComponent<SaveManager>();
+        if (g.GetComponentInChildren<Text>().text.Equals("Restart"))
+        {
+            g.GetComponentInChildren<Text>().text = "Sure?";
+        }
+        else if (g.GetComponentInChildren<Text>().text.Equals("Sure?"))
+        {
+            sm.killPlayer();
+            SwitchScene.toTitle();
+        }
     }
 }
