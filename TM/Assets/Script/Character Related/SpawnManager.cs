@@ -17,9 +17,14 @@ public class InstructionData
     [SerializeField] public string wantedObject;
 }
 
+public class InstructionDataArray
+{
+    public InstructionData[] Items;
+}
+
 public class SpawnManager : MonoBehaviour
 {
-    List<InstructionData> instructions = new List<InstructionData>();
+    InstructionDataArray instData;
 
     [SerializeField]
     private TileManager tileManager;
@@ -65,7 +70,7 @@ public class SpawnManager : MonoBehaviour
         {
             enemyVar = Random.Range(0, (roomVar));
         }
-        fileName = "Resources/" + curStage + "/EnemyVariation/Enemy" + enemyVar.ToString() + ".json";
+        fileName = "" + curStage + "/EnemyVariation/Enemy" + enemyVar.ToString();
 
     }
 
@@ -85,8 +90,10 @@ public class SpawnManager : MonoBehaviour
 
             JsonFileHandler.SaveToJson<InstructionData>(instructions, fileName);
             */
-            instructions = JsonFileHandler.ReadFromJson<InstructionData>(fileName);
-
+            TextAsset textData = Resources.Load(fileName, typeof(TextAsset)) as TextAsset;
+            Debug.Log(textData);
+            instData = JsonUtility.FromJson<InstructionDataArray>(textData.ToString());
+            Debug.Log(instData.Items[0].x);
             //2022_02_09 - 실제로 보여지는 것과 좌표계는 다르기 때문에...
             //loc은 실제 좌표계를 담당, loc2는 우리가 보기에 좋게 하기 위한 좌표임.
             //즉, tileManager에게 들어가는건 loc, instantiate나 position은 loc2
@@ -94,8 +101,8 @@ public class SpawnManager : MonoBehaviour
             Vector2 loc;
             Vector2 loc2;
 
-            loc = new Vector2(instructions[0].x, instructions[0].y);
-            loc2 = new Vector2(instructions[0].x + 0.5f, instructions[0].y + 0.5f);
+            loc = new Vector2(instData.Items[0].x, instData.Items[0].y);
+            loc2 = new Vector2(instData.Items[0].x + 0.5f, instData.Items[0].y + 0.5f);
             if (tileManager.isTileSafe(loc))
             {
                 tileManager.placeObject(player.gameObject, loc);
@@ -107,12 +114,11 @@ public class SpawnManager : MonoBehaviour
                 Debug.Log("Critical Error!! 플레이어의 위치가 좋지 않아요! 바꿔바꿔 당장바꿔");
                 Debug.Log(loc + ", " + loc2);
             }
-            instructions.Remove(instructions[0]);
 
-            foreach (var InstructionData in instructions)
+            for(int i = 1; i<instData.Items.Length; i++)
             {
-                loc = new Vector2(InstructionData.x, InstructionData.y);
-                loc2 = new Vector2(InstructionData.x + 0.5f, InstructionData.y + 0.5f);
+                loc = new Vector2(instData.Items[i].x, instData.Items[i].y);
+                loc2 = new Vector2(instData.Items[i].x + 0.5f, instData.Items[i].y + 0.5f);
 
                 if (!(tileManager.isTileSafe(loc)))
                 {
@@ -121,13 +127,13 @@ public class SpawnManager : MonoBehaviour
                 else
                 {
                     tileManager.placeObject(GameObject.Instantiate(
-                    Resources.Load(curStage + "/Characters/" + InstructionData.wantedObject, typeof(GameObject)) as GameObject,
+                    Resources.Load(curStage + "/Characters/" + instData.Items[i].wantedObject, typeof(GameObject)) as GameObject,
                     loc2, Quaternion.identity, transform), loc);
                 }
             }
+            
         }
         player.updatePlayer(levelManager.GetComponent<SaveManager>().saving);
-        
     }
 
     public bool MoveCharacter(Vector3 originalGridPosition, Vector2 amount)
