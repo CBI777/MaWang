@@ -265,7 +265,6 @@ public class UIManager : MonoBehaviour
                 player.useArtifact();
                 StartCoroutine(AttackCooltime());
             }
-            else { Debug.Log("공격쿨"); }
         }
     }
     public void Move(InputAction.CallbackContext context)
@@ -297,7 +296,6 @@ public class UIManager : MonoBehaviour
                     player.move(direction);
                 StartCoroutine(MoveCooltime());
             }
-            else { Debug.Log("이동쿨"); }
         }
     }
     public IEnumerator AttackCooltime() // 공격이 성공했을 시 쿨타임 돌리기 -> 다시 공격 호출(키를 누르고 있는 경우 연속적으로)
@@ -347,7 +345,6 @@ public class UIManager : MonoBehaviour
             tempStr = dialog[index].Split('_');
             foreach(Image r in dialogPanel.Find("Background").Find("Img_Character").GetComponentsInChildren<Image>())
             {
-                Debug.Log(index + " " + r.gameObject.name + " " + tempStr[0] +" "+ r.gameObject.name.Equals(tempStr[0]));
                 if (r.gameObject.name.Equals(tempStr[0])) r.enabled = true;
                 else r.enabled = false;
             }

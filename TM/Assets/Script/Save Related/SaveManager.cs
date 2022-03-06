@@ -47,7 +47,6 @@ public class SaveManager : MonoBehaviour
     //만약 sameCheck가 true면 그냥 불러오기니까 save도 할 필요가 없음.
     public void Start()
     {
-        Debug.Log(saving.prevRoomNumber +" " +saving.curRoomNumber + " " + saving.curRoomRow);
         if (levelManager.currentScene == "Stage1_Clear") { return; }
         if (sameCheck == false)
         {
@@ -68,7 +67,6 @@ public class SaveManager : MonoBehaviour
                     if (mapui.mapInfos!=null)
                     {
                         mapui.mapInfos.Clear();
-                        Debug.Log("mapinfoscleared");
                     }
                     mapui.Initializing();
                     mapui.MapGeneration();
@@ -101,14 +99,14 @@ public class SaveManager : MonoBehaviour
             
 
             savePlayer(false,false);
-            Debug.Log(saving.prevRoomNumber + " " + saving.curRoomNumber + " " + saving.curRoomRow);
+
         }
         if (mapui != null)
         {
-            Debug.Log(saving.mapData);
+
             mapui.SetMapData(saving.mapData);
         }
-        Debug.Log(saving.roomType);
+
     }
 
     //2022_02_09
@@ -141,10 +139,6 @@ public class SaveManager : MonoBehaviour
             if (mapui.mapInfos != null)
             {
                 saving.mapData = mapui.GetMapData();
-            }
-            else
-            {
-                Debug.Log("mapsavefailed");
             }
         }
 

@@ -26,7 +26,6 @@ public class Artifact__Dumbbell : Artifact
         List<Vector3Int> range = new List<Vector3Int>();
         range.Add(DirectionChange.dirToVector(player.getDirections()));
         player.attack(range, 0.7f, "FistSlash", "Punch");
-        print("used " + artifactName);
     }
 
     public override void atDestroy(Player player)

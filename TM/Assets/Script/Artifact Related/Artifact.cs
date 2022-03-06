@@ -45,7 +45,6 @@ public class Artifact : MonoBehaviour
     //2022_02_13 - 스테이지 내에서 유물을 직접적으로 사용했을 때 작동하는 함수
     public virtual void use(Player player)
     {
-        print("used " + artifactName);
     }
 
     //2022_02_13 - 유물의 파괴(1회용은 사용, 교체...)시에 작동하는 함수

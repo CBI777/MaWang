@@ -11,13 +11,33 @@
       "wantedObject": "Obstacle1"
     },
     {
-      "x": 1,
-      "y": 1,
-      "wantedObject": "Enemy_Normal_Golem2"
+      "x": 5,
+      "y": 0,
+      "wantedObject": "Enemy_Normal_Phantom1"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "wantedObject": "Enemy_Normal_Phantom1"
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "wantedObject": "Enemy_Normal_Phantom1"
     },
     {
       "x": 3,
       "y": 2,
+      "wantedObject": "Obstacle2"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "wantedObject": "Obstacle2"
+    },
+    {
+      "x": 1,
+      "y": 1,
       "wantedObject": "Obstacle1"
     }
   ]

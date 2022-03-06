@@ -934,6 +934,7 @@ GameObject:
   - component: {fileID: 191382090}
   - component: {fileID: 191382089}
   - component: {fileID: 191382088}
+  - component: {fileID: 191382091}
   m_Layer: 5
   m_Name: Btn_save
   m_TagString: Untagged
@@ -1004,7 +1005,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 191382089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 191382091}
+        m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
+        m_MethodName: toTitle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &191382089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,6 +1056,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191382086}
   m_CullTransparentMesh: 1
+--- !u!114 &191382091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191382086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d58eb0bd21688448031498eea61cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &205183545
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,7 +4969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766961109
@@ -8804,7 +8829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1295432747
@@ -10996,6 +11021,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2309321390929213818, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2309321390929213819, guid: c61baa9a41b219f41927f92217f0b918, type: 3}
@@ -13654,7 +13699,7 @@ PrefabInstance:
     - target: {fileID: 9220366980468203324, guid: 6b7cad515504fb6489fec313e38a37eb, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c675aeb855562404980aaaf3c0a264e9, type: 3}
+      objectReference: {fileID: 8300000, guid: 83edc69a3ef62da46bf91a5d9bb99c7a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b7cad515504fb6489fec313e38a37eb, type: 3}
 --- !u!114 &2134243855 stripped

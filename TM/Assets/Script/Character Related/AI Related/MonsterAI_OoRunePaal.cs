@@ -167,12 +167,12 @@ public class MonsterAI_OoRunePaal : MonsterController
         while (true)
         {
             yield return new WaitForFixedUpdate();
+            if (areaFlag)
+            {
+                StartCoroutine(PaalThirdAttack());
+            }
             if (ActFlag)
             {
-                if(areaFlag)
-                {
-                    StartCoroutine(PaalThirdAttack());
-                }
                 if (calcDist() <= readyRange1)
                 {
                     if (Random.Range(0, 10) < 7)

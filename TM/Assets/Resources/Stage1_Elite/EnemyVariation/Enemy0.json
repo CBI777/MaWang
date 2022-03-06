@@ -11,11 +11,6 @@
       "wantedObject": "Obstacle2"
     },
     {
-      "x": -1,
-      "y": -3,
-      "wantedObject": "Obstacle2"
-    },
-    {
       "x": 0,
       "y": -3,
       "wantedObject": "Obstacle2"

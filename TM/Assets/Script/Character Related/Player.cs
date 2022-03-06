@@ -68,7 +68,6 @@ public class Player : CharacterBase
 
     public void updatePlayer(SaveBase player)
     {
-        Debug.Log("이이이ㅣ이이이이잉");
         //2022_02_13 CurArtifact관련 초기화 처리.
         this.curArtifact = 0;
         this.characterName = player.characterName;
@@ -92,7 +91,7 @@ public class Player : CharacterBase
         {
             this.artifacts[curArtifact].use(this);
         }
-        else { Debug.Log("공격쿨"); }
+
     }
 
     /// <summary>

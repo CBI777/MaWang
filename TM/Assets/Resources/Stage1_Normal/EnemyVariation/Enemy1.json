@@ -11,11 +11,6 @@
       "wantedObject": "Obstacle1"
     },
     {
-      "x": 1,
-      "y": 1,
-      "wantedObject": "Enemy_Normal_Golem2"
-    },
-    {
       "x": 3,
       "y": 2,
       "wantedObject": "Obstacle1"
@@ -43,11 +38,6 @@
     {
       "x": -3,
       "y": -2,
-      "wantedObject": "Enemy_Normal_Golem1"
-    },
-    {
-      "x": 8,
-      "y": 3,
       "wantedObject": "Enemy_Normal_Golem1"
     },
     {

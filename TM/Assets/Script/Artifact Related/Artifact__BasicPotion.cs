@@ -21,7 +21,6 @@ public class Artifact__BasicPotion : Artifact
     public override void use(Player player)
     {
         player.hpHeal(8);
-        print("used " + artifactName);
         SoundEffecter.playSFX("Heal");
         player.deleteArtifact();
     }

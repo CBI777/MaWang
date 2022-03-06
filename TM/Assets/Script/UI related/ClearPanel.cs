@@ -104,7 +104,7 @@ public class ClearPanel : MonoBehaviour
             atkspd.interactable = true;
             atkspdText.text = "공격속도 " + (this.statChangeAward) + "증가";
             movspd.interactable = true;
-            movspdText.text = "이동속도 " + (this.statChangeAward) + "증가";
+            movspdText.text = "이동속도 " + (this.statChangeAward * 2) + "증가";
             str.interactable = true;
             strText.text = "힘 " + (this.statChangeAward) + "증가";
             statusBackground.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
@@ -153,7 +153,7 @@ public class ClearPanel : MonoBehaviour
 
     private void changeSpd()
     {
-        GameObject.FindWithTag("Player").GetComponent<Player>().changeMovSpd(this.statChangeAward);
+        GameObject.FindWithTag("Player").GetComponent<Player>().changeMovSpd(this.statChangeAward*2);
     }
 
     private void changeAgl()
