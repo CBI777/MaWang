@@ -1,11 +1,16 @@
 <h1 align="center">
 마왕용사
 </h1>
+
 <h5 align="center">
 어느날, 눈을 떠보니 마왕이었던 아빠가 죽어있어서 용사를 물리치러 갑니다!
 </h5>
+<p align="center">
+    <img src="https://github.com/CBI777/MaWang/blob/Final/Readme_Img/image.png" width=700>
+</p>
 
 -------------------
+
 ## About this repository
 This repository contains codes and game application of 마왕용사, a game created for EDGE Game Development Contest that was held in the second half of 2021.
 
@@ -32,11 +37,22 @@ Press **E** to attack.
 Press **ESC** to open menu for config and map
 ```
 
-> All enemies shows attack range before executing attack. Use this as a chance to attack them.
-> Every attack and move has a cooldown. Use UIs at the bottom-left corner to see the cooldown.
-> Most of attacks are effected by the 'direction arrow', which is displayed under every characters. Consider direction of character when performing attack.
-> Every weapons have different abilities, and can be changed easily with 1, 2, 3. Manipulate them well to fight off enemies.
-> Take rewards after every battle and strengthen yourself to fight the boss.
+- All enemies shows attack range before executing attack. Use this as a chance to attack them.
+
+-  Every attack and move has a cooldown. Use UIs at the bottom-left corner to see the cooldown.
+
+-  Most of attacks are effected by the 'direction arrow', which is displayed under every characters. Consider direction of character when performing attack.
+
+<p align="center">
+    <img src="https://github.com/CBI777/MaWang/blob/Final/Readme_Img/image%20(1).png" width=700>
+</p>
+
+- Every weapons have different abilities, and can be changed easily with 1, 2, 3. Manipulate them well to fight off enemies.
+- Take rewards after every battle and strengthen yourself to fight the boss.
+
+<p align="center">
+    <img src="https://github.com/CBI777/MaWang/blob/Final/Readme_Img/image%20(2).png" width=700>
+</p>
 
 --------------------
 ## Final Fixes
