@@ -24,6 +24,8 @@ This game was created by team of four university students, using Unity with C#.
 > Download the zip file stored in repository and unzip it. Execute .exe file to start the game.
 > > Note that this game only supports Korean for now.
 
+--------------------
+## Manual
 ```
 Press **WASD** to move around.
 ```
