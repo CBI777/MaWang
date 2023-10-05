@@ -26,18 +26,18 @@ This game was created by team of four university students, using Unity with C#.
 
 --------------------
 ## Manual
-```
-Press **WASD** to move around.
-```
+<pre>
+Press <b><ins>WASD</ins></b> to move around.    
+</pre>
 
-```
-Press **1, 2, 3** keys on top of qwerty to change the weapon,
-Press **E** to attack.
-```
+<pre>
+Press <b><ins>1, 2, 3</ins></b> keys on top of qwerty to change the weapon,
+Press <b><ins>E</ins></b> to attack.
+</pre>
 
-```
-Press **ESC** to open menu for config and map
-```
+<pre>
+Press <b><ins>ESC</ins></b> to open menu for config and map
+</pre>
 
 - All enemies shows attack range before executing attack. Use this as a chance to attack them.
 
